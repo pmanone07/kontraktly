@@ -1565,8 +1565,8 @@ export default function Page() {
                   onClick={() => openPreview(contract)}
                 >
                   {contract.popular && (
-                    <div className="absolute -top-3 right-5">
-                      <Badge className="rounded-sm text-[10px] font-medium tracking-widest uppercase px-2 py-0.5"
+                    <div className="absolute top-0 right-4">
+                      <Badge className="rounded-none rounded-b-sm text-[10px] font-medium tracking-widest uppercase px-2 py-0.5"
                         style={{ background: "#c9a85c", color: "#0a0a0b" }}>
                         Populær
                       </Badge>
@@ -1608,12 +1608,6 @@ export default function Page() {
                       style={{ border: "1px solid rgba(201,168,92,0.2)", background: "transparent", color: "#7a7672" }}
                       onClick={(e) => { e.stopPropagation(); openPreview(contract); }}>
                       Forhåndsvis
-                    </Button>
-                    <Button size="sm" className="rounded-sm h-9 text-xs px-3"
-                      disabled={generating}
-                      style={{ border: "1px solid rgba(201,168,92,0.15)", background: "transparent", color: "rgba(201,168,92,0.5)" }}
-                      onClick={(e) => { e.stopPropagation(); downloadTest(contract); }}>
-                      <Download className="h-3 w-3" />
                     </Button>
                   </div>
                 </Card>
