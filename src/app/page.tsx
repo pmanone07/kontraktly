@@ -1185,11 +1185,13 @@ function FillDialog({
   open,
   onClose,
   onProceedToCheckout,
+  download,
 }: {
   contract: ContractType | null;
   open: boolean;
   onClose: () => void;
   onProceedToCheckout: (values: Record<string, string>) => void;
+  download: (label: string, text: string) => Promise<void>;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [step, setStep] = useState(0);
@@ -1688,6 +1690,7 @@ export default function Page() {
         open={fillOpen}
         onClose={() => setFillOpen(false)}
         onProceedToCheckout={proceedToCheckout}
+        download={download}
       />
 
       {/* ── PREVIEW DIALOG ── */}
