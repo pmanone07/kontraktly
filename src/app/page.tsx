@@ -10,6 +10,7 @@ import {
   FileText, Home, Briefcase, Car, Shield, Users, Pen,
   ChevronRight, ChevronLeft, Check, Star, ArrowRight,
   Download, Lock, Zap, Globe, Eye,
+  Heart, BarChart2, ShoppingCart, Handshake, Truck, UserCheck, Banknote,
 } from "lucide-react";
 import { useDownloadPDF } from "@/hooks/useDownloadPDF";
 
@@ -535,6 +536,586 @@ i avtalens løpetid og 2 år etter opphør.
 
 _______________________    _______________________
 Oppdragsgiver              Leverandør`,
+  },
+
+  // ── PERSONLIG ────────────────────────────────────────────────────────────────
+
+  {
+    id: "samboer",
+    icon: Heart,
+    label: "Samboerkontrakt",
+    description: "Regulerer eierforhold, økonomi og rettigheter mellom samboere.",
+    price: 159,
+    popular: false,
+    color: "#b87e9e",
+    features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
+    fieldGroups: [
+      {
+        title: "Samboer 1",
+        fields: [
+          { key: "p1_name", label: "Fullt navn", placeholder: "Kari Nordmann", type: "text" },
+          { key: "p1_dob", label: "Fødselsdato", placeholder: "01.01.1990", type: "text" },
+          { key: "p1_address", label: "Nåværende adresse", placeholder: "Storgata 1, 0182 Oslo", type: "text" },
+        ],
+      },
+      {
+        title: "Samboer 2",
+        fields: [
+          { key: "p2_name", label: "Fullt navn", placeholder: "Ola Nordmann", type: "text" },
+          { key: "p2_dob", label: "Fødselsdato", placeholder: "15.06.1988", type: "text" },
+          { key: "p2_address", label: "Nåværende adresse", placeholder: "Storgata 1, 0182 Oslo", type: "text" },
+        ],
+      },
+      {
+        title: "Felles bolig",
+        fields: [
+          { key: "property_address", label: "Boligens adresse", placeholder: "Hjemveien 5, 0580 Oslo", type: "text" },
+          { key: "ownership", label: "Eierfordeling", type: "select", options: ["50/50", "60/40", "70/30", "Kun én part eier"] },
+          { key: "p1_share_pct", label: "Samboer 1 sin andel (%)", placeholder: "50", type: "number" },
+          { key: "move_in_date", label: "Innflyttingsdato", type: "date" },
+        ],
+      },
+      {
+        title: "Økonomi og vilkår",
+        fields: [
+          { key: "expenses_split", label: "Deling av fellesutgifter", type: "select", options: ["Likt (50/50)", "Forholdsmessig etter inntekt", "Etter avtale"] },
+          { key: "joint_account", label: "Felleskonto", type: "select", options: ["Ja", "Nei"] },
+          { key: "separation_notice", label: "Varsel ved brudd (måneder)", placeholder: "1", type: "number" },
+          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `SAMBOERKONTRAKT
+Dato: ${today}
+
+PARTER
+Samboer 1: ${v(val, "p1_name", "[Samboer 1]")}
+Fødselsdato: ${v(val, "p1_dob", "—")}
+Adresse: ${v(val, "p1_address", "[Adresse]")}
+
+Samboer 2: ${v(val, "p2_name", "[Samboer 2]")}
+Fødselsdato: ${v(val, "p2_dob", "—")}
+Adresse: ${v(val, "p2_address", "[Adresse]")}
+
+§1 – FELLES BOLIG
+Adresse: ${v(val, "property_address", "[Boligens adresse]")}
+Eierfordeling: ${v(val, "ownership", "50/50")}
+${v(val, "p1_name", "Samboer 1")} eier ${v(val, "p1_share_pct", "50")} %.
+Innflyttingsdato: ${v(val, "move_in_date", "[dato]")}
+
+§2 – FELLESUTGIFTER
+Deling av løpende utgifter: ${v(val, "expenses_split", "Likt (50/50)")}
+Felleskonto: ${v(val, "joint_account", "Nei")}
+
+§3 – SÆREIE
+Eiendeler ervervet før samboerskapet forblir den enkeltes
+særeie. Gaver og arv er likeledes særeie med mindre
+partene skriftlig avtaler noe annet.
+
+§4 – OPPGJØR VED BRUDD
+Ved samlivsbrudd varsles den andre part skriftlig med
+${v(val, "separation_notice", "1")} måneds frist. Felles eiendeler
+fordeles etter eierandel. Særeie beholdes av eier.
+
+§5 – ARV OG FORSIKRING
+Partene oppfordres til å oppdatere testament og
+begunstigede i forsikringsavtaler etter innflytting.
+
+§6 – VERNETING
+Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
+
+_______________________    _______________________
+${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
+  },
+
+  {
+    id: "laan",
+    icon: Banknote,
+    label: "Låneavtale",
+    description: "Privat låneavtale mellom venner, familie eller bekjente.",
+    price: 89,
+    popular: false,
+    color: "#7eb87e",
+    features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
+    fieldGroups: [
+      {
+        title: "Långiver",
+        fields: [
+          { key: "lender_name", label: "Navn", placeholder: "Per Hansen", type: "text" },
+          { key: "lender_address", label: "Adresse", placeholder: "Gata 1, 0182 Oslo", type: "text" },
+          { key: "lender_phone", label: "Telefon", placeholder: "400 00 000", type: "text" },
+        ],
+      },
+      {
+        title: "Låntaker",
+        fields: [
+          { key: "borrower_name", label: "Navn", placeholder: "Kari Nordmann", type: "text" },
+          { key: "borrower_address", label: "Adresse", placeholder: "Veien 2, 5020 Bergen", type: "text" },
+          { key: "borrower_phone", label: "Telefon", placeholder: "400 11 111", type: "text" },
+        ],
+      },
+      {
+        title: "Lånebetingelser",
+        fields: [
+          { key: "amount", label: "Lånebeløp (kr)", placeholder: "50 000", type: "number" },
+          { key: "interest", label: "Årlig rente (%)", placeholder: "0", type: "number" },
+          { key: "loan_date", label: "Utbetalingsdato", type: "date" },
+          { key: "due_date", label: "Forfallsdato", type: "date" },
+          { key: "repayment", label: "Tilbakebetaling", type: "select", options: ["Engangsbeløp ved forfall", "Månedlige avdrag", "Etter avtale"] },
+          { key: "security", label: "Sikkerhetsstillelse", placeholder: "Ingen / Pant i bil osv.", type: "text" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `LÅNEAVTALE
+Dato: ${today}
+
+LÅNGIVER
+Navn: ${v(val, "lender_name", "[Långiver]")}
+Adresse: ${v(val, "lender_address", "—")}
+Tlf: ${v(val, "lender_phone", "—")}
+
+LÅNTAKER
+Navn: ${v(val, "borrower_name", "[Låntaker]")}
+Adresse: ${v(val, "borrower_address", "—")}
+Tlf: ${v(val, "borrower_phone", "—")}
+
+§1 – LÅNEBELØP
+Lånebeløp: NOK ${v(val, "amount", "[beløp]")}
+Utbetalt: ${v(val, "loan_date", "[dato]")}
+
+§2 – RENTE
+Årlig rente: ${v(val, "interest", "0")} %
+Renter beregnes på utestående saldo.
+
+§3 – TILBAKEBETALING
+Forfallsdato: ${v(val, "due_date", "[dato]")}
+Betalingsform: ${v(val, "repayment", "Engangsbeløp ved forfall")}
+
+§4 – SIKKERHET
+${v(val, "security", "Ingen sikkerhetsstillelse.")}
+
+§5 – MISLIGHOLD
+Ved mislighold kan långiver kreve hele lånet
+tilbakebetalt umiddelbart med skriftlig varsel.
+
+_______________________    _______________________
+Långiver                   Låntaker`,
+  },
+
+  // ── NÆRINGSLIV ───────────────────────────────────────────────────────────────
+
+  {
+    id: "aksjonaer",
+    icon: BarChart2,
+    label: "Aksjonæravtale",
+    description: "Regulerer rettigheter og plikter mellom aksjonærer i et AS.",
+    price: 249,
+    popular: false,
+    color: "#7e9eb8",
+    features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
+    fieldGroups: [
+      {
+        title: "Selskapet",
+        fields: [
+          { key: "company_name", label: "Selskapsnavn", placeholder: "Startup AS", type: "text" },
+          { key: "orgnr", label: "Org.nr", placeholder: "123 456 789", type: "text" },
+          { key: "company_address", label: "Forretningsadresse", placeholder: "Gründerveien 1, 0349 Oslo", type: "text" },
+        ],
+      },
+      {
+        title: "Aksjonærer",
+        fields: [
+          { key: "sh1_name", label: "Aksjonær 1 — navn", placeholder: "Kari Nordmann", type: "text" },
+          { key: "sh1_pct", label: "Aksjonær 1 — eierandel (%)", placeholder: "60", type: "number" },
+          { key: "sh2_name", label: "Aksjonær 2 — navn", placeholder: "Ola Hansen", type: "text" },
+          { key: "sh2_pct", label: "Aksjonær 2 — eierandel (%)", placeholder: "40", type: "number" },
+        ],
+      },
+      {
+        title: "Rettigheter og begrensninger",
+        fields: [
+          { key: "lockup_months", label: "Lock-up periode (måneder)", placeholder: "12", type: "number" },
+          { key: "drag_along", label: "Drag-along rett", type: "select", options: ["Ja", "Nei"] },
+          { key: "tag_along", label: "Tag-along rett", type: "select", options: ["Ja", "Nei"] },
+          { key: "preemption", label: "Forkjøpsrett", type: "select", options: ["Ja", "Nei"] },
+          { key: "dividend_policy", label: "Utbyttepolitikk", type: "select", options: ["Etter eierandel", "Styrets skjønn", "Ingen utbytte de første 3 år"] },
+          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `AKSJONÆRAVTALE
+Dato: ${today}
+
+SELSKAP
+${v(val, "company_name", "[Selskap AS]")} — Org.nr: ${v(val, "orgnr", "—")}
+${v(val, "company_address", "[Adresse]")}
+
+AKSJONÆRER
+${v(val, "sh1_name", "[Aksjonær 1]")} — ${v(val, "sh1_pct", "?")} %
+${v(val, "sh2_name", "[Aksjonær 2]")} — ${v(val, "sh2_pct", "?")} %
+
+§1 – FORMÅL
+Avtalen regulerer aksjonærenes rettigheter og plikter
+knyttet til eierskap i selskapet.
+
+§2 – STEMMERETT
+Aksjonærene utøver stemmerett i samsvar med eierandel.
+Beslutninger som krever kvalifisert flertall: minst 2/3.
+
+§3 – FORKJØPSRETT
+Forkjøpsrett: ${v(val, "preemption", "Ja")}
+Ved salg av aksjer skal øvrige aksjonærer tilbys aksjene
+på samme vilkår før ekstern kjøper kontaktes.
+
+§4 – MEDSALGSRETTIGHETER
+Drag-along: ${v(val, "drag_along", "Ja")}
+Tag-along: ${v(val, "tag_along", "Ja")}
+
+§5 – LOCK-UP
+Aksjonærene kan ikke selge aksjer de første
+${v(val, "lockup_months", "12")} månedene uten skriftlig samtykke.
+
+§6 – UTBYTTE
+Utbyttepolitikk: ${v(val, "dividend_policy", "Etter eierandel")}
+
+§7 – KONFIDENSIALITET
+Partene behandler all informasjon om selskapet
+konfidensielt i avtalens løpetid og 3 år etter opphør.
+
+§8 – VERNETING
+Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
+
+_______________________    _______________________
+${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")}`,
+  },
+
+  {
+    id: "distribusjon",
+    icon: Truck,
+    label: "Distribusjonsavtale",
+    description: "Avtale mellom produsent og distributør for salg av varer.",
+    price: 219,
+    popular: false,
+    color: "#b8a07e",
+    features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
+    fieldGroups: [
+      {
+        title: "Leverandør / Produsent",
+        fields: [
+          { key: "supplier_name", label: "Selskapsnavn", placeholder: "Produsent AS", type: "text" },
+          { key: "supplier_orgnr", label: "Org.nr", placeholder: "123 456 789", type: "text" },
+          { key: "supplier_contact", label: "Kontaktperson", placeholder: "Kari Nordmann", type: "text" },
+        ],
+      },
+      {
+        title: "Distributør",
+        fields: [
+          { key: "dist_name", label: "Selskapsnavn", placeholder: "Distribusjon AS", type: "text" },
+          { key: "dist_orgnr", label: "Org.nr", placeholder: "987 654 321", type: "text" },
+          { key: "dist_contact", label: "Kontaktperson", placeholder: "Ola Hansen", type: "text" },
+        ],
+      },
+      {
+        title: "Avtalevilkår",
+        fields: [
+          { key: "products", label: "Produkter / varekategori", placeholder: "Sportsernæring — alle SKU-er", type: "textarea" },
+          { key: "territory", label: "Territorium", placeholder: "Norge og Sverige", type: "text" },
+          { key: "exclusivity", label: "Eksklusivitet", type: "select", options: ["Eksklusiv", "Ikke-eksklusiv"] },
+          { key: "min_volume", label: "Minstekjøp per år (kr)", placeholder: "500 000", type: "number" },
+          { key: "start_date", label: "Startdato", type: "date" },
+          { key: "duration_years", label: "Varighet (år)", placeholder: "2", type: "number" },
+          { key: "notice_months", label: "Oppsigelsestid (måneder)", placeholder: "3", type: "number" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `DISTRIBUSJONSAVTALE
+Dato: ${today}
+
+LEVERANDØR
+${v(val, "supplier_name", "[Leverandør AS]")} — Org.nr: ${v(val, "supplier_orgnr", "—")}
+Kontakt: ${v(val, "supplier_contact", "—")}
+
+DISTRIBUTØR
+${v(val, "dist_name", "[Distributør AS]")} — Org.nr: ${v(val, "dist_orgnr", "—")}
+Kontakt: ${v(val, "dist_contact", "—")}
+
+§1 – PRODUKTER
+${v(val, "products", "[Beskriv produkter/varekategori]")}
+
+§2 – TERRITORIUM OG EKSKLUSIVITET
+Territorium: ${v(val, "territory", "[Territorium]")}
+Eksklusivitet: ${v(val, "exclusivity", "Ikke-eksklusiv")}
+
+§3 – MINSTEKJØPSVOLUM
+Distributør forplikter seg til å kjøpe for minimum
+NOK ${v(val, "min_volume", "[beløp]")} per kalenderår.
+
+§4 – VARIGHET OG OPPSIGELSE
+Avtalen gjelder fra ${v(val, "start_date", "[dato]")} i
+${v(val, "duration_years", "2")} år, og fornyes automatisk
+med mindre den sies opp med ${v(val, "notice_months", "3")} måneders varsel.
+
+§5 – VAREMERKE OG MARKEDSFØRING
+Distributør kan bruke leverandørens varemerke
+utelukkende til markedsføring av de avtalte produktene.
+
+§6 – KONFIDENSIALITET
+Begge parter behandler priser og vilkår konfidensielt.
+
+_______________________    _______________________
+Leverandør                 Distributør`,
+  },
+
+  {
+    id: "agent",
+    icon: UserCheck,
+    label: "Agentavtale",
+    description: "Avtale mellom selskap og salgsagent for representasjon og salg.",
+    price: 199,
+    popular: false,
+    color: "#9eb87e",
+    features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
+    fieldGroups: [
+      {
+        title: "Oppdragsgiver",
+        fields: [
+          { key: "principal_name", label: "Selskapsnavn", placeholder: "Selskap AS", type: "text" },
+          { key: "principal_orgnr", label: "Org.nr", placeholder: "123 456 789", type: "text" },
+          { key: "principal_contact", label: "Kontaktperson", placeholder: "Kari Nordmann", type: "text" },
+        ],
+      },
+      {
+        title: "Agent",
+        fields: [
+          { key: "agent_name", label: "Navn / selskap", placeholder: "Agent AS / Ola Hansen", type: "text" },
+          { key: "agent_orgnr", label: "Org.nr (valgfritt)", placeholder: "987 654 321", type: "text" },
+          { key: "agent_email", label: "E-post", placeholder: "agent@example.com", type: "text" },
+        ],
+      },
+      {
+        title: "Betingelser",
+        fields: [
+          { key: "products", label: "Produkter / tjenester", placeholder: "B2B SaaS-løsninger", type: "textarea" },
+          { key: "territory", label: "Territorium", placeholder: "Norge", type: "text" },
+          { key: "exclusivity", label: "Eksklusivitet", type: "select", options: ["Eksklusiv", "Ikke-eksklusiv"] },
+          { key: "commission_pct", label: "Provisjon (%)", placeholder: "10", type: "number" },
+          { key: "payment_terms", label: "Provisjon utbetales", type: "select", options: ["Månedlig", "Kvartalsvis", "Ved betaling fra kunde"] },
+          { key: "start_date", label: "Startdato", type: "date" },
+          { key: "notice_months", label: "Oppsigelsestid (måneder)", placeholder: "3", type: "number" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `AGENTAVTALE
+Dato: ${today}
+
+OPPDRAGSGIVER
+${v(val, "principal_name", "[Selskap AS]")} — Org.nr: ${v(val, "principal_orgnr", "—")}
+Kontakt: ${v(val, "principal_contact", "—")}
+
+AGENT
+${v(val, "agent_name", "[Agent]")} — Org.nr: ${v(val, "agent_orgnr", "—")}
+E-post: ${v(val, "agent_email", "—")}
+
+§1 – OPPDRAGET
+Agent representerer oppdragsgiver og arbeider for salg av:
+${v(val, "products", "[Produkter/tjenester]")}
+Territorium: ${v(val, "territory", "[Territorium]")}
+Eksklusivitet: ${v(val, "exclusivity", "Ikke-eksklusiv")}
+
+§2 – PROVISJON
+Provisjonssats: ${v(val, "commission_pct", "10")} % av fakturert salg ekskl. mva.
+Utbetaling: ${v(val, "payment_terms", "Månedlig")}
+
+§3 – AGENTENS FORPLIKTELSER
+Agent skal aktivt fremme salg, rapportere månedlig
+og holde oppdragsgiver informert om markedsforhold.
+
+§4 – UTGIFTER
+Reise og andre salgskostnader dekkes av agent
+med mindre annet er skriftlig avtalt.
+
+§5 – VARIGHET OG OPPSIGELSE
+Avtalen trer i kraft ${v(val, "start_date", "[dato]")} og løper inntil
+oppsigelse med ${v(val, "notice_months", "3")} måneders skriftlig varsel.
+
+§6 – ETTERPROVISJON
+Agent har krav på provisjon for kontrakter inngått
+innen 6 måneder etter avtalens opphør, dersom disse
+stammer fra agentens innsats i avtaleperioden.
+
+_______________________    _______________________
+Oppdragsgiver              Agent`,
+  },
+
+  {
+    id: "partner",
+    icon: Handshake,
+    label: "Partneravtale",
+    description: "Joint venture eller samarbeidsavtale mellom to selskaper.",
+    price: 229,
+    popular: false,
+    color: "#7e8eb8",
+    features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
+    fieldGroups: [
+      {
+        title: "Part A",
+        fields: [
+          { key: "a_name", label: "Selskapsnavn", placeholder: "Selskap A AS", type: "text" },
+          { key: "a_orgnr", label: "Org.nr", placeholder: "123 456 789", type: "text" },
+          { key: "a_contact", label: "Kontaktperson / rolle", placeholder: "Kari Nordmann, CEO", type: "text" },
+        ],
+      },
+      {
+        title: "Part B",
+        fields: [
+          { key: "b_name", label: "Selskapsnavn", placeholder: "Selskap B AS", type: "text" },
+          { key: "b_orgnr", label: "Org.nr", placeholder: "987 654 321", type: "text" },
+          { key: "b_contact", label: "Kontaktperson / rolle", placeholder: "Ola Hansen, CTO", type: "text" },
+        ],
+      },
+      {
+        title: "Samarbeidsvilkår",
+        fields: [
+          { key: "purpose", label: "Formål med samarbeidet", placeholder: "Felles utvikling og lansering av...", type: "textarea" },
+          { key: "a_contribution", label: "Part A sitt bidrag", placeholder: "Kapital, salgsressurser", type: "text" },
+          { key: "b_contribution", label: "Part B sitt bidrag", placeholder: "Teknologi, utvikling", type: "text" },
+          { key: "revenue_split", label: "Inntektsfordeling (%)", placeholder: "50/50", type: "text" },
+          { key: "start_date", label: "Startdato", type: "date" },
+          { key: "duration_years", label: "Varighet (år, 0 = løpende)", placeholder: "0", type: "number" },
+          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `PARTNERAVTALE / JOINT VENTURE
+Dato: ${today}
+
+PART A
+${v(val, "a_name", "[Selskap A AS]")} — Org.nr: ${v(val, "a_orgnr", "—")}
+Kontakt: ${v(val, "a_contact", "—")}
+
+PART B
+${v(val, "b_name", "[Selskap B AS]")} — Org.nr: ${v(val, "b_orgnr", "—")}
+Kontakt: ${v(val, "b_contact", "—")}
+
+§1 – FORMÅL
+${v(val, "purpose", "[Beskriv formålet med samarbeidet]")}
+
+§2 – BIDRAG
+Part A: ${v(val, "a_contribution", "—")}
+Part B: ${v(val, "b_contribution", "—")}
+
+§3 – INNTEKTS- OG KOSTNADSFORDELING
+Nettoinntekter og -kostnader fordeles: ${v(val, "revenue_split", "50/50")}
+
+§4 – BESLUTNINGER
+Ordinære beslutninger krever enighet mellom partene.
+Vesentlige beslutninger krever skriftlig samtykke fra begge.
+
+§5 – IMMATERIELLE RETTIGHETER
+Eksisterende IP forblir den respektive parts eiendom.
+Nyutviklet IP eies i henhold til bidragsfordelingen.
+
+§6 – VARIGHET OG UTTREDEN
+Samarbeidet trer i kraft ${v(val, "start_date", "[dato]")}.
+${v(val, "duration_years", "0") === "0"
+  ? "Avtalen løper inntil en av partene sier opp med 3 måneders varsel."
+  : `Avtalen løper i ${v(val, "duration_years", "—")} år.`}
+
+§7 – KONFIDENSIALITET
+Begge parter behandler all informasjon om samarbeidet
+konfidensielt i avtaleperioden og 3 år etter opphør.
+
+§8 – VERNETING
+Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
+
+_______________________    _______________________
+Part A                     Part B`,
+  },
+
+  {
+    id: "kjoep",
+    icon: ShoppingCart,
+    label: "Kjøpskontrakt",
+    description: "Generell kontrakt for kjøp og salg av varer eller tjenester.",
+    price: 99,
+    popular: false,
+    color: "#8bb87e",
+    features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
+    fieldGroups: [
+      {
+        title: "Selger",
+        fields: [
+          { key: "seller_name", label: "Navn / selskap", placeholder: "Selger AS", type: "text" },
+          { key: "seller_orgnr", label: "Org.nr (valgfritt)", placeholder: "123 456 789", type: "text" },
+          { key: "seller_email", label: "E-post", placeholder: "selger@example.com", type: "text" },
+        ],
+      },
+      {
+        title: "Kjøper",
+        fields: [
+          { key: "buyer_name", label: "Navn / selskap", placeholder: "Kjøper AS", type: "text" },
+          { key: "buyer_orgnr", label: "Org.nr (valgfritt)", placeholder: "987 654 321", type: "text" },
+          { key: "buyer_email", label: "E-post", placeholder: "kjøper@example.com", type: "text" },
+        ],
+      },
+      {
+        title: "Vare / tjeneste",
+        fields: [
+          { key: "item_desc", label: "Beskrivelse", placeholder: "MacBook Pro 14\" M3, 2024...", type: "textarea" },
+          { key: "quantity", label: "Antall", placeholder: "1", type: "number" },
+          { key: "price", label: "Kjøpesum (kr)", placeholder: "25 000", type: "number" },
+          { key: "payment_terms", label: "Betalingsbetingelser", type: "select", options: ["Ved levering", "14 dagers faktura", "30 dagers faktura", "Forskuddsbetaling"] },
+          { key: "delivery_date", label: "Leveringsdato", type: "date" },
+          { key: "delivery_place", label: "Leveringssted", placeholder: "Kjøpers adresse", type: "text" },
+        ],
+      },
+      {
+        title: "Vilkår",
+        fields: [
+          { key: "warranty_months", label: "Garantiperiode (måneder)", placeholder: "12", type: "number" },
+          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
+        ],
+      },
+    ],
+    buildPreview: (val) => `KJØPSKONTRAKT
+Dato: ${today}
+
+SELGER
+Navn: ${v(val, "seller_name", "[Selger]")}
+Org.nr: ${v(val, "seller_orgnr", "—")}
+E-post: ${v(val, "seller_email", "—")}
+
+KJØPER
+Navn: ${v(val, "buyer_name", "[Kjøper]")}
+Org.nr: ${v(val, "buyer_orgnr", "—")}
+E-post: ${v(val, "buyer_email", "—")}
+
+§1 – KJØPSOBJEKT
+${v(val, "item_desc", "[Beskrivelse]")}
+Antall: ${v(val, "quantity", "1")}
+
+§2 – PRIS OG BETALING
+Kjøpesum: NOK ${v(val, "price", "[beløp]")}
+Betalingsbetingelser: ${v(val, "payment_terms", "Ved levering")}
+
+§3 – LEVERING
+Leveringsdato: ${v(val, "delivery_date", "[dato]")}
+Leveringssted: ${v(val, "delivery_place", "Kjøpers adresse")}
+Risikoen går over på kjøper ved levering.
+
+§4 – GARANTI OG REKLAMASJON
+Garantiperiode: ${v(val, "warranty_months", "12")} måneder.
+Kjøper må reklamere skriftlig innen rimelig tid.
+
+§5 – MISLIGHOLD
+Ved vesentlig mislighold kan den andre part heve
+avtalen med øyeblikkelig skriftlig varsel.
+
+§6 – VERNETING
+Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
+
+_______________________    _______________________
+Selger                     Kjøper`,
   },
 ];
 
