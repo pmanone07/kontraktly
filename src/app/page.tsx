@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import {
   FileText, Home, Briefcase, Car, Shield, Users, Pen,
   ChevronRight, ChevronLeft, Check, Star, ArrowRight,
-  Download, Lock, Zap, Globe, Eye, Heart, BarChart2, ShoppingCart,
+  Download, Lock, Zap, Globe, Eye,
 } from "lucide-react";
 import { useDownloadPDF } from "@/hooks/useDownloadPDF";
 
@@ -536,267 +536,6 @@ i avtalens løpetid og 2 år etter opphør.
 _______________________    _______________________
 Oppdragsgiver              Leverandør`,
   },
-
-  {
-    id: "samboer",
-    icon: Heart,
-    label: "Samboerkontrakt",
-    description: "Regulerer eierforhold, økonomi og rettigheter mellom samboere.",
-    price: 159,
-    popular: false,
-    color: "#b87e9e",
-    features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Underholdsbidrag"],
-    fieldGroups: [
-      {
-        title: "Samboer 1",
-        fields: [
-          { key: "p1_name", label: "Fullt navn", placeholder: "Kari Nordmann", type: "text" },
-          { key: "p1_dob", label: "Fødselsdato", placeholder: "01.01.1990", type: "text" },
-          { key: "p1_address", label: "Nåværende adresse", placeholder: "Storgata 1, 0182 Oslo", type: "text" },
-        ],
-      },
-      {
-        title: "Samboer 2",
-        fields: [
-          { key: "p2_name", label: "Fullt navn", placeholder: "Ola Nordmann", type: "text" },
-          { key: "p2_dob", label: "Fødselsdato", placeholder: "15.06.1988", type: "text" },
-          { key: "p2_address", label: "Nåværende adresse", placeholder: "Storgata 1, 0182 Oslo", type: "text" },
-        ],
-      },
-      {
-        title: "Felles bolig",
-        fields: [
-          { key: "property_address", label: "Boligens adresse", placeholder: "Hjemveien 5, 0580 Oslo", type: "text" },
-          { key: "ownership", label: "Eierfordeling", type: "select", options: ["50/50", "60/40", "70/30", "Kun én part eier"] },
-          { key: "p1_share_pct", label: "Samboer 1 sin andel (%)", placeholder: "50", type: "number" },
-          { key: "move_in_date", label: "Innflyttingsdato", type: "date" },
-        ],
-      },
-      {
-        title: "Økonomi og vilkår",
-        fields: [
-          { key: "expenses_split", label: "Deling av fellesutgifter", type: "select", options: ["Likt (50/50)", "Forholdsmessig etter inntekt", "Etter avtale"] },
-          { key: "joint_account", label: "Felleskonto", type: "select", options: ["Ja", "Nei"] },
-          { key: "separation_notice", label: "Varsel ved brudd (måneder)", placeholder: "1", type: "number" },
-          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
-        ],
-      },
-    ],
-    buildPreview: (val) => `SAMBOERKONTRAKT
-Dato: ${today}
-
-PARTER
-Samboer 1: ${v(val, "p1_name", "[Samboer 1]")}
-Fødselsdato: ${v(val, "p1_dob", "—")}
-Adresse: ${v(val, "p1_address", "[Adresse]")}
-
-Samboer 2: ${v(val, "p2_name", "[Samboer 2]")}
-Fødselsdato: ${v(val, "p2_dob", "—")}
-Adresse: ${v(val, "p2_address", "[Adresse]")}
-
-§1 – FELLES BOLIG
-Adresse: ${v(val, "property_address", "[Boligens adresse]")}
-Eierfordeling: ${v(val, "ownership", "50/50")}
-${v(val, "p1_name", "Samboer 1")} eier ${v(val, "p1_share_pct", "50")} %.
-Innflyttingsdato: ${v(val, "move_in_date", "[dato]")}
-
-§2 – FELLESUTGIFTER
-Deling av løpende utgifter (husleie/lån, strøm, mat mv.):
-${v(val, "expenses_split", "Likt (50/50)")}
-Felleskonto: ${v(val, "joint_account", "Nei")}
-
-§3 – SÆREIE
-Eiendeler ervervet før samboerskapet forblir den enkeltes
-særeie. Gaver og arv er likeledes særeie med mindre
-partene skriftlig avtaler noe annet.
-
-§4 – OPPGJØR VED BRUDD
-Ved samlivsbrudd varsles den andre part skriftlig med
-${v(val, "separation_notice", "1")} måneds frist. Felles eiendeler
-fordeles etter eierandel. Særeie beholdes av eier.
-
-§5 – ARV OG FORSIKRING
-Partene oppfordres til å oppdatere testament og
-begunstigede i forsikringsavtaler etter innflytting.
-
-§6 – VERNETING
-Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
-
-_______________________    _______________________
-${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
-  },
-
-  {
-    id: "aksjonaer",
-    icon: BarChart2,
-    label: "Aksjonæravtale",
-    description: "Regulerer rettigheter og plikter mellom aksjonærer i et AS.",
-    price: 249,
-    popular: false,
-    color: "#7e9eb8",
-    features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
-    fieldGroups: [
-      {
-        title: "Selskapet",
-        fields: [
-          { key: "company_name", label: "Selskapsnavn", placeholder: "Startup AS", type: "text" },
-          { key: "orgnr", label: "Org.nr", placeholder: "123 456 789", type: "text" },
-          { key: "company_address", label: "Forretningsadresse", placeholder: "Gründerveien 1, 0349 Oslo", type: "text" },
-        ],
-      },
-      {
-        title: "Aksjonærer",
-        fields: [
-          { key: "sh1_name", label: "Aksjonær 1 — navn", placeholder: "Kari Nordmann", type: "text" },
-          { key: "sh1_pct", label: "Aksjonær 1 — eierandel (%)", placeholder: "60", type: "number" },
-          { key: "sh2_name", label: "Aksjonær 2 — navn", placeholder: "Ola Hansen", type: "text" },
-          { key: "sh2_pct", label: "Aksjonær 2 — eierandel (%)", placeholder: "40", type: "number" },
-        ],
-      },
-      {
-        title: "Rettigheter og begrensninger",
-        fields: [
-          { key: "lockup_months", label: "Lock-up periode (måneder)", placeholder: "12", type: "number" },
-          { key: "drag_along", label: "Drag-along rett", type: "select", options: ["Ja", "Nei"] },
-          { key: "tag_along", label: "Tag-along rett", type: "select", options: ["Ja", "Nei"] },
-          { key: "preemption", label: "Forkjøpsrett", type: "select", options: ["Ja", "Nei"] },
-          { key: "dividend_policy", label: "Utbyttepolitikk", type: "select", options: ["Etter eierandel", "Styrets skjønn", "Ingen utbytte de første 3 år"] },
-          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
-        ],
-      },
-    ],
-    buildPreview: (val) => `AKSJONÆRAVTALE
-Dato: ${today}
-
-SELSKAP
-${v(val, "company_name", "[Selskap AS]")} — Org.nr: ${v(val, "orgnr", "—")}
-${v(val, "company_address", "[Adresse]")}
-
-AKSJONÆRER
-${v(val, "sh1_name", "[Aksjonær 1]")} — ${v(val, "sh1_pct", "?")} %
-${v(val, "sh2_name", "[Aksjonær 2]")} — ${v(val, "sh2_pct", "?")} %
-
-§1 – FORMÅL
-Avtalen regulerer aksjonærenes rettigheter og plikter
-knyttet til eierskap i selskapet.
-
-§2 – STEMMERETT
-Aksjonærene utøver stemmerett i samsvar med eierandel.
-Beslutninger som krever kvalifisert flertall: minst 2/3.
-
-§3 – FORKJØPSRETT
-Forkjøpsrett: ${v(val, "preemption", "Ja")}
-Ved salg av aksjer skal øvrige aksjonærer tilbys aksjene
-på samme vilkår før ekstern kjøper kontaktes.
-
-§4 – MEDSALGSRETTIGHETER
-Drag-along: ${v(val, "drag_along", "Ja")}
-Tag-along: ${v(val, "tag_along", "Ja")}
-
-§5 – LOCK-UP
-Aksjonærene kan ikke selge aksjer de første
-${v(val, "lockup_months", "12")} månedene uten skriftlig samtykke.
-
-§6 – UTBYTTE
-Utbyttepolitikk: ${v(val, "dividend_policy", "Etter eierandel")}
-
-§7 – KONFIDENSIALITET
-Partene behandler all informasjon om selskapet
-konfidensielt i avtalens løpetid og 3 år etter opphør.
-
-§8 – VERNETING
-Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
-
-_______________________    _______________________
-${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")}`,
-  },
-
-  {
-    id: "kjoep",
-    icon: ShoppingCart,
-    label: "Kjøpskontrakt",
-    description: "Generell kontrakt for kjøp og salg av varer eller tjenester.",
-    price: 99,
-    popular: false,
-    color: "#8bb87e",
-    features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
-    fieldGroups: [
-      {
-        title: "Selger",
-        fields: [
-          { key: "seller_name", label: "Navn / selskap", placeholder: "Selger AS", type: "text" },
-          { key: "seller_orgnr", label: "Org.nr (valgfritt)", placeholder: "123 456 789", type: "text" },
-          { key: "seller_email", label: "E-post", placeholder: "selger@example.com", type: "text" },
-        ],
-      },
-      {
-        title: "Kjøper",
-        fields: [
-          { key: "buyer_name", label: "Navn / selskap", placeholder: "Kjøper AS", type: "text" },
-          { key: "buyer_orgnr", label: "Org.nr (valgfritt)", placeholder: "987 654 321", type: "text" },
-          { key: "buyer_email", label: "E-post", placeholder: "kjøper@example.com", type: "text" },
-        ],
-      },
-      {
-        title: "Vare / tjeneste",
-        fields: [
-          { key: "item_desc", label: "Beskrivelse", placeholder: "MacBook Pro 14\" M3, 2024, 16GB RAM...", type: "textarea" },
-          { key: "quantity", label: "Antall / mengde", placeholder: "1", type: "number" },
-          { key: "price", label: "Kjøpesum (kr)", placeholder: "25 000", type: "number" },
-          { key: "payment_terms", label: "Betalingsbetingelser", type: "select", options: ["Ved levering", "14 dagers faktura", "30 dagers faktura", "Forskuddsbetaling"] },
-          { key: "delivery_date", label: "Leveringsdato", type: "date" },
-          { key: "delivery_place", label: "Leveringssted", placeholder: "Kjøpers adresse", type: "text" },
-        ],
-      },
-      {
-        title: "Vilkår",
-        fields: [
-          { key: "warranty_months", label: "Garantiperiode (måneder)", placeholder: "12", type: "number" },
-          { key: "jurisdiction", label: "Verneting", placeholder: "Oslo tingrett", type: "text" },
-        ],
-      },
-    ],
-    buildPreview: (val) => `KJØPSKONTRAKT
-Dato: ${today}
-
-SELGER
-Navn: ${v(val, "seller_name", "[Selger]")}
-Org.nr: ${v(val, "seller_orgnr", "—")}
-E-post: ${v(val, "seller_email", "—")}
-
-KJØPER
-Navn: ${v(val, "buyer_name", "[Kjøper]")}
-Org.nr: ${v(val, "buyer_orgnr", "—")}
-E-post: ${v(val, "buyer_email", "—")}
-
-§1 – KJØPSOBJEKT
-${v(val, "item_desc", "[Beskrivelse av vare/tjeneste]")}
-Antall: ${v(val, "quantity", "1")}
-
-§2 – PRIS OG BETALING
-Kjøpesum: NOK ${v(val, "price", "[beløp]")}
-Betalingsbetingelser: ${v(val, "payment_terms", "Ved levering")}
-
-§3 – LEVERING
-Leveringsdato: ${v(val, "delivery_date", "[dato]")}
-Leveringssted: ${v(val, "delivery_place", "Kjøpers adresse")}
-Risikoen for varen går over på kjøper ved levering.
-
-§4 – GARANTI OG REKLAMASJON
-Garantiperiode: ${v(val, "warranty_months", "12")} måneder
-Kjøper må reklamere skriftlig innen rimelig tid
-etter at mangelen ble oppdaget.
-
-§5 – MISLIGHOLD
-Ved vesentlig mislighold kan den andre part heve avtalen
-med øyeblikkelig skriftlig varsel.
-
-§6 – VERNETING
-Tvister behandles ved ${v(val, "jurisdiction", "Oslo tingrett")}.
-
-_______________________    _______________________
-Selger                     Kjøper`,
-  },
 ];
 
 // ─── Shared input style ───────────────────────────────────────────────────────
@@ -865,13 +604,11 @@ function FillDialog({
   open,
   onClose,
   onProceedToCheckout,
-  download,
 }: {
   contract: ContractType | null;
   open: boolean;
   onClose: () => void;
   onProceedToCheckout: (values: Record<string, string>) => void;
-  download: (label: string, text: string) => Promise<void>;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [step, setStep] = useState(0);
@@ -907,70 +644,41 @@ function FillDialog({
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="w-[95vw] max-w-5xl rounded-sm p-0 overflow-hidden flex flex-col"
-        style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 620px)" }}
+        className="w-[95vw] max-w-5xl rounded-sm p-0 flex flex-col"
+        style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 620px)", overflow: "hidden" }}
       >
         {/* Header */}
         <DialogHeader
-          className="px-6 pt-5 pb-4 flex-none"
+          className="px-4 pt-4 pb-3 flex-none"
           style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-sm flex-none"
-                style={{ background: `${contract.color}18` }}
-              >
-                <contract.icon className="h-4 w-4" style={{ color: contract.color }} />
-              </div>
-              <div>
-                <DialogTitle className="font-display text-sm font-semibold" style={{ color: "#f0ede6" }}>
-                  {contract.label}
-                </DialogTitle>
-                <p className="text-[11px]" style={{ color: "#7a7672" }}>Fyll inn informasjon</p>
-              </div>
+          <div className="flex items-center gap-3 min-w-0">
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-sm flex-none"
+              style={{ background: `${contract.color}18` }}
+            >
+              <contract.icon className="h-3.5 w-3.5" style={{ color: contract.color }} />
             </div>
-            {/* Step progress */}
-            <div className="flex items-center gap-1.5">
-              {groups.map((g, i) => (
-                <div
-                  key={g.title}
-                  className="h-1.5 rounded-full transition-all"
-                  style={{
-                    width: i === step ? "24px" : "8px",
-                    background: i <= step ? "#c9a85c" : "rgba(201,168,92,0.15)",
-                  }}
-                />
-              ))}
+            <div className="min-w-0 flex-1">
+              <DialogTitle className="font-display text-sm font-semibold truncate" style={{ color: "#f0ede6" }}>
+                {contract.label}
+              </DialogTitle>
+              <p className="text-[11px]" style={{ color: "#7a7672" }}>Fyll inn informasjon</p>
             </div>
           </div>
         </DialogHeader>
 
         {/* Body — two-pane */}
-        <div className="flex flex-1 overflow-hidden min-h-0">
+        <div className="flex flex-1 min-h-0 overflow-hidden">
           {/* Left: form */}
-          <div className="flex-1 overflow-y-auto px-6 py-5 min-w-0" style={{ minWidth: 0 }}>
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <p className="font-mono-custom text-[10px] uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,92,0.5)" }}>
-                  Steg {step + 1} av {groups.length}
-                </p>
-                <h3 className="font-display text-lg font-semibold" style={{ color: "#f0ede6" }}>
-                  {currentGroup.title}
-                </h3>
-              </div>
-              <button
-                onClick={() => setShowPreview((p) => !p)}
-                className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-sm transition-all md:hidden"
-                style={{
-                  border: "1px solid rgba(201,168,92,0.2)",
-                  background: showPreview ? "rgba(201,168,92,0.08)" : "transparent",
-                  color: "#c9a85c",
-                }}
-              >
-                <Eye className="h-3 w-3" />
-                {showPreview ? "Skjul" : "Forhåndsvis"}
-              </button>
+          <div className="flex-1 overflow-y-auto px-4 py-4 min-w-0">
+            <div className="mb-4">
+              <p className="font-mono-custom text-[10px] uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,92,0.5)" }}>
+                Steg {step + 1} av {groups.length}
+              </p>
+              <h3 className="font-display text-base font-semibold" style={{ color: "#f0ede6" }}>
+                {currentGroup.title}
+              </h3>
             </div>
 
             <div className="space-y-4">
@@ -994,7 +702,7 @@ function FillDialog({
             {/* Mobile preview toggle panel */}
             {showPreview && (
               <div
-                className="mt-5 rounded-sm p-4 md:hidden"
+                className="mt-5 rounded-sm p-4 lg:hidden"
                 style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}
               >
                 <pre
@@ -1009,7 +717,7 @@ function FillDialog({
 
           {/* Right: live preview (desktop) */}
           <div
-            className="hidden lg:flex flex-col w-[380px] flex-none overflow-hidden"
+            className="hidden lg:flex flex-col w-[340px] flex-none overflow-hidden"
             style={{ borderLeft: "1px solid rgba(201,168,92,0.08)", background: "#0a0a0b" }}
           >
             <div
@@ -1034,52 +742,61 @@ function FillDialog({
 
         {/* Footer */}
         <div
-          className="px-6 py-4 flex items-center justify-between flex-none"
+          className="px-4 py-3 flex items-center gap-2 flex-none"
           style={{ borderTop: "1px solid rgba(201,168,92,0.1)" }}
         >
+          {/* Progress dots */}
+          <div className="flex items-center gap-1 flex-none">
+            {groups.map((g, i) => (
+              <div
+                key={g.title}
+                className="h-1.5 rounded-full transition-all"
+                style={{
+                  width: i === step ? "20px" : "6px",
+                  background: i <= step ? "#c9a85c" : "rgba(201,168,92,0.15)",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
           <Button
             variant="ghost"
             size="sm"
-            className="rounded-sm h-9 px-4 text-xs"
+            className="rounded-sm h-8 px-3 text-xs flex-none"
             style={{ color: "#7a7672" }}
             disabled={step === 0}
             onClick={() => setStep((s) => s - 1)}
           >
-            <ChevronLeft className="h-3.5 w-3.5 mr-1" />
-            Tilbake
+            <ChevronLeft className="h-3.5 w-3.5" />
           </Button>
 
-          <div className="flex items-center gap-2">
-            <span className="font-mono-custom text-xs" style={{ color: "rgba(201,168,92,0.4)" }}>
-              {step + 1}/{groups.length}
-            </span>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="rounded-sm h-9 px-3 text-xs"
-              style={{ color: "rgba(201,168,92,0.5)", border: "1px solid rgba(201,168,92,0.15)" }}
-              disabled={!contract}
-              onClick={async () => {
-                if (contract) {
-                  await download(contract.label, contract.buildPreview(values));
-                }
-              }}
-            >
-              <Download className="h-3 w-3 mr-1" />Test
-            </Button>
-            <Button
-              size="sm"
-              className="rounded-sm h-9 px-5 text-xs font-medium"
-              style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
-              onClick={handleNext}
-            >
-              {isLast ? (
-                <>Gå til betaling <Lock className="ml-1.5 h-3 w-3" /></>
-              ) : (
-                <>Neste <ChevronRight className="ml-1 h-3.5 w-3.5" /></>
-              )}
-            </Button>
-          </div>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="rounded-sm h-8 px-3 text-xs flex-none"
+            style={{ color: "rgba(201,168,92,0.6)", border: "1px solid rgba(201,168,92,0.15)" }}
+            onClick={async () => {
+              await download(contract.label, contract.buildPreview(values));
+            }}
+          >
+            <Download className="h-3 w-3 mr-1" />Test
+          </Button>
+
+          <Button
+            size="sm"
+            className="rounded-sm h-8 px-4 text-xs font-medium flex-none"
+            style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
+            onClick={handleNext}
+          >
+            {isLast ? (
+              <>Betal <Lock className="ml-1.5 h-3 w-3" /></>
+            ) : (
+              <>Neste <ChevronRight className="ml-1 h-3.5 w-3.5" /></>
+            )}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
@@ -1194,8 +911,8 @@ export default function Page() {
           <h1 className="font-display animate-fade-up delay-100 mb-6 font-bold leading-[1.05] tracking-tight"
             style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", color: "#f0ede6" }}>
             Kontrakter som{" "}
-            <em className="not-italic gold-shimmer">beskytter deg</em>
-            <br />i hverdagen.
+            <em className="not-italic gold-shimmer">bare fungerer</em>
+            <br />
           </h1>
           <p className="animate-fade-up delay-200 mx-auto mb-10 max-w-2xl text-[1.1rem] leading-relaxed" style={{ color: "#7a7672" }}>
             Fra freelance-oppdrag til leieavtaler — lag profesjonelle, juridisk solide kontrakter
@@ -1267,8 +984,8 @@ export default function Page() {
                   onClick={() => openPreview(contract)}
                 >
                   {contract.popular && (
-                    <div className="absolute -top-px right-4">
-                      <Badge className="rounded-none rounded-b-sm text-[10px] font-medium tracking-widest uppercase px-2 py-0.5"
+                    <div className="absolute -top-3 right-5">
+                      <Badge className="rounded-sm text-[10px] font-medium tracking-widest uppercase px-2 py-0.5"
                         style={{ background: "#c9a85c", color: "#0a0a0b" }}>
                         Populær
                       </Badge>
@@ -1396,7 +1113,6 @@ export default function Page() {
         open={fillOpen}
         onClose={() => setFillOpen(false)}
         onProceedToCheckout={proceedToCheckout}
-        download={download}
       />
 
       {/* ── PREVIEW DIALOG ── */}
@@ -1405,7 +1121,7 @@ export default function Page() {
           style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 700px)" }}>
           {previewContract && (
             <>
-              <DialogHeader className="px-6 pt-6 pb-4" style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}>
+              <DialogHeader className="px-6 pt-6 pb-4 flex-none" style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-sm"
@@ -1445,7 +1161,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-              <div className="px-6 pb-6 flex gap-3">
+              <div className="px-6 pb-6 flex gap-3 flex-none">
                 <Button className="flex-1 rounded-sm h-10 text-sm font-medium"
                   style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
                   onClick={() => { setPreviewOpen(false); openFill(previewContract); }}>
@@ -1468,7 +1184,7 @@ export default function Page() {
           style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 700px)" }}>
           {checkoutContract && !paid && (
             <>
-              <DialogHeader className="px-6 pt-6 pb-4" style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}>
+              <DialogHeader className="px-6 pt-6 pb-4 flex-none" style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}>
                 <DialogTitle className="font-display text-base font-semibold" style={{ color: "#f0ede6" }}>
                   Fullfør kjøp
                 </DialogTitle>
@@ -1560,7 +1276,7 @@ export default function Page() {
                   </div>
                 )}
               </div>
-              <div className="px-6 pb-6">
+              <div className="px-6 pb-6 flex-none">
                 <Button className="w-full rounded-sm h-10 text-sm font-medium" disabled={paying}
                   style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
                   onClick={simulatePay}>
