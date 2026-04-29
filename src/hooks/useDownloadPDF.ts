@@ -17,7 +17,6 @@ export function useDownloadPDF() {
       const blob = await pdf(doc).toBlob();
 
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
       const filename = contractLabel
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -25,10 +24,20 @@ export function useDownloadPDF() {
         .replace(/[ø]/g, "oe")
         .replace(/[å]/g, "aa")
         + ".pdf";
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
+
+      const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent);
+      if (isIOS) {
+        // iOS Safari blocks programmatic clicks — open in new tab so user can use share sheet to save
+        window.open(url, "_blank");
+        // Delay revoke so the tab has time to load the blob
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      } else {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
     } finally {
       setGenerating(false);
     }
