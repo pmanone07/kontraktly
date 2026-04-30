@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -60,7 +60,7 @@ const CONTRACT_TYPES: ContractType[] = [
     icon: Briefcase,
     label: "Freelance-kontrakt",
     description: "For selvstendige konsulenter, designere, utviklere og kreative.",
-    price: 129,
+    price: 49,
     popular: true,
     color: "#c9a85c",
     features: ["Betalingsbetingelser og fakturering", "Leveranser og milepæler", "Immaterielle rettigheter", "Konfidensialitetsklausul", "Oppsigelsesvilkår", "Ansvarsbegrensning"],
@@ -144,7 +144,7 @@ Oppdragsgiver              Frilanser`,
     icon: Home,
     label: "Leiekontrakt",
     description: "Husleiekontrakt for utleie av bolig, leilighet eller hybel.",
-    price: 149,
+    price: 49,
     popular: false,
     color: "#7eb8a4",
     features: ["Leieperiode og oppsigelse", "Depositum og husleie", "Vedlikeholdsansvar", "Husordensregler", "Inventarliste", "Fraflyttingsvilkår"],
@@ -232,7 +232,7 @@ Utleier                    Leietaker`,
     icon: Car,
     label: "Bil-kjøpskontrakt",
     description: "Trygg overdragelse av kjøretøy mellom privatpersoner.",
-    price: 99,
+    price: 49,
     popular: false,
     color: "#8b7eb8",
     features: ["Kjøretøydetaljer og kilometerstand", "Pris og betalingsform", "Kjøretøyets tilstand", "Garanti og reklamasjon", "Overdragelse av eierskap", "Angrerett og ansvar"],
@@ -315,7 +315,7 @@ Selger                     Kjøper`,
     icon: Shield,
     label: "Konfidensialitetsavtale",
     description: "NDA for å beskytte forretningshemmeligheter og sensitiv info.",
-    price: 89,
+    price: 49,
     popular: false,
     color: "#b87e7e",
     features: ["Ensidig eller gjensidig NDA", "Definisjon av konfidensiell info", "Unntak og fritak", "Varighet og opphør", "Sanksjoner ved brudd", "Jurisdiksjon"],
@@ -382,7 +382,7 @@ Part A                     Part B`,
     icon: Users,
     label: "Arbeidskontrakt",
     description: "Fullstendig ansettelsesavtale i tråd med arbeidsmiljøloven.",
-    price: 179,
+    price: 49,
     popular: false,
     color: "#7ea8b8",
     features: ["Stillingsbeskrivelse og tittel", "Lønn, bonus og feriepenger", "Arbeidstid og overtid", "Prøvetid og oppsigelse", "Taushetsplikt", "Konkurranseklausul"],
@@ -470,7 +470,7 @@ Arbeidsgiver               Arbeidstaker`,
     icon: Pen,
     label: "Konsulentavtale",
     description: "Rammeavtale mellom to selskaper for løpende konsulentbistand.",
-    price: 199,
+    price: 49,
     popular: false,
     color: "#c9a85c",
     features: ["Tjenesteomfang og SOW", "Faktureringsrate og vilkår", "SLA og leveransekrav", "Endringshåndtering", "Immaterielle rettigheter", "Eksklusivitetsklausul"],
@@ -545,7 +545,7 @@ Oppdragsgiver              Leverandør`,
     icon: Heart,
     label: "Samboerkontrakt",
     description: "Regulerer eierforhold, økonomi og rettigheter mellom samboere.",
-    price: 159,
+    price: 49,
     popular: false,
     color: "#b87e9e",
     features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
@@ -633,7 +633,7 @@ ${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
     icon: Banknote,
     label: "Låneavtale",
     description: "Privat låneavtale mellom venner, familie eller bekjente.",
-    price: 89,
+    price: 49,
     popular: false,
     color: "#7eb87e",
     features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
@@ -709,7 +709,7 @@ Långiver                   Låntaker`,
     icon: BarChart2,
     label: "Aksjonæravtale",
     description: "Regulerer rettigheter og plikter mellom aksjonærer i et AS.",
-    price: 249,
+    price: 49,
     popular: false,
     color: "#7e9eb8",
     features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
@@ -794,7 +794,7 @@ ${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")
     icon: Truck,
     label: "Distribusjonsavtale",
     description: "Avtale mellom produsent og distributør for salg av varer.",
-    price: 219,
+    price: 49,
     popular: false,
     color: "#b8a07e",
     features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
@@ -871,7 +871,7 @@ Leverandør                 Distributør`,
     icon: UserCheck,
     label: "Agentavtale",
     description: "Avtale mellom selskap og salgsagent for representasjon og salg.",
-    price: 199,
+    price: 49,
     popular: false,
     color: "#9eb87e",
     features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
@@ -952,7 +952,7 @@ Oppdragsgiver              Agent`,
     icon: Handshake,
     label: "Partneravtale",
     description: "Joint venture eller samarbeidsavtale mellom to selskaper.",
-    price: 229,
+    price: 49,
     popular: false,
     color: "#7e8eb8",
     features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
@@ -1037,7 +1037,7 @@ Part A                     Part B`,
     icon: ShoppingCart,
     label: "Kjøpskontrakt",
     description: "Generell kontrakt for kjøp og salg av varer eller tjenester.",
-    price: 99,
+    price: 49,
     popular: false,
     color: "#8bb87e",
     features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
@@ -1410,10 +1410,37 @@ export default function Page() {
   const [fillOpen, setFillOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "vipps">("card");
   const [paid, setPaid] = useState(false);
   const [paying, setPaying] = useState(false);
+  const [stripeError, setStripeError] = useState<string | null>(null);
   const { download, generating } = useDownloadPDF();
+
+  // After Stripe redirect back: detect ?session_id=, verify payment, show success dialog
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+    if (!sessionId) return;
+
+    // Clean URL immediately
+    window.history.replaceState({}, "", window.location.pathname);
+
+    fetch(`/api/checkout/verify?session_id=${sessionId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data.paid) return;
+        const stored = sessionStorage.getItem("kontraktly_pending");
+        if (!stored) return;
+        const { contractId, values } = JSON.parse(stored) as { contractId: string; values: Record<string, string> };
+        sessionStorage.removeItem("kontraktly_pending");
+        const contract = CONTRACT_TYPES.find((c) => c.id === contractId);
+        if (!contract) return;
+        setFilledValues(values);
+        setCheckoutContract(contract);
+        setCheckoutOpen(true);
+        setPaid(true);
+      })
+      .catch(() => {});
+  }, []);
 
   const openFill = (contract: ContractType) => {
     setFillContract(contract);
@@ -1431,12 +1458,41 @@ export default function Page() {
     setCheckoutOpen(true);
     setPaid(false);
     setPaying(false);
+    setStripeError(null);
   };
 
-  const simulatePay = () => {
+  const redirectToStripe = useCallback(async () => {
+    if (!checkoutContract) return;
     setPaying(true);
-    setTimeout(() => { setPaying(false); setPaid(true); }, 1500);
-  };
+    setStripeError(null);
+    try {
+      const contractText = checkoutContract.buildPreview(filledValues);
+      // Persist contract data so we can restore after Stripe redirect
+      sessionStorage.setItem(
+        "kontraktly_pending",
+        JSON.stringify({ contractId: checkoutContract.id, values: filledValues })
+      );
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contractId: checkoutContract.id,
+          contractLabel: checkoutContract.label,
+          price: checkoutContract.price,
+          contractText,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error ?? "Ukjent feil");
+      }
+    } catch (err) {
+      setStripeError(err instanceof Error ? err.message : "Noe gikk galt. Prøv igjen.");
+      setPaying(false);
+    }
+  }, [checkoutContract, filledValues]);
 
   const downloadTest = async (contract: ContractType, values: Record<string, string> = {}) => {
     await download(contract.label, contract.buildPreview(values));
@@ -1769,7 +1825,7 @@ export default function Page() {
                 <p className="text-xs" style={{ color: "#7a7672" }}>{checkoutContract.label}</p>
               </DialogHeader>
               <div className="px-6 py-5 space-y-5 flex-1 overflow-y-auto min-h-0">
-                {/* Summary */}
+                {/* Price summary */}
                 <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
                   <div className="flex justify-between text-sm mb-2">
                     <span style={{ color: "#7a7672" }}>{checkoutContract.label}</span>
@@ -1787,7 +1843,7 @@ export default function Page() {
                     </span>
                   </div>
                 </div>
-                {/* Filled fields summary */}
+                {/* Filled fields confirmation */}
                 {Object.keys(filledValues).length > 0 && (
                   <div className="rounded-sm p-3" style={{ border: "1px solid rgba(201,168,92,0.08)", background: "rgba(201,168,92,0.03)" }}>
                     <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.4)" }}>
@@ -1798,70 +1854,25 @@ export default function Page() {
                     </p>
                   </div>
                 )}
-                {/* Payment method */}
-                <div>
-                  <p className="text-xs mb-3 uppercase tracking-wider font-mono-custom" style={{ color: "#7a7672" }}>
-                    Betalingsmetode
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {(["card", "vipps"] as const).map((method) => (
-                      <button key={method} onClick={() => setPaymentMethod(method)}
-                        className="rounded-sm p-3 text-sm transition-all text-left"
-                        style={{
-                          border: paymentMethod === method ? "1px solid rgba(201,168,92,0.5)" : "1px solid rgba(201,168,92,0.1)",
-                          background: paymentMethod === method ? "rgba(201,168,92,0.08)" : "#111113",
-                          color: paymentMethod === method ? "#c9a85c" : "#7a7672",
-                        }}>
-                        <span className="block font-medium">{method === "card" ? "💳 Kort" : "🟠 Vipps"}</span>
-                        <span className="text-xs opacity-70">{method === "card" ? "Visa / Mastercard" : "Betal med Vipps"}</span>
-                      </button>
-                    ))}
-                  </div>
+                {/* Stripe badge */}
+                <div className="flex items-center gap-2 text-xs" style={{ color: "#3d3d40" }}>
+                  <Lock className="h-3 w-3" />
+                  <span>Sikker betaling via Stripe — Visa, Mastercard, Apple Pay og mer</span>
                 </div>
-                {paymentMethod === "card" && (
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-xs mb-1 block" style={{ color: "#7a7672" }}>Kortnummer</label>
-                      <input type="text" placeholder="4242 4242 4242 4242"
-                        className="w-full rounded-sm px-3 py-2 text-sm focus:outline-none font-mono-custom"
-                        style={inputStyle} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="text-xs mb-1 block" style={{ color: "#7a7672" }}>Utløpsdato</label>
-                        <input type="text" placeholder="MM / ÅÅ"
-                          className="w-full rounded-sm px-3 py-2 text-sm focus:outline-none font-mono-custom"
-                          style={inputStyle} />
-                      </div>
-                      <div>
-                        <label className="text-xs mb-1 block" style={{ color: "#7a7672" }}>CVC</label>
-                        <input type="text" placeholder="123"
-                          className="w-full rounded-sm px-3 py-2 text-sm focus:outline-none font-mono-custom"
-                          style={inputStyle} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {paymentMethod === "vipps" && (
-                  <div className="rounded-sm p-4 text-center" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                    <p className="text-sm mb-3" style={{ color: "#7a7672" }}>
-                      Du vil motta en betalingsforespørsel i Vipps-appen.
-                    </p>
-                    <label className="text-xs mb-1 block" style={{ color: "#7a7672" }}>Mobilnummer</label>
-                    <input type="tel" placeholder="400 00 000"
-                      className="w-full rounded-sm px-3 py-2 text-sm focus:outline-none font-mono-custom text-center"
-                      style={inputStyle} />
-                  </div>
+                {stripeError && (
+                  <p className="text-xs rounded-sm px-3 py-2" style={{ background: "rgba(255,80,80,0.08)", border: "1px solid rgba(255,80,80,0.2)", color: "#ff6060" }}>
+                    {stripeError}
+                  </p>
                 )}
               </div>
               <div className="px-6 pb-6 flex-none">
                 <Button className="w-full rounded-sm h-10 text-sm font-medium" disabled={paying}
                   style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
-                  onClick={simulatePay}>
+                  onClick={redirectToStripe}>
                   {paying ? (
                     <span className="flex items-center gap-2">
                       <span className="h-4 w-4 rounded-full border-2 border-[#0a0a0b] border-t-transparent animate-spin" />
-                      Behandler...
+                      Sender til betaling...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
@@ -1871,7 +1882,7 @@ export default function Page() {
                   )}
                 </Button>
                 <p className="mt-2 text-center text-[10px]" style={{ color: "#3d3d40" }}>
-                  Sikker betaling. Pengene refunderes ikke etter nedlasting.
+                  Du sendes til Stripes sikre betalingsside. Pengene refunderes ikke etter nedlasting.
                 </p>
               </div>
             </>
