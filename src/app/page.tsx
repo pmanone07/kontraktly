@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   FileText, Home, Briefcase, Car, Shield, Users, Pen,
-  ChevronRight, ChevronLeft, Check, Star, ArrowRight,
+  ChevronRight, ChevronLeft, Check, Star, ArrowRight, ArrowUp,
   Download, Lock, Zap, Globe, Eye,
   Heart, BarChart2, ShoppingCart, Handshake, Truck, UserCheck, Banknote,
 } from "lucide-react";
@@ -1409,6 +1409,15 @@ export default function Page() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [fillOpen, setFillOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState<null | "personvern" | "vilkar" | "kontakt">(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const [paid, setPaid] = useState(false);
   const [paying, setPaying] = useState(false);
@@ -1530,7 +1539,14 @@ export default function Page() {
           <div className="flex items-center gap-3">
             <span className="hidden text-sm md:inline" style={{ color: "#7a7672" }}>
               Spørsmål?{" "}
-              <span className="cursor-pointer hover:underline" style={{ color: "#c9a85c" }}>Kontakt oss</span>
+              <button
+                type="button"
+                onClick={() => setInfoOpen("kontakt")}
+                className="cursor-pointer hover:underline bg-transparent border-0 p-0"
+                style={{ color: "#c9a85c" }}
+              >
+                Kontakt oss
+              </button>
             </span>
             <Button size="sm" className="h-8 rounded-sm text-xs"
               style={{ border: "1px solid rgba(201,168,92,0.3)", background: "transparent", color: "#c9a85c" }}>
@@ -1555,7 +1571,7 @@ export default function Page() {
           </h1>
           <p className="animate-fade-up delay-200 mx-auto mb-10 max-w-2xl text-[1.1rem] leading-relaxed" style={{ color: "#7a7672" }}>
             Fra freelance-oppdrag til leieavtaler — lag profesjonelle, juridisk solide kontrakter
-            på under 10 minutter. Last ned PDF og signer digitalt.
+            på under 10 minutter. Last ned ferdig kontrakt som PDF.
           </p>
           <div className="animate-fade-up delay-300 flex flex-wrap items-center justify-center gap-4">
             <a href="#kontrakter">
@@ -1571,7 +1587,7 @@ export default function Page() {
           </div>
           <div className="animate-fade-up delay-400 mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {[{ icon: Lock, text: "256-bit kryptering" }, { icon: Zap, text: "Klar på under 10 min" },
-              { icon: Globe, text: "Norsk lovgivning" }, { icon: Download, text: "PDF + digital signatur" }]
+              { icon: Globe, text: "Norsk lovgivning" }, { icon: Download, text: "Last ned PDF" }]
               .map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2 text-sm" style={{ color: "#7a7672" }}>
                   <Icon className="h-3.5 w-3.5" style={{ color: "#c9a85c" }} />
@@ -1706,10 +1722,10 @@ export default function Page() {
           <div className="animate-fade-up rounded-sm p-10 text-center"
             style={{ border: "1px solid rgba(201,168,92,0.2)", background: "linear-gradient(135deg, #111113, #0d0d0f)" }}>
             <h2 className="font-display mb-3 font-bold" style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", color: "#f0ede6" }}>
-              Klar til å beskytte deg selv?
+              Klar til å lage kontrakt?
             </h2>
             <p className="mb-7 text-sm" style={{ color: "#7a7672" }}>
-              Over 2 400 nordmenn har laget kontrakter med Kontraktly. Ingen binding — betal kun for det du trenger.
+              Ingen binding — betal kun for det du trenger.
             </p>
             <a href="#kontrakter">
               <Button size="lg" className="rounded-sm h-11 px-10 text-sm font-medium"
@@ -1731,14 +1747,43 @@ export default function Page() {
               <span className="font-display text-sm" style={{ color: "#7a7672" }}>Kontraktly</span>
             </div>
             <div className="flex gap-6 text-xs" style={{ color: "#7a7672" }}>
-              {["Personvern", "Vilkår", "Kontakt"].map((link) => (
-                <span key={link} className="cursor-pointer hover:text-[#c9a85c] transition-colors">{link}</span>
+              {([
+                { label: "Personvern", key: "personvern" as const },
+                { label: "Vilkår", key: "vilkar" as const },
+                { label: "Kontakt", key: "kontakt" as const },
+              ]).map((link) => (
+                <button
+                  key={link.key}
+                  type="button"
+                  onClick={() => setInfoOpen(link.key)}
+                  className="cursor-pointer hover:text-[#c9a85c] transition-colors bg-transparent border-0 p-0 text-xs"
+                  style={{ color: "#7a7672" }}
+                >
+                  {link.label}
+                </button>
               ))}
             </div>
             <p className="text-xs" style={{ color: "#3d3d40" }}>© 2025 Kontraktly AS</p>
           </div>
         </footer>
       </div>
+
+      {/* ── SCROLL TO TOP ── */}
+      <button
+        type="button"
+        aria-label="Til toppen"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={`fixed bottom-6 right-6 z-40 h-11 w-11 rounded-sm flex items-center justify-center transition-all duration-300 ${
+          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+        }`}
+        style={{
+          background: "linear-gradient(135deg, #c9a85c, #a07c30)",
+          color: "#0a0a0b",
+          boxShadow: "0 8px 24px rgba(201,168,92,0.25)",
+        }}
+      >
+        <ArrowUp className="h-5 w-5" />
+      </button>
 
       {/* ── FILL DIALOG ── */}
       <FillDialog
@@ -1926,6 +1971,172 @@ export default function Page() {
                 )}
               </Button>
             </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* ── INFO DIALOGS (Personvern / Vilkår / Kontakt) ── */}
+      <Dialog open={infoOpen !== null} onOpenChange={(o) => !o && setInfoOpen(null)}>
+        <DialogContent className="w-[95vw] max-w-2xl rounded-sm p-0 overflow-hidden flex flex-col"
+          style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 700px)" }}>
+          {infoOpen && (
+            <>
+              <DialogHeader className="px-6 pt-6 pb-4 flex-none" style={{ borderBottom: "1px solid rgba(201,168,92,0.1)" }}>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-sm"
+                    style={{ background: "rgba(201,168,92,0.12)" }}>
+                    {infoOpen === "personvern" && <Lock className="h-5 w-5" style={{ color: "#c9a85c" }} />}
+                    {infoOpen === "vilkar" && <FileText className="h-5 w-5" style={{ color: "#c9a85c" }} />}
+                    {infoOpen === "kontakt" && <Users className="h-5 w-5" style={{ color: "#c9a85c" }} />}
+                  </div>
+                  <div>
+                    <DialogTitle className="font-display text-base font-semibold" style={{ color: "#f0ede6" }}>
+                      {infoOpen === "personvern" && "Personvernerklæring"}
+                      {infoOpen === "vilkar" && "Bruksvilkår"}
+                      {infoOpen === "kontakt" && "Kontakt oss"}
+                    </DialogTitle>
+                    <p className="text-xs" style={{ color: "#7a7672" }}>
+                      {infoOpen === "personvern" && "Hvordan vi behandler dine data"}
+                      {infoOpen === "vilkar" && "Vilkår for bruk av Kontraktly"}
+                      {infoOpen === "kontakt" && "Vi svarer normalt innen 24 timer"}
+                    </p>
+                  </div>
+                </div>
+              </DialogHeader>
+              <div className="px-6 py-5 flex-1 overflow-y-auto min-h-0 space-y-4 text-sm" style={{ color: "#9a9690" }}>
+                {infoOpen === "personvern" && (
+                  <>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>1. Behandlingsansvarlig</h3>
+                      <p className="text-xs leading-relaxed">
+                        Kontraktly AS er behandlingsansvarlig for personopplysninger som samles inn gjennom tjenesten.
+                        Vi følger personopplysningsloven og GDPR.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>2. Hvilke data vi samler</h3>
+                      <p className="text-xs leading-relaxed">
+                        Vi samler kun det som er nødvendig for å generere din kontrakt: navn, adresse, organisasjonsnummer
+                        og andre felter du selv fyller inn. Betalingsinformasjon håndteres av Stripe og lagres aldri hos oss.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>3. Lagring</h3>
+                      <p className="text-xs leading-relaxed">
+                        Kontraktdata genereres on-demand og lagres ikke på våre servere etter at PDF-en er levert.
+                        E-postkvitteringer fra Stripe oppbevares i henhold til norsk regnskapslov (5 år).
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>4. Dine rettigheter</h3>
+                      <p className="text-xs leading-relaxed">
+                        Du har rett til innsyn, retting og sletting av dine personopplysninger. Send forespørsel til
+                        <span style={{ color: "#c9a85c" }}> personvern@kontraktly.no</span>.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>5. Cookies</h3>
+                      <p className="text-xs leading-relaxed">
+                        Vi bruker kun strengt nødvendige cookies for at tjenesten skal fungere. Ingen sporing eller analyse
+                        uten ditt samtykke.
+                      </p>
+                    </section>
+                  </>
+                )}
+                {infoOpen === "vilkar" && (
+                  <>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>1. Tjenesten</h3>
+                      <p className="text-xs leading-relaxed">
+                        Kontraktly leverer maler for juridiske dokumenter tilpasset norsk lovverk. Malene er utgangspunkt
+                        og erstatter ikke individuell juridisk rådgivning.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>2. Pris og betaling</h3>
+                      <p className="text-xs leading-relaxed">
+                        Pris per kontrakt er oppgitt før kjøp. Betaling skjer via Stripe. Mva. kommer i tillegg
+                        for kunder med norsk fakturaadresse.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>3. Levering</h3>
+                      <p className="text-xs leading-relaxed">
+                        Etter fullført betaling genereres PDF-en umiddelbart og kan lastes ned direkte i nettleseren.
+                        Levering anses som fullført ved nedlasting.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>4. Angrerett</h3>
+                      <p className="text-xs leading-relaxed">
+                        Da tjenesten er digitalt innhold som leveres umiddelbart, frafaller angreretten ved fullført
+                        kjøp jf. angrerettloven §22 bokstav n.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>5. Ansvarsbegrensning</h3>
+                      <p className="text-xs leading-relaxed">
+                        Kontraktly er ikke ansvarlig for økonomisk tap som følge av at malene brukes uten kvalifisert
+                        gjennomgang. Bruken skjer på eget ansvar.
+                      </p>
+                    </section>
+                    <section>
+                      <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>6. Tvister</h3>
+                      <p className="text-xs leading-relaxed">
+                        Avtalen reguleres av norsk rett. Eventuelle tvister søkes løst ved minnelig overenskomst, og
+                        ellers ved Oslo tingrett.
+                      </p>
+                    </section>
+                  </>
+                )}
+                {infoOpen === "kontakt" && (
+                  <>
+                    <section>
+                      <p className="text-xs leading-relaxed">
+                        Spørsmål om en kontrakt, faktura eller tjenesten generelt? Vi hjelper gjerne.
+                      </p>
+                    </section>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
+                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
+                          Generell support
+                        </p>
+                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>hei@kontraktly.no</p>
+                        <p className="text-xs" style={{ color: "#7a7672" }}>Svar innen 24 timer</p>
+                      </div>
+                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
+                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
+                          Personvern
+                        </p>
+                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>personvern@kontraktly.no</p>
+                        <p className="text-xs" style={{ color: "#7a7672" }}>GDPR-forespørsler</p>
+                      </div>
+                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
+                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
+                          Faktura
+                        </p>
+                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>faktura@kontraktly.no</p>
+                        <p className="text-xs" style={{ color: "#7a7672" }}>Org.nr og bestillinger</p>
+                      </div>
+                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
+                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
+                          Postadresse
+                        </p>
+                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>Kontraktly AS</p>
+                        <p className="text-xs" style={{ color: "#7a7672" }}>Karl Johans gate 1, 0154 Oslo</p>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="px-6 pb-6 flex-none">
+                <Button className="w-full rounded-sm h-10 text-sm"
+                  style={{ border: "1px solid rgba(201,168,92,0.2)", background: "transparent", color: "#7a7672" }}
+                  onClick={() => setInfoOpen(null)}>
+                  Lukk
+                </Button>
+              </div>
+            </>
           )}
         </DialogContent>
       </Dialog>
