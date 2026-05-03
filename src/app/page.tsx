@@ -1625,18 +1625,21 @@ export default function Page() {
         />
 
         {/* NAV */}
-        <nav className="flex items-center justify-between px-6 py-5 md:px-12 animate-fade-in">
-          <a href="/" className="flex items-center" aria-label="Kontraktly — til forsiden">
-            <Image
-              src="/logo.png"
-              alt="Kontraktly"
-              width={140}
-              height={140}
-              priority
-              className="h-12 w-auto"
-            />
-          </a>
-          <div className="flex items-center gap-3">
+        <nav className="grid grid-cols-3 items-center px-6 py-5 md:px-12 animate-fade-in">
+          <div />
+          <div className="flex justify-center">
+            <a href="/" className="flex items-center" aria-label="Kontraktly — til forsiden">
+              <Image
+                src="/logo.png"
+                alt="Kontraktly"
+                width={240}
+                height={240}
+                priority
+                className="h-20 md:h-24 w-auto"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-end gap-3">
             <span className="hidden text-sm md:inline" style={{ color: "#7a7672" }}>
               Spørsmål?{" "}
               <button
