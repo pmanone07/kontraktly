@@ -1194,12 +1194,14 @@ function FillDialog({
   const [values, setValues] = useState<Record<string, string>>({});
   const [step, setStep] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
+  const [confirmClose, setConfirmClose] = useState(false);
 
   if (!contract) return null;
 
   const groups = contract.fieldGroups;
   const currentGroup = groups[step];
   const isLast = step === groups.length - 1;
+  const hasInput = Object.values(values).some((v) => v.trim() !== "");
 
   const setField = (key: string, val: string) =>
     setValues((prev) => ({ ...prev, [key]: val }));
@@ -1208,7 +1210,16 @@ function FillDialog({
     setValues({});
     setStep(0);
     setShowPreview(false);
+    setConfirmClose(false);
     onClose();
+  };
+
+  const requestClose = () => {
+    if (hasInput) {
+      setConfirmClose(true);
+    } else {
+      handleClose();
+    }
   };
 
   const handleNext = () => {
@@ -1223,7 +1234,7 @@ function FillDialog({
   const preview = contract.buildPreview(values);
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={open} onOpenChange={(o) => { if (!o) requestClose(); }}>
       <DialogContent
         className="w-[95vw] max-w-5xl rounded-sm p-0 flex flex-col"
         style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 620px)", overflow: "hidden" }}
@@ -1367,6 +1378,45 @@ function FillDialog({
             )}
           </Button>
         </div>
+
+        {/* Confirm close overlay */}
+        {confirmClose && (
+          <div
+            className="absolute inset-0 z-50 flex items-center justify-center p-4"
+            style={{ background: "rgba(10,10,11,0.85)", backdropFilter: "blur(4px)" }}
+          >
+            <div
+              className="w-full max-w-sm rounded-sm p-5"
+              style={{ border: "1px solid rgba(201,168,92,0.25)", background: "#0f0f11" }}
+            >
+              <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>
+                Er du sikker på at du vil lukke?
+              </h3>
+              <p className="text-xs leading-relaxed mb-4" style={{ color: "#7a7672" }}>
+                Du mister all innfylt informasjon, og må fylle ut kontrakten på nytt om du ombestemmer deg.
+              </p>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="rounded-sm h-8 px-3 text-xs"
+                  style={{ color: "#7a7672" }}
+                  onClick={() => setConfirmClose(false)}
+                >
+                  Nei, fortsett
+                </Button>
+                <Button
+                  size="sm"
+                  className="rounded-sm h-8 px-3 text-xs font-medium"
+                  style={{ background: "rgba(255,80,80,0.15)", border: "1px solid rgba(255,80,80,0.35)", color: "#ff8080" }}
+                  onClick={handleClose}
+                >
+                  Ja, lukk
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
