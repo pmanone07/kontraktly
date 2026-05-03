@@ -1445,6 +1445,7 @@ export default function Page() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [fillOpen, setFillOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [confirmCheckoutClose, setConfirmCheckoutClose] = useState(false);
   const [infoOpen, setInfoOpen] = useState<null | "personvern" | "vilkar" | "kontakt">(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -1889,7 +1890,21 @@ export default function Page() {
       </Dialog>
 
       {/* ── CHECKOUT DIALOG ── */}
-      <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
+      <Dialog
+        open={checkoutOpen}
+        onOpenChange={(o) => {
+          if (!o) {
+            if (paid) {
+              setCheckoutOpen(false);
+              setConfirmCheckoutClose(false);
+            } else {
+              setConfirmCheckoutClose(true);
+            }
+          } else {
+            setCheckoutOpen(true);
+          }
+        }}
+      >
         <DialogContent className="w-[95vw] max-w-lg rounded-sm p-0 overflow-hidden flex flex-col"
           style={{ border: "1px solid rgba(201,168,92,0.2)", background: "#0f0f11", maxHeight: "min(92dvh, 700px)" }}>
           {checkoutContract && !paid && (
@@ -2001,6 +2016,51 @@ export default function Page() {
                   </span>
                 )}
               </Button>
+            </div>
+          )}
+
+          {/* Confirm close overlay */}
+          {confirmCheckoutClose && !paid && (
+            <div
+              className="absolute inset-0 z-50 flex items-center justify-center p-4"
+              style={{ background: "rgba(10,10,11,0.85)", backdropFilter: "blur(4px)" }}
+            >
+              <div
+                className="w-full max-w-sm rounded-sm p-5"
+                style={{ border: "1px solid rgba(201,168,92,0.25)", background: "#0f0f11" }}
+              >
+                <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>
+                  Er du sikker på at du vil lukke?
+                </h3>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: "#7a7672" }}>
+                  Du mister all innfylt informasjon, og må fylle ut kontrakten på nytt om du ombestemmer deg.
+                </p>
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="rounded-sm h-8 px-3 text-xs"
+                    style={{ color: "#7a7672" }}
+                    onClick={() => setConfirmCheckoutClose(false)}
+                  >
+                    Nei, fortsett
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="rounded-sm h-8 px-3 text-xs font-medium"
+                    style={{ background: "rgba(255,80,80,0.15)", border: "1px solid rgba(255,80,80,0.35)", color: "#ff8080" }}
+                    onClick={() => {
+                      setConfirmCheckoutClose(false);
+                      setCheckoutOpen(false);
+                      setFilledValues({});
+                      setCheckoutContract(null);
+                      setStripeError(null);
+                    }}
+                  >
+                    Ja, lukk
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </DialogContent>
