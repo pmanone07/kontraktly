@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -1625,15 +1626,16 @@ export default function Page() {
 
         {/* NAV */}
         <nav className="flex items-center justify-between px-6 py-5 md:px-12 animate-fade-in">
-          <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-sm flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)" }}>
-              <FileText className="h-4 w-4 text-black" />
-            </div>
-            <span className="font-display text-lg font-semibold tracking-tight" style={{ color: "#f0ede6" }}>
-              Kontraktly
-            </span>
-          </div>
+          <a href="/" className="flex items-center" aria-label="Kontraktly — til forsiden">
+            <Image
+              src="/logo.png"
+              alt="Kontraktly"
+              width={140}
+              height={140}
+              priority
+              className="h-12 w-auto"
+            />
+          </a>
           <div className="flex items-center gap-3">
             <span className="hidden text-sm md:inline" style={{ color: "#7a7672" }}>
               Spørsmål?{" "}
@@ -1841,13 +1843,13 @@ export default function Page() {
         {/* FOOTER */}
         <footer className="px-6 py-8 md:px-12" style={{ borderTop: "1px solid rgba(201,168,92,0.1)" }}>
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <div className="h-5 w-5 rounded-sm flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)" }}>
-                <FileText className="h-3 w-3 text-black" />
-              </div>
-              <span className="font-display text-sm" style={{ color: "#7a7672" }}>Kontraktly</span>
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Kontraktly"
+              width={100}
+              height={100}
+              className="h-9 w-auto opacity-80"
+            />
             <div className="flex gap-6 text-xs" style={{ color: "#7a7672" }}>
               {([
                 { label: "Personvern", key: "personvern" as const },
