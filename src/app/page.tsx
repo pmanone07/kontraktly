@@ -1436,6 +1436,57 @@ const TESTIMONIALS = [
   { name: "Sofie Bakke", role: "Daglig leder, Bakke Digital AS", text: "Har brukt Kontraktly for NDA-er og konsulentavtaler. Sparer oss for advokattimer hvert kvartal.", stars: 5 },
 ];
 
+const SITE_URL = "https://www.kontraktly.no";
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Kontraktly",
+  url: SITE_URL,
+  description: "Norsk tjeneste for å lage profesjonelle, juridisk solide kontrakter på under 10 minutter.",
+  areaServed: "NO",
+  inLanguage: "nb-NO",
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Kontraktly",
+  url: SITE_URL,
+  inLanguage: "nb-NO",
+};
+
+const productListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Kontrakter — maler tilpasset norsk lovgivning",
+  itemListElement: CONTRACT_TYPES.map((c, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Product",
+      name: c.label,
+      description: c.description,
+      brand: { "@type": "Brand", name: "Kontraktly" },
+      category: "Juridiske kontrakter",
+      url: `${SITE_URL}/#kontrakter`,
+      offers: {
+        "@type": "Offer",
+        price: c.price.toFixed(2),
+        priceCurrency: "NOK",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/#kontrakter`,
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: c.price.toFixed(2),
+          priceCurrency: "NOK",
+          valueAddedTaxIncluded: true,
+        },
+      },
+    },
+  })),
+};
+
 export default function Page() {
   const [previewContract, setPreviewContract] = useState<ContractType | null>(null);
   const [fillContract, setFillContract] = useState<ContractType | null>(null);
@@ -1558,6 +1609,20 @@ export default function Page() {
       </div>
 
       <div className="relative z-10">
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }}
+        />
+
         {/* NAV */}
         <nav className="flex items-center justify-between px-6 py-5 md:px-12 animate-fade-in">
           <div className="flex items-center gap-2">
@@ -1603,8 +1668,8 @@ export default function Page() {
             <br />
           </h1>
           <p className="animate-fade-up delay-200 mx-auto mb-10 max-w-2xl text-[1.1rem] leading-relaxed" style={{ color: "#7a7672" }}>
-            Fra freelance-oppdrag til leieavtaler — lag profesjonelle, juridisk solide kontrakter
-            på under 10 minutter. Last ned ferdig kontrakt som PDF.
+            Fra freelance-kontrakt og leiekontrakt til NDA og arbeidsavtale — lag profesjonelle,
+            juridisk solide kontrakter tilpasset norsk lovgivning på under 10 minutter. Last ned som PDF.
           </p>
           <div className="animate-fade-up delay-300 flex flex-wrap items-center justify-center gap-4">
             <a href="#kontrakter">
@@ -1658,10 +1723,14 @@ export default function Page() {
               Velg kontrakt
             </span>
           </div>
-          <h2 className="font-display animate-fade-up delay-100 mb-12 text-center font-bold"
+          <h2 className="font-display animate-fade-up delay-100 mb-4 text-center font-bold"
             style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: "#f0ede6" }}>
-            Alt du trenger, én plass.
+            Kontraktmaler tilpasset norsk lovgivning
           </h2>
+          <p className="animate-fade-up delay-150 mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed" style={{ color: "#7a7672" }}>
+            Freelance-kontrakt, leiekontrakt, NDA, arbeidskontrakt og flere — ferdig formulert,
+            klar til signering. Last ned som PDF.
+          </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {CONTRACT_TYPES.map((contract, i) => {
               const Icon = contract.icon;
