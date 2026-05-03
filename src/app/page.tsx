@@ -1185,13 +1185,11 @@ function FillDialog({
   open,
   onClose,
   onProceedToCheckout,
-  download,
 }: {
   contract: ContractType | null;
   open: boolean;
   onClose: () => void;
   onProceedToCheckout: (values: Record<string, string>) => void;
-  download: (label: string, text: string) => Promise<void>;
 }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [step, setStep] = useState(0);
@@ -1358,18 +1356,6 @@ function FillDialog({
 
           <Button
             size="sm"
-            variant="ghost"
-            className="rounded-sm h-8 px-3 text-xs flex-none"
-            style={{ color: "rgba(201,168,92,0.6)", border: "1px solid rgba(201,168,92,0.15)" }}
-            onClick={async () => {
-              await download(contract.label, contract.buildPreview(values));
-            }}
-          >
-            <Download className="h-3 w-3 mr-1" />Test
-          </Button>
-
-          <Button
-            size="sm"
             className="rounded-sm h-8 px-4 text-xs font-medium flex-none"
             style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
             onClick={handleNext}
@@ -1502,10 +1488,6 @@ export default function Page() {
       setPaying(false);
     }
   }, [checkoutContract, filledValues]);
-
-  const downloadTest = async (contract: ContractType, values: Record<string, string> = {}) => {
-    await download(contract.label, contract.buildPreview(values));
-  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -1791,7 +1773,6 @@ export default function Page() {
         open={fillOpen}
         onClose={() => setFillOpen(false)}
         onProceedToCheckout={proceedToCheckout}
-        download={download}
       />
 
       {/* ── PREVIEW DIALOG ── */}
