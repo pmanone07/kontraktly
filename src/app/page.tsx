@@ -60,7 +60,7 @@ const CONTRACT_TYPES: ContractType[] = [
     icon: Briefcase,
     label: "Freelance-kontrakt",
     description: "For selvstendige konsulenter, designere, utviklere og kreative.",
-    price: 49,
+    price: 59,
     popular: true,
     color: "#c9a85c",
     features: ["Betalingsbetingelser og fakturering", "Leveranser og milepæler", "Immaterielle rettigheter", "Konfidensialitetsklausul", "Oppsigelsesvilkår", "Ansvarsbegrensning"],
@@ -144,7 +144,7 @@ Oppdragsgiver              Frilanser`,
     icon: Home,
     label: "Leiekontrakt",
     description: "Husleiekontrakt for utleie av bolig, leilighet eller hybel.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#7eb8a4",
     features: ["Leieperiode og oppsigelse", "Depositum og husleie", "Vedlikeholdsansvar", "Husordensregler", "Inventarliste", "Fraflyttingsvilkår"],
@@ -232,7 +232,7 @@ Utleier                    Leietaker`,
     icon: Car,
     label: "Bil-kjøpskontrakt",
     description: "Trygg overdragelse av kjøretøy mellom privatpersoner.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#8b7eb8",
     features: ["Kjøretøydetaljer og kilometerstand", "Pris og betalingsform", "Kjøretøyets tilstand", "Garanti og reklamasjon", "Overdragelse av eierskap", "Angrerett og ansvar"],
@@ -315,7 +315,7 @@ Selger                     Kjøper`,
     icon: Shield,
     label: "Konfidensialitetsavtale",
     description: "NDA for å beskytte forretningshemmeligheter og sensitiv info.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#b87e7e",
     features: ["Ensidig eller gjensidig NDA", "Definisjon av konfidensiell info", "Unntak og fritak", "Varighet og opphør", "Sanksjoner ved brudd", "Jurisdiksjon"],
@@ -382,7 +382,7 @@ Part A                     Part B`,
     icon: Users,
     label: "Arbeidskontrakt",
     description: "Fullstendig ansettelsesavtale i tråd med arbeidsmiljøloven.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#7ea8b8",
     features: ["Stillingsbeskrivelse og tittel", "Lønn, bonus og feriepenger", "Arbeidstid og overtid", "Prøvetid og oppsigelse", "Taushetsplikt", "Konkurranseklausul"],
@@ -470,7 +470,7 @@ Arbeidsgiver               Arbeidstaker`,
     icon: Pen,
     label: "Konsulentavtale",
     description: "Rammeavtale mellom to selskaper for løpende konsulentbistand.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#c9a85c",
     features: ["Tjenesteomfang og SOW", "Faktureringsrate og vilkår", "SLA og leveransekrav", "Endringshåndtering", "Immaterielle rettigheter", "Eksklusivitetsklausul"],
@@ -545,7 +545,7 @@ Oppdragsgiver              Leverandør`,
     icon: Heart,
     label: "Samboerkontrakt",
     description: "Regulerer eierforhold, økonomi og rettigheter mellom samboere.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#b87e9e",
     features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
@@ -633,7 +633,7 @@ ${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
     icon: Banknote,
     label: "Låneavtale",
     description: "Privat låneavtale mellom venner, familie eller bekjente.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#7eb87e",
     features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
@@ -709,7 +709,7 @@ Långiver                   Låntaker`,
     icon: BarChart2,
     label: "Aksjonæravtale",
     description: "Regulerer rettigheter og plikter mellom aksjonærer i et AS.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#7e9eb8",
     features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
@@ -794,7 +794,7 @@ ${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")
     icon: Truck,
     label: "Distribusjonsavtale",
     description: "Avtale mellom produsent og distributør for salg av varer.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#b8a07e",
     features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
@@ -871,7 +871,7 @@ Leverandør                 Distributør`,
     icon: UserCheck,
     label: "Agentavtale",
     description: "Avtale mellom selskap og salgsagent for representasjon og salg.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#9eb87e",
     features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
@@ -952,7 +952,7 @@ Oppdragsgiver              Agent`,
     icon: Handshake,
     label: "Partneravtale",
     description: "Joint venture eller samarbeidsavtale mellom to selskaper.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#7e8eb8",
     features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
@@ -1037,7 +1037,7 @@ Part A                     Part B`,
     icon: ShoppingCart,
     label: "Kjøpskontrakt",
     description: "Generell kontrakt for kjøp og salg av varer eller tjenester.",
-    price: 49,
+    price: 59,
     popular: false,
     color: "#8bb87e",
     features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
@@ -1855,17 +1855,17 @@ export default function Page() {
                 <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
                   <div className="flex justify-between text-sm mb-2">
                     <span style={{ color: "#7a7672" }}>{checkoutContract.label}</span>
-                    <span style={{ color: "#f0ede6" }}>{checkoutContract.price} kr</span>
+                    <span style={{ color: "#f0ede6" }}>{(checkoutContract.price / 1.25).toFixed(2)} kr</span>
                   </div>
                   <div className="flex justify-between text-sm mb-2">
                     <span style={{ color: "#7a7672" }}>MVA (25%)</span>
-                    <span style={{ color: "#7a7672" }}>{Math.round(checkoutContract.price * 0.25)} kr</span>
+                    <span style={{ color: "#7a7672" }}>{(checkoutContract.price - checkoutContract.price / 1.25).toFixed(2)} kr</span>
                   </div>
                   <Separator style={{ margin: "8px 0", background: "rgba(201,168,92,0.1)" }} />
                   <div className="flex justify-between text-sm font-medium">
                     <span style={{ color: "#f0ede6" }}>Totalt</span>
                     <span className="font-mono-custom" style={{ color: "#c9a85c" }}>
-                      {Math.round(checkoutContract.price * 1.25)} kr
+                      {checkoutContract.price} kr
                     </span>
                   </div>
                 </div>
@@ -1903,7 +1903,7 @@ export default function Page() {
                   ) : (
                     <span className="flex items-center gap-2">
                       <Lock className="h-3.5 w-3.5" />
-                      Betal {Math.round(checkoutContract.price * 1.25)} kr
+                      Betal {checkoutContract.price} kr
                     </span>
                   )}
                 </Button>

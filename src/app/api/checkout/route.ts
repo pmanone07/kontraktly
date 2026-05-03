@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
             name: contractLabel,
             description: "Juridisk bindende kontrakt — PDF-nedlasting etter betaling",
           },
-          unit_amount: Math.round(price * 1.25 * 100), // øre inkl. MVA
+          unit_amount: Math.round(price * 100), // øre, prisen er allerede inkl. MVA
         },
         quantity: 1,
       },
