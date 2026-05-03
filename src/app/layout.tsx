@@ -54,7 +54,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="no" className="h-full">
-      <body className="noise min-h-full antialiased">
+      <body className="min-h-full antialiased" style={{ background: "#000" }}>
         {children}
         <Analytics />
       </body>

@@ -1593,21 +1593,7 @@ export default function Page() {
   }, [checkoutContract, filledValues]);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      {/* Background grid */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.025]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(201,168,92,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,92,1) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full opacity-[0.04]"
-          style={{ background: "radial-gradient(circle, #c9a85c, transparent 70%)" }} />
-        <div className="absolute top-[60%] -left-40 h-[500px] w-[500px] rounded-full opacity-[0.03]"
-          style={{ background: "radial-gradient(circle, #7eb8a4, transparent 70%)" }} />
-      </div>
+    <div className="relative min-h-screen overflow-x-hidden" style={{ background: "#000" }}>
 
       <div className="relative z-10">
         {/* JSON-LD structured data */}
@@ -1632,29 +1618,12 @@ export default function Page() {
               <Image
                 src="/logo.png"
                 alt="Kontraktly"
-                width={240}
-                height={240}
+                width={440}
+                height={440}
                 priority
-                className="h-20 md:h-24 w-auto"
+                className="h-40 md:h-44 w-auto"
               />
             </a>
-          </div>
-          <div className="flex items-center justify-end gap-3">
-            <span className="hidden text-sm md:inline" style={{ color: "#7a7672" }}>
-              Spørsmål?{" "}
-              <button
-                type="button"
-                onClick={() => setInfoOpen("kontakt")}
-                className="cursor-pointer hover:underline bg-transparent border-0 p-0"
-                style={{ color: "#c9a85c" }}
-              >
-                Kontakt oss
-              </button>
-            </span>
-            <Button size="sm" className="h-8 rounded-sm text-xs"
-              style={{ border: "1px solid rgba(201,168,92,0.3)", background: "transparent", color: "#c9a85c" }}>
-              Logg inn
-            </Button>
           </div>
         </nav>
 
@@ -1870,7 +1839,7 @@ export default function Page() {
                 </button>
               ))}
             </div>
-            <p className="text-xs" style={{ color: "#3d3d40" }}>© 2025 Kontraktly AS</p>
+            <p className="text-xs" style={{ color: "#3d3d40" }}>© 2026 Kontraktly AS</p>
           </div>
         </footer>
       </div>
