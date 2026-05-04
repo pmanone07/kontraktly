@@ -1618,10 +1618,10 @@ export default function Page() {
               <Image
                 src="/logo.png"
                 alt="Kontraktly"
-                width={440}
-                height={440}
+                width={240}
+                height={240}
                 priority
-                className="h-40 md:h-44 w-auto"
+                className="md:h-24 w-44"
               />
             </a>
           </div>
