@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   },
   description:
     "Lag profesjonelle, juridisk solide kontrakter tilpasset norsk lovgivning. Freelance-kontrakt, leiekontrakt, NDA, arbeidsavtale og flere. Last ned som PDF — fra 59 kr.",
+  applicationName: "Kontraktly",
   keywords: [
     "kontraktmal",
     "freelance-kontrakt",
@@ -44,10 +45,14 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
-  icons: { icon: "/favicon.ico" },
   verification: {
     google: "h17zDkGqYNgCfBD0p622NywMkbLRHxRTCZ-Gi9z1DVQ",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0b",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

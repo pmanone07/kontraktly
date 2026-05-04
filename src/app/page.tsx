@@ -1488,6 +1488,51 @@ const productListJsonLd = {
   })),
 };
 
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "Er kontraktene juridisk gyldige i Norge?",
+    a: "Ja. Alle malene er utformet etter norsk lovgivning — blant annet avtaleloven, husleieloven og arbeidsmiljøloven der det er relevant. Når begge parter har signert, er kontrakten bindende på lik linje med en avtale skrevet av en advokat.",
+  },
+  {
+    q: "Trenger jeg advokat for å bruke kontraktene?",
+    a: "Nei, ikke for standard situasjoner. Malene dekker de vanligste behovene for freelance-oppdrag, leieforhold, NDA, arbeidsavtaler og lignende. For spesielt komplekse forhold (f.eks. store aksjonæravtaler) anbefaler vi alltid en juridisk gjennomgang.",
+  },
+  {
+    q: "Hvordan signeres kontrakten?",
+    a: "Du laster ned kontrakten som PDF og kan enten skrive den ut og signere fysisk, eller bruke en e-signaturløsning som BankID, Signicat eller DocuSign. Begge formene er juridisk bindende i Norge.",
+  },
+  {
+    q: "Kan jeg tilpasse innholdet i malen?",
+    a: "Ja. Du fyller inn dine egne opplysninger i et enkelt skjema, og kontrakten bygges automatisk med riktig formulering. Etter nedlasting er PDF-en din å redigere videre om du ønsker.",
+  },
+  {
+    q: "Hva koster det?",
+    a: "Du betaler kun per kontrakt — fra 59 kr. Ingen abonnement, ingen skjulte gebyrer, og ingen binding. Prisene er inkludert mva.",
+  },
+  {
+    q: "Hvilke betalingsmetoder kan jeg bruke?",
+    a: "Du kan betale med kort (Visa, Mastercard) via Stripe. Vipps kommer som betalingsmetode senere.",
+  },
+  {
+    q: "Får jeg refusjon hvis jeg ikke er fornøyd?",
+    a: "Siden produktet leveres som en digital fil med umiddelbar nedlasting, faller kjøpet utenfor angreretten etter angrerettsloven § 22. Vi anbefaler at du bruker forhåndsvisningen før du betaler. Ta kontakt om noe er feil — vi løser det.",
+  },
+  {
+    q: "Hvor lagres dataene mine?",
+    a: "Vi lagrer kun det som trengs for å levere kontrakten og fakturere. Skjemadataene oppbevares trygt i nettleseren under utfylling, og ingen kontraktinformasjon deles med tredjeparter utover betalingsleverandør.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default function Page() {
   const [previewContract, setPreviewContract] = useState<ContractType | null>(null);
   const [fillContract, setFillContract] = useState<ContractType | null>(null);
@@ -1608,6 +1653,10 @@ export default function Page() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
 
         {/* NAV */}
@@ -1789,6 +1838,42 @@ export default function Page() {
                   <p className="text-xs" style={{ color: "#7a7672" }}>{t.role}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="mx-auto max-w-3xl px-6 pb-24 scroll-mt-8">
+          <div className="ornament mb-4 animate-fade-up">
+            <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
+              Ofte stilte spørsmål
+            </span>
+          </div>
+          <h2 className="font-display animate-fade-up delay-100 mb-10 text-center font-bold"
+            style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", color: "#f0ede6" }}>
+            Spørsmål og svar
+          </h2>
+          <div className="space-y-3">
+            {FAQS.map((item, i) => (
+              <details
+                key={item.q}
+                className={`group animate-fade-up delay-${Math.min((i + 1) * 50, 300)} rounded-sm overflow-hidden`}
+                style={{ border: "1px solid rgba(201,168,92,0.12)", background: "#111113" }}
+              >
+                <summary
+                  className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 list-none"
+                  style={{ color: "#f0ede6" }}
+                >
+                  <span className="font-display text-[0.95rem] font-medium">{item.q}</span>
+                  <ChevronRight
+                    className="h-4 w-4 flex-shrink-0 transition-transform duration-200 group-open:rotate-90"
+                    style={{ color: "#c9a85c" }}
+                  />
+                </summary>
+                <div className="px-5 pb-4 text-sm leading-relaxed" style={{ color: "#a09c97" }}>
+                  {item.a}
+                </div>
+              </details>
             ))}
           </div>
         </section>
