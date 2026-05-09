@@ -1439,11 +1439,34 @@ const TESTIMONIALS = [
 
 const SITE_URL = "https://www.kontraktly.no";
 
+const aggregateRating = {
+  "@type": "AggregateRating",
+  ratingValue: (
+    TESTIMONIALS.reduce((s, t) => s + t.stars, 0) / TESTIMONIALS.length
+  ).toFixed(1),
+  bestRating: "5",
+  worstRating: "1",
+  reviewCount: TESTIMONIALS.length,
+};
+
+const reviewsJsonLd = TESTIMONIALS.map((t) => ({
+  "@type": "Review",
+  reviewRating: {
+    "@type": "Rating",
+    ratingValue: t.stars,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  author: { "@type": "Person", name: t.name },
+  reviewBody: t.text,
+}));
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Kontraktly",
   url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   description: "Norsk tjeneste for å lage profesjonelle, juridisk solide kontrakter på under 10 minutter.",
   areaServed: "NO",
   inLanguage: "nb-NO",
@@ -1471,6 +1494,8 @@ const productListJsonLd = {
       brand: { "@type": "Brand", name: "Kontraktly" },
       category: "Juridiske kontrakter",
       url: `${SITE_URL}/#kontrakter`,
+      aggregateRating,
+      review: reviewsJsonLd,
       offers: {
         "@type": "Offer",
         price: c.price.toFixed(2),
@@ -1486,6 +1511,34 @@ const productListJsonLd = {
       },
     },
   })),
+};
+
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Slik lager du en juridisk gyldig kontrakt på Kontraktly",
+  description:
+    "Tre enkle steg fra valg av mal til ferdig signert PDF — under 10 minutter.",
+  inLanguage: "nb-NO",
+  totalTime: "PT10M",
+  estimatedCost: { "@type": "MonetaryAmount", currency: "NOK", value: "59" },
+  step: STEPS.map((s, i) => ({
+    "@type": "HowToStep",
+    position: i + 1,
+    name: s.title,
+    text: s.desc,
+    url: `${SITE_URL}/#kontrakter`,
+  })),
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Forsiden", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Kontrakter", item: `${SITE_URL}/#kontrakter` },
+    { "@type": "ListItem", position: 3, name: "Spørsmål og svar", item: `${SITE_URL}/#faq` },
+  ],
 };
 
 const FAQS: { q: string; a: string }[] = [
@@ -1652,7 +1705,15 @@ export default function Page() {
         />
         <script
           type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
         />
         <script
           type="application/ld+json"
