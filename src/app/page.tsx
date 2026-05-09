@@ -193,34 +193,34 @@ function ContractCard({ contract, index }: { contract: ContractType; index: numb
           </Badge>
         </div>
       )}
-      <div className="mb-4 flex items-start justify-between">
-        <div className="flex h-10 w-10 items-center justify-center rounded-sm"
-          style={{ background: `${contract.color}18`, border: `1px solid ${contract.color}30` }}>
-          <Icon className="h-5 w-5" style={{ color: contract.color }} />
+      <Link href={`/kontrakter/${contract.id}`} className="flex flex-col flex-1 group/link" aria-label={`Mer om ${contract.label}`}>
+        <div className="mb-4 flex items-start justify-between">
+          <div className="flex h-10 w-10 items-center justify-center rounded-sm"
+            style={{ background: `${contract.color}18`, border: `1px solid ${contract.color}30` }}>
+            <Icon className="h-5 w-5" style={{ color: contract.color }} />
+          </div>
+          <span className="font-mono-custom text-xl font-medium" style={{ color: "#f0ede6" }}>
+            {contract.price}<span className="text-sm ml-0.5" style={{ color: "#7a7672" }}>kr</span>
+          </span>
         </div>
-        <span className="font-mono-custom text-xl font-medium" style={{ color: "#f0ede6" }}>
-          {contract.price}<span className="text-sm ml-0.5" style={{ color: "#7a7672" }}>kr</span>
-        </span>
-      </div>
-      <Link href={`/kontrakter/${contract.id}`} className="block group/link">
         <h3 className="font-display mb-1 text-[1.05rem] font-semibold transition-colors group-hover/link:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
           {contract.label}
         </h3>
+        <p className="mb-4 text-sm leading-relaxed" style={{ color: "#7a7672" }}>{contract.description}</p>
+        <ul className="mb-6 space-y-1.5 flex-1">
+          {contract.features.slice(0, 4).map((f) => (
+            <li key={f} className="flex items-center gap-2 text-xs" style={{ color: "#7a7672" }}>
+              <Check className="h-3 w-3 flex-shrink-0" style={{ color: "#c9a85c" }} />
+              {f}
+            </li>
+          ))}
+          {contract.features.length > 4 && (
+            <li className="text-xs" style={{ color: "rgba(201,168,92,0.5)" }}>
+              + {contract.features.length - 4} til...
+            </li>
+          )}
+        </ul>
       </Link>
-      <p className="mb-4 text-sm leading-relaxed" style={{ color: "#7a7672" }}>{contract.description}</p>
-      <ul className="mb-6 space-y-1.5 flex-1">
-        {contract.features.slice(0, 4).map((f) => (
-          <li key={f} className="flex items-center gap-2 text-xs" style={{ color: "#7a7672" }}>
-            <Check className="h-3 w-3 flex-shrink-0" style={{ color: "#c9a85c" }} />
-            {f}
-          </li>
-        ))}
-        {contract.features.length > 4 && (
-          <li className="text-xs" style={{ color: "rgba(201,168,92,0.5)" }}>
-            + {contract.features.length - 4} til...
-          </li>
-        )}
-      </ul>
       <div className="flex gap-2">
         <Button size="sm" className="flex-1 rounded-sm h-9 text-xs font-medium"
           style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
