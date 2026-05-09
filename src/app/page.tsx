@@ -177,8 +177,8 @@ const faqJsonLd = {
 };
 
 function ContractCard({ contract, index }: { contract: ContractType; index: number }) {
-  const { openFill, openPreview } = useContractFlow();
   const Icon = contract.icon;
+  const href = `/kontrakter/${contract.id}`;
 
   return (
     <Card
@@ -193,7 +193,7 @@ function ContractCard({ contract, index }: { contract: ContractType; index: numb
           </Badge>
         </div>
       )}
-      <Link href={`/kontrakter/${contract.id}`} className="flex flex-col flex-1 group/link" aria-label={`Mer om ${contract.label}`}>
+      <Link href={href} className="flex flex-col flex-1 group/link" aria-label={`Mer om ${contract.label}`}>
         <div className="mb-4 flex items-start justify-between">
           <div className="flex h-10 w-10 items-center justify-center rounded-sm"
             style={{ background: `${contract.color}18`, border: `1px solid ${contract.color}30` }}>
@@ -222,16 +222,18 @@ function ContractCard({ contract, index }: { contract: ContractType; index: numb
         </ul>
       </Link>
       <div className="flex gap-2">
-        <Button size="sm" className="flex-1 rounded-sm h-9 text-xs font-medium"
-          style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
-          onClick={() => openFill(contract)}>
-          Lag kontrakt
-        </Button>
-        <Button size="sm" className="rounded-sm h-9 text-xs px-3"
-          style={{ border: "1px solid rgba(201,168,92,0.2)", background: "transparent", color: "#7a7672" }}
-          onClick={() => openPreview(contract)}>
-          Forhåndsvis
-        </Button>
+        <Link href={href} className="flex-1">
+          <Button size="sm" className="w-full rounded-sm h-9 text-xs font-medium"
+            style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}>
+            Lag kontrakt
+          </Button>
+        </Link>
+        <Link href={href}>
+          <Button size="sm" className="rounded-sm h-9 text-xs px-3"
+            style={{ border: "1px solid rgba(201,168,92,0.2)", background: "transparent", color: "#7a7672" }}>
+            Forhåndsvis
+          </Button>
+        </Link>
       </div>
     </Card>
   );
