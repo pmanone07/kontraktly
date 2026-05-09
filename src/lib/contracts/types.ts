@@ -31,6 +31,8 @@ export interface ContractSeo {
   faqs: ContractFaq[];
 }
 
+export type ContractCategory = "bedrift" | "privat" | "naringsliv";
+
 export interface ContractType {
   id: string;
   icon: ElementType;
@@ -39,6 +41,7 @@ export interface ContractType {
   price: number;
   popular: boolean;
   color: string;
+  category: ContractCategory;
   features: string[];
   fieldGroups: FieldGroup[];
   buildPreview: (values: Record<string, string>) => string;

@@ -14,6 +14,7 @@ export const CONTRACT_TYPES: ContractType[] = [
     price: 59,
     popular: true,
     color: "#c9a85c",
+    category: "bedrift",
     features: ["Betalingsbetingelser og fakturering", "Leveranser og milepæler", "Immaterielle rettigheter", "Konfidensialitetsklausul", "Oppsigelsesvilkår", "Ansvarsbegrensning"],
     fieldGroups: [
       {
@@ -134,6 +135,7 @@ Oppdragsgiver              Frilanser`,
     price: 59,
     popular: false,
     color: "#7eb8a4",
+    category: "privat",
     features: ["Leieperiode og oppsigelse", "Depositum og husleie", "Vedlikeholdsansvar", "Husordensregler", "Inventarliste", "Fraflyttingsvilkår"],
     fieldGroups: [
       {
@@ -259,6 +261,7 @@ Utleier                    Leietaker`,
     price: 59,
     popular: false,
     color: "#8b7eb8",
+    category: "privat",
     features: ["Kjøretøydetaljer og kilometerstand", "Pris og betalingsform", "Kjøretøyets tilstand", "Garanti og reklamasjon", "Overdragelse av eierskap", "Angrerett og ansvar"],
     fieldGroups: [
       {
@@ -378,6 +381,7 @@ Selger                     Kjøper`,
     price: 59,
     popular: false,
     color: "#b87e7e",
+    category: "bedrift",
     features: ["Ensidig eller gjensidig NDA", "Definisjon av konfidensiell info", "Unntak og fritak", "Varighet og opphør", "Sanksjoner ved brudd", "Jurisdiksjon"],
     fieldGroups: [
       {
@@ -482,6 +486,7 @@ Part A                     Part B`,
     price: 59,
     popular: false,
     color: "#7ea8b8",
+    category: "bedrift",
     features: ["Stillingsbeskrivelse og tittel", "Lønn, bonus og feriepenger", "Arbeidstid og overtid", "Prøvetid og oppsigelse", "Taushetsplikt", "Konkurranseklausul"],
     fieldGroups: [
       {
@@ -607,6 +612,7 @@ Arbeidsgiver               Arbeidstaker`,
     price: 59,
     popular: false,
     color: "#c9a85c",
+    category: "bedrift",
     features: ["Tjenesteomfang og SOW", "Faktureringsrate og vilkår", "SLA og leveransekrav", "Endringshåndtering", "Immaterielle rettigheter", "Eksklusivitetsklausul"],
     fieldGroups: [
       {
@@ -717,6 +723,7 @@ Oppdragsgiver              Leverandør`,
     price: 59,
     popular: false,
     color: "#b87e9e",
+    category: "privat",
     features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
     fieldGroups: [
       {
@@ -842,6 +849,7 @@ ${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
     price: 59,
     popular: false,
     color: "#7eb87e",
+    category: "privat",
     features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
     fieldGroups: [
       {
@@ -952,6 +960,7 @@ Långiver                   Låntaker`,
     price: 59,
     popular: false,
     color: "#7e9eb8",
+    category: "naringsliv",
     features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
     fieldGroups: [
       {
@@ -1075,6 +1084,7 @@ ${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")
     price: 59,
     popular: false,
     color: "#b8a07e",
+    category: "naringsliv",
     features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
     fieldGroups: [
       {
@@ -1190,6 +1200,7 @@ Leverandør                 Distributør`,
     price: 59,
     popular: false,
     color: "#9eb87e",
+    category: "naringsliv",
     features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
     fieldGroups: [
       {
@@ -1309,6 +1320,7 @@ Oppdragsgiver              Agent`,
     price: 59,
     popular: false,
     color: "#7e8eb8",
+    category: "naringsliv",
     features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
     fieldGroups: [
       {
@@ -1432,6 +1444,7 @@ Part A                     Part B`,
     price: 59,
     popular: false,
     color: "#8bb87e",
+    category: "bedrift",
     features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
     fieldGroups: [
       {

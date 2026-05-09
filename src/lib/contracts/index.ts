@@ -1,5 +1,5 @@
 export { CONTRACT_TYPES } from "./data";
-export type { ContractType, Field, FieldGroup, FieldType, ContractFaq, ContractSeo } from "./types";
+export type { ContractType, Field, FieldGroup, FieldType, ContractFaq, ContractSeo, ContractCategory } from "./types";
 export { v, today } from "./helpers";
 
 import { CONTRACT_TYPES } from "./data";

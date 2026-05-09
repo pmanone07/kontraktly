@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CONTRACT_TYPES, getContract, getContractSlugs } from "@/lib/contracts";
 import { ContractFlowProvider } from "@/components/contracts/ContractFlow";
 import { ContractCTA } from "@/components/contracts/ContractCTA";
+import { SiteNav } from "@/components/SiteNav";
 import { ArrowLeft, Check, ChevronRight, Scale, ShieldCheck } from "lucide-react";
 
 const SITE_URL = "https://www.kontraktly.no";
@@ -114,14 +114,7 @@ export default async function ContractPage(
           />
 
           {/* NAV */}
-          <nav className="grid grid-cols-3 items-center px-6 py-5 md:px-12">
-            <div />
-            <div className="flex justify-center">
-              <Link href="/" className="flex items-center" aria-label="Kontraktly — til forsiden">
-                <Image src="/logo.png" alt="Kontraktly" width={240} height={240} priority className="md:h-24 w-44" />
-              </Link>
-            </div>
-          </nav>
+          <SiteNav />
 
           {/* BREADCRUMB */}
           <div className="mx-auto max-w-4xl px-6 pt-4">

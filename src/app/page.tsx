@@ -16,6 +16,7 @@ import {
 import { CONTRACT_TYPES, type ContractType } from "@/lib/contracts";
 import { ContractFlowProvider, useContractFlow } from "@/components/contracts/ContractFlow";
 import { ContactForm } from "@/components/ContactForm";
+import { SiteNav } from "@/components/SiteNav";
 
 const STEPS = [
   { n: "01", title: "Velg kontrakt", desc: "Finn malen som passer din situasjon." },
@@ -273,14 +274,7 @@ function PageContent() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
         {/* NAV */}
-        <nav className="grid grid-cols-3 items-center px-6 py-5 md:px-12 animate-fade-in">
-          <div />
-          <div className="flex justify-center">
-            <a href="/" className="flex items-center" aria-label="Kontraktly — til forsiden">
-              <Image src="/logo.png" alt="Kontraktly" width={240} height={240} priority className="md:h-24 w-44" />
-            </a>
-          </div>
-        </nav>
+        <SiteNav />
 
         {/* HERO */}
         <section className="mx-auto max-w-5xl px-6 pb-24 pt-16 text-center md:pt-24">
