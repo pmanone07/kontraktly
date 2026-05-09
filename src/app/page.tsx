@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { CONTRACT_TYPES, type ContractType } from "@/lib/contracts";
 import { ContractFlowProvider, useContractFlow } from "@/components/contracts/ContractFlow";
+import { ContactForm } from "@/components/ContactForm";
 
 const STEPS = [
   { n: "01", title: "Velg kontrakt", desc: "Finn malen som passer din situasjon." },
@@ -544,7 +545,7 @@ function PageContent() {
                       <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>4. Dine rettigheter</h3>
                       <p className="text-xs leading-relaxed">
                         Du har rett til innsyn, retting og sletting av dine personopplysninger. Send forespørsel til
-                        <span style={{ color: "#c9a85c" }}> personvern@kontraktly.no</span>.
+                        <span style={{ color: "#c9a85c" }}> patrick@rishaug-it.no</span>.
                       </p>
                     </section>
                     <section>
@@ -605,40 +606,11 @@ function PageContent() {
                 {infoOpen === "kontakt" && (
                   <>
                     <section>
-                      <p className="text-xs leading-relaxed">
-                        Spørsmål om en kontrakt, faktura eller tjenesten generelt? Vi hjelper gjerne.
+                      <p className="text-xs leading-relaxed mb-4">
+                        Spørsmål om en kontrakt, faktura eller tjenesten generelt? Send oss en melding under, så svarer vi normalt innen 24 timer.
                       </p>
                     </section>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
-                          Generell support
-                        </p>
-                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>hei@kontraktly.no</p>
-                        <p className="text-xs" style={{ color: "#7a7672" }}>Svar innen 24 timer</p>
-                      </div>
-                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
-                          Personvern
-                        </p>
-                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>personvern@kontraktly.no</p>
-                        <p className="text-xs" style={{ color: "#7a7672" }}>GDPR-forespørsler</p>
-                      </div>
-                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
-                          Faktura
-                        </p>
-                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>faktura@kontraktly.no</p>
-                        <p className="text-xs" style={{ color: "#7a7672" }}>Org.nr og bestillinger</p>
-                      </div>
-                      <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                        <p className="font-mono-custom text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(201,168,92,0.5)" }}>
-                          Postadresse
-                        </p>
-                        <p className="text-sm font-medium mb-1" style={{ color: "#f0ede6" }}>Kontraktly AS</p>
-                        <p className="text-xs" style={{ color: "#7a7672" }}>Karl Johans gate 1, 0154 Oslo</p>
-                      </div>
-                    </div>
+                    <ContactForm />
                   </>
                 )}
               </div>
