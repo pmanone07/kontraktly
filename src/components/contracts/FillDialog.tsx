@@ -121,8 +121,10 @@ export function FillDialog({
                 style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}
               >
                 <pre
-                  className="font-mono-custom text-[10px] leading-relaxed whitespace-pre-wrap"
-                  style={{ color: "#6a6562" }}
+                  className="font-mono-custom text-[10px] leading-relaxed whitespace-pre-wrap select-none"
+                  style={{ color: "#6a6562", WebkitUserSelect: "none", userSelect: "none" }}
+                  onCopy={(e) => e.preventDefault()}
+                  onContextMenu={(e) => e.preventDefault()}
                 >
                   {preview}
                 </pre>
@@ -145,8 +147,10 @@ export function FillDialog({
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-4">
               <pre
-                className="font-mono-custom text-[10px] leading-[1.8] whitespace-pre-wrap"
-                style={{ color: "#5a5855" }}
+                className="font-mono-custom text-[10px] leading-[1.8] whitespace-pre-wrap select-none"
+                style={{ color: "#5a5855", WebkitUserSelect: "none", userSelect: "none" }}
+                onCopy={(e) => e.preventDefault()}
+                onContextMenu={(e) => e.preventDefault()}
               >
                 {preview}
               </pre>
