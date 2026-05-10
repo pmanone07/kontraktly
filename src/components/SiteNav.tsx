@@ -75,16 +75,16 @@ export function SiteNav() {
 
             {open && (
               <div
-                className="absolute left-0 top-full mt-2 z-50 rounded-sm grid gap-6 grid-cols-3 p-6"
+                className="absolute left-0 top-full mt-2 z-50 rounded-sm flex gap-8 p-5 whitespace-nowrap"
                 style={{
                   border: "1px solid rgba(201,168,92,0.2)",
                   background: "#0f0f11",
-                  width: "min(720px, 90vw)",
                   boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
+                  maxWidth: "calc(100vw - 3rem)",
                 }}
               >
                 {groups.map((g) => (
-                  <div key={g.category}>
+                  <div key={g.category} className="min-w-0">
                     <p className="font-mono-custom text-[10px] uppercase tracking-widest mb-3" style={{ color: "rgba(201,168,92,0.5)" }}>
                       {g.label}
                     </p>
@@ -100,7 +100,7 @@ export function SiteNav() {
                               style={{ color: "#a09c97" }}
                             >
                               <Icon className="h-3.5 w-3.5 flex-none" style={{ color: c.color }} />
-                              <span className="truncate">{c.label}</span>
+                              <span>{c.label}</span>
                             </Link>
                           </li>
                         );

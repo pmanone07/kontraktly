@@ -138,7 +138,7 @@ export default async function ContractPage(
               </div>
               <div>
                 <p className="font-mono-custom text-[10px] uppercase tracking-widest" style={{ color: "rgba(201,168,92,0.5)" }}>
-                  Kontraktmal — {contract.price} kr
+                  Bygg din egen — {contract.price} kr
                 </p>
                 <h1 className="font-display font-bold leading-tight"
                   style={{ fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)", color: "#f0ede6" }}>
@@ -282,7 +282,7 @@ export default async function ContractPage(
               </span>
             </div>
             <h2 className="font-display text-xl font-bold mb-6" style={{ color: "#f0ede6" }}>
-              Andre relevante kontraktmaler
+              Andre kontrakter du kan bygge
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
               {related.map((c) => {

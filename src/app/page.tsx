@@ -19,9 +19,9 @@ import { ContactForm } from "@/components/ContactForm";
 import { SiteNav } from "@/components/SiteNav";
 
 const STEPS = [
-  { n: "01", title: "Velg kontrakt", desc: "Finn malen som passer din situasjon." },
-  { n: "02", title: "Fyll inn info", desc: "Svar på enkle spørsmål — vi bygger kontrakten." },
-  { n: "03", title: "Betal & last ned", desc: "Betal med kort eller Vipps. Last ned PDF." },
+  { n: "01", title: "Velg kontraktstype", desc: "Finn typen som passer din situasjon." },
+  { n: "02", title: "Bygg kontrakten", desc: "Svar på enkle spørsmål — vi formulerer paragrafene for deg." },
+  { n: "03", title: "Betal & last ned", desc: "Betal med kort eller Vipps. Last ned din ferdige PDF." },
 ];
 
 const TESTIMONIALS = [
@@ -110,7 +110,7 @@ const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   name: "Slik lager du en juridisk gyldig kontrakt på Kontraktly",
-  description: "Tre enkle steg fra valg av mal til ferdig signert PDF — under 10 minutter.",
+  description: "Tre enkle steg fra valg av kontraktstype til ferdig signert PDF — under 10 minutter.",
   inLanguage: "nb-NO",
   totalTime: "PT10M",
   estimatedCost: { "@type": "MonetaryAmount", currency: "NOK", value: "59" },
@@ -147,8 +147,8 @@ const FAQS: { q: string; a: string }[] = [
     a: "Du laster ned kontrakten som PDF og kan enten skrive den ut og signere fysisk, eller bruke en e-signaturløsning som BankID, Signicat eller DocuSign. Begge formene er juridisk bindende i Norge.",
   },
   {
-    q: "Kan jeg tilpasse innholdet i malen?",
-    a: "Ja. Du fyller inn dine egne opplysninger i et enkelt skjema, og kontrakten bygges automatisk med riktig formulering. Etter nedlasting er PDF-en din å redigere videre om du ønsker.",
+    q: "Kan jeg tilpasse innholdet i kontrakten?",
+    a: "Ja. Du fyller inn dine egne opplysninger i et enkelt skjema, og kontrakten bygges automatisk med riktig formulering — du ser den ta form i forhåndsvisningen mens du skriver. Etter nedlasting er PDF-en din å redigere videre om du ønsker.",
   },
   {
     q: "Hva koster det?",
@@ -286,13 +286,14 @@ function PageContent() {
           </div>
           <h1 className="font-display animate-fade-up delay-100 mb-6 font-bold leading-[1.05] tracking-tight"
             style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", color: "#f0ede6" }}>
-            Kontrakter som{" "}
+            Bygg kontrakter som{" "}
             <em className="not-italic gold-shimmer">bare fungerer</em>
             <br />
           </h1>
           <p className="animate-fade-up delay-200 mx-auto mb-10 max-w-2xl text-[1.1rem] leading-relaxed" style={{ color: "#7a7672" }}>
-            Fra freelance-kontrakt og leiekontrakt til NDA og arbeidsavtale — lag profesjonelle,
-            juridisk solide kontrakter tilpasset norsk lovgivning på under 10 minutter. Last ned som PDF.
+            Svar på enkle spørsmål, så formulerer vi en juridisk solid kontrakt tilpasset norsk
+            lovgivning — fra freelance og leie til NDA og arbeidsavtale. Ferdig signeringsklar PDF
+            på under 10 minutter.
           </p>
           <div className="animate-fade-up delay-300 flex flex-wrap items-center justify-center gap-4">
             <a href="#kontrakter">
@@ -345,11 +346,11 @@ function PageContent() {
           </div>
           <h2 className="font-display animate-fade-up delay-100 mb-4 text-center font-bold"
             style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: "#f0ede6" }}>
-            Kontraktmaler tilpasset norsk lovgivning
+            Velg kontraktstype og bygg din egen
           </h2>
           <p className="animate-fade-up delay-150 mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed" style={{ color: "#7a7672" }}>
-            Freelance-kontrakt, leiekontrakt, NDA, arbeidskontrakt og flere — ferdig formulert,
-            klar til signering. Last ned som PDF.
+            Freelance, leie, NDA, arbeidsavtale og flere. Du fyller inn detaljene — vi formulerer
+            paragrafene tilpasset norsk lovgivning. Ferdig signeringsklar PDF.
           </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {CONTRACT_TYPES.map((contract, i) => (

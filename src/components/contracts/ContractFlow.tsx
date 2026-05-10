@@ -141,7 +141,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                       <DialogTitle className="font-display text-base font-semibold" style={{ color: "#f0ede6" }}>
                         {previewContract.label}
                       </DialogTitle>
-                      <p className="text-xs" style={{ color: "#7a7672" }}>Forhåndsvisning — mal</p>
+                      <p className="text-xs" style={{ color: "#7a7672" }}>Eksempel — slik blir kontrakten din</p>
                     </div>
                   </div>
                   <span className="font-mono-custom text-lg font-medium" style={{ color: "#c9a85c" }}>
