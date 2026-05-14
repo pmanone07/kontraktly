@@ -279,8 +279,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                 Betaling bekreftet!
               </h3>
               <p className="text-sm mb-6" style={{ color: "#7a7672" }}>
-                Din {checkoutContract.label.toLowerCase()} er sendt til e-posten din som PDF-vedlegg.
-                Du kan også laste den ned her nå.
+                Din {checkoutContract.label.toLowerCase()} er klar med dine opplysninger.
               </p>
               <Button
                 className="rounded-sm h-10 px-8 text-sm font-medium w-full"
