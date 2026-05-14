@@ -6,11 +6,10 @@ import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   FileText, Users,
-  ChevronRight, Check, Star, ArrowRight, ArrowUp,
+  ChevronRight, Check, ArrowRight, ArrowUp,
   Download, Lock, Zap, Globe,
 } from "lucide-react";
 import { CONTRACT_TYPES, type ContractType } from "@/lib/contracts";
@@ -24,35 +23,7 @@ const STEPS = [
   { n: "03", title: "Betal & last ned", desc: "Betal med kort eller Vipps. Last ned din ferdige PDF." },
 ];
 
-const TESTIMONIALS = [
-  { name: "Marte Kristiansen", role: "UX-designer, frilanser", text: "Brukte 8 minutter på en fullstendig freelance-kontrakt. Klienten min var imponert over profesjonaliteten.", stars: 5 },
-  { name: "Erik Haugen", role: "Huseier, Oslo", text: "Endelig en leiekontrakt som er lett å forstå og faktisk holder i retten. Verdt hver krone.", stars: 5 },
-  { name: "Sofie Bakke", role: "Daglig leder, Bakke Digital AS", text: "Har brukt Kontraktly for NDA-er og konsulentavtaler. Sparer oss for advokattimer hvert kvartal.", stars: 5 },
-];
-
 const SITE_URL = "https://www.kontraktly.no";
-
-const aggregateRating = {
-  "@type": "AggregateRating",
-  ratingValue: (
-    TESTIMONIALS.reduce((s, t) => s + t.stars, 0) / TESTIMONIALS.length
-  ).toFixed(1),
-  bestRating: "5",
-  worstRating: "1",
-  reviewCount: TESTIMONIALS.length,
-};
-
-const reviewsJsonLd = TESTIMONIALS.map((t) => ({
-  "@type": "Review",
-  reviewRating: {
-    "@type": "Rating",
-    ratingValue: t.stars,
-    bestRating: 5,
-    worstRating: 1,
-  },
-  author: { "@type": "Person", name: t.name },
-  reviewBody: t.text,
-}));
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -87,8 +58,6 @@ const productListJsonLd = {
       brand: { "@type": "Brand", name: "Kontraktly" },
       category: "Juridiske kontrakter",
       url: `${SITE_URL}/kontrakter/${c.id}`,
-      aggregateRating,
-      review: reviewsJsonLd,
       offers: {
         "@type": "Offer",
         price: c.price.toFixed(2),
@@ -355,33 +324,6 @@ function PageContent() {
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {CONTRACT_TYPES.map((contract, i) => (
               <ContractCard key={contract.id} contract={contract} index={i} />
-            ))}
-          </div>
-        </section>
-
-        {/* TESTIMONIALS */}
-        <section className="mx-auto max-w-5xl px-6 pb-24">
-          <div className="ornament mb-12 animate-fade-up">
-            <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
-              Hva folk sier
-            </span>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={t.name} className={`animate-fade-up delay-${i * 100} rounded-sm p-6`}
-                style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#111113" }}>
-                <div className="mb-3 flex gap-0.5">
-                  {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star key={j} className="h-3.5 w-3.5" style={{ fill: "#c9a85c", color: "#c9a85c" }} />
-                  ))}
-                </div>
-                <p className="mb-4 text-sm leading-relaxed italic" style={{ color: "#a09c97" }}>&ldquo;{t.text}&rdquo;</p>
-                <Separator style={{ background: "rgba(201,168,92,0.1)", marginBottom: "1rem" }} />
-                <div>
-                  <p className="text-sm font-medium" style={{ color: "#f0ede6" }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: "#7a7672" }}>{t.role}</p>
-                </div>
-              </div>
             ))}
           </div>
         </section>
