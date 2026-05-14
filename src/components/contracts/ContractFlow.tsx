@@ -87,7 +87,6 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
     setPaying(true);
     setStripeError(null);
     try {
-      const contractText = checkoutContract.buildPreview(filledValues);
       sessionStorage.setItem(
         "kontraktly_pending",
         JSON.stringify({ contractId: checkoutContract.id, values: filledValues })
@@ -97,9 +96,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contractId: checkoutContract.id,
-          contractLabel: checkoutContract.label,
-          price: checkoutContract.price,
-          contractText,
+          values: filledValues,
         }),
       });
       const data = await res.json();
@@ -282,8 +279,8 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                 Betaling bekreftet!
               </h3>
               <p className="text-sm mb-6" style={{ color: "#7a7672" }}>
-                Din {checkoutContract.label.toLowerCase()} er klar med dine opplysninger.
-                Kvittering sendt på e-post.
+                Din {checkoutContract.label.toLowerCase()} er sendt til e-posten din som PDF-vedlegg.
+                Du kan også laste den ned her nå.
               </p>
               <Button
                 className="rounded-sm h-10 px-8 text-sm font-medium w-full"
