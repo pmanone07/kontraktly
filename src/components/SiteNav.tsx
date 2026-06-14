@@ -112,6 +112,9 @@ export function SiteNav() {
             )}
           </div>
 
+          <Link href="/blogg" className="rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
+            Blogg
+          </Link>
           <Link href="/#faq" className="rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
             FAQ
           </Link>
@@ -167,7 +170,15 @@ export function SiteNav() {
               </ul>
             </div>
           ))}
-          <div className="pt-3" style={{ borderTop: "1px solid rgba(201,168,92,0.1)" }}>
+          <div className="pt-3 space-y-1" style={{ borderTop: "1px solid rgba(201,168,92,0.1)" }}>
+            <Link
+              href="/blogg"
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-sm px-2 py-2 text-sm"
+              style={{ color: "#f0ede6" }}
+            >
+              Blogg
+            </Link>
             <Link
               href="/#faq"
               onClick={() => setMobileOpen(false)}
