@@ -55,6 +55,7 @@ const productListJsonLd = {
       "@type": "Product",
       name: c.label,
       description: c.description,
+      image: [`${SITE_URL}/opengraph-image`, `${SITE_URL}/logo.png`],
       brand: { "@type": "Brand", name: "Kontraktly" },
       category: "Juridiske kontrakter",
       url: `${SITE_URL}/kontrakter/${c.id}`,
@@ -64,6 +65,23 @@ const productListJsonLd = {
         priceCurrency: "NOK",
         availability: "https://schema.org/InStock",
         url: `${SITE_URL}/kontrakter/${c.id}`,
+        seller: { "@type": "Organization", name: "Kontraktly" },
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          applicableCountry: "NO",
+          returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+          merchantReturnDays: 0,
+        },
+        shippingDetails: {
+          "@type": "OfferShippingDetails",
+          shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "NOK" },
+          shippingDestination: { "@type": "DefinedRegion", addressCountry: "NO" },
+          deliveryTime: {
+            "@type": "ShippingDeliveryTime",
+            handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+            transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+          },
+        },
         priceSpecification: {
           "@type": "PriceSpecification",
           price: c.price.toFixed(2),
