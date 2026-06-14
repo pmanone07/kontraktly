@@ -56,6 +56,7 @@ export default async function ContractPage(
     "@type": "Product",
     name: contract.label,
     description: contract.seo.metaDescription,
+    image: [`${SITE_URL}/opengraph-image`, `${SITE_URL}/logo.png`],
     brand: { "@type": "Brand", name: "Kontraktly" },
     category: "Juridiske kontrakter",
     url,
@@ -65,6 +66,23 @@ export default async function ContractPage(
       priceCurrency: "NOK",
       availability: "https://schema.org/InStock",
       url,
+      seller: { "@type": "Organization", name: "Kontraktly" },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "NO",
+        returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+        merchantReturnDays: 0,
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "NOK" },
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "NO" },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+          transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+        },
+      },
       priceSpecification: {
         "@type": "PriceSpecification",
         price: contract.price.toFixed(2),
