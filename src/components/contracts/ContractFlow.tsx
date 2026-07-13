@@ -278,8 +278,11 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
               <h3 className="font-display text-xl font-bold mb-2" style={{ color: "#f0ede6" }}>
                 Betaling bekreftet!
               </h3>
-              <p className="text-sm mb-6" style={{ color: "#7a7672" }}>
+              <p className="text-sm mb-2" style={{ color: "#7a7672" }}>
                 Din {checkoutContract.label.toLowerCase()} er klar med dine opplysninger.
+              </p>
+              <p className="text-xs mb-6" style={{ color: "#5a5855" }}>
+                Vi har sendt PDF-en til e-posten din. Du kan også åpne den direkte her.
               </p>
               <Button
                 className="rounded-sm h-10 px-8 text-sm font-medium w-full"
@@ -290,8 +293,6 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                     checkoutContract.label,
                     checkoutContract.buildPreview(filledValues)
                   );
-                  setCheckoutOpen(false);
-                  setPaid(false);
                 }}
               >
                 {generating ? (
@@ -302,10 +303,13 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                 ) : (
                   <span className="flex items-center gap-2">
                     <Download className="h-4 w-4" />
-                    Last ned kontrakt (PDF)
+                    Åpne kontrakt (PDF)
                   </span>
                 )}
               </Button>
+              <p className="mt-3 text-[10px]" style={{ color: "#3d3d40" }}>
+                PDF-en åpnes i nytt vindu — derfra kan du lagre, skrive ut eller dele.
+              </p>
             </div>
           )}
 

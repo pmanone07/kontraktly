@@ -8,7 +8,7 @@ export function useDownloadPDF() {
   const download = async (contractLabel: string, contractText: string) => {
     setGenerating(true);
     try {
-      const { pdf, Document } = await import("@react-pdf/renderer");
+      const { pdf } = await import("@react-pdf/renderer");
       const { ContractPDF } = await import("@/components/ContractPDF");
       const { createElement } = await import("react");
 
@@ -17,27 +17,12 @@ export function useDownloadPDF() {
       const blob = await pdf(doc).toBlob();
 
       const url = URL.createObjectURL(blob);
-      const filename = contractLabel
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[æ]/g, "ae")
-        .replace(/[ø]/g, "oe")
-        .replace(/[å]/g, "aa")
-        + ".pdf";
 
-      const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent);
-      if (isIOS) {
-        // iOS Safari blocks programmatic clicks — open in new tab so user can use share sheet to save
-        window.open(url, "_blank");
-        // Delay revoke so the tab has time to load the blob
-        setTimeout(() => URL.revokeObjectURL(url), 10000);
-      } else {
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(url);
-      }
+      // Alltid åpne i ny fane — iOS/macOS Safari blokkerer nedlastning av blob-URLer,
+      // så brukere trenger delingsarket/PDF-viseren for å arkivere. Åpen fane gir alle
+      // brukere samme mulighet til å laste ned, skrive ut eller dele PDF-en.
+      window.open(url, "_blank", "noopener,noreferrer");
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
     } finally {
       setGenerating(false);
     }
