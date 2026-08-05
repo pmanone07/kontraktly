@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { CONTRACT_TYPES, getContract, getContractSlugs } from "@/lib/contracts";
 import { ContractFlowProvider } from "@/components/contracts/ContractFlow";
@@ -52,6 +52,8 @@ export default async function ContractPage(
   setRequestLocale(locale);
   const contract = getContract(slug);
   if (!contract) notFound();
+
+  const t = await getTranslations({ locale, namespace: "Contract" });
 
   const Icon = contract.icon;
   const url = `${SITE_URL}/kontrakter/${contract.id}`;
@@ -141,10 +143,10 @@ export default async function ContractPage(
 
           {/* BREADCRUMB */}
           <div className="mx-auto max-w-4xl px-6 pt-4">
-            <nav aria-label="Brødsmuler" className="text-xs flex items-center gap-2" style={{ color: "#7a7672" }}>
-              <Link href="/" className="hover:text-[#c9a85c] transition-colors">Forsiden</Link>
+            <nav aria-label="Breadcrumb" className="text-xs flex items-center gap-2" style={{ color: "#7a7672" }}>
+              <Link href="/" className="hover:text-[#c9a85c] transition-colors">{t("breadcrumbHome")}</Link>
               <ChevronRight className="h-3 w-3" style={{ color: "#3d3d40" }} />
-              <Link href="/#kontrakter" className="hover:text-[#c9a85c] transition-colors">Kontrakter</Link>
+              <Link href="/#kontrakter" className="hover:text-[#c9a85c] transition-colors">{t("breadcrumbContracts")}</Link>
               <ChevronRight className="h-3 w-3" style={{ color: "#3d3d40" }} />
               <span style={{ color: "#a09c97" }}>{contract.label}</span>
             </nav>
@@ -161,7 +163,7 @@ export default async function ContractPage(
               </div>
               <div>
                 <p className="font-mono-custom text-[10px] uppercase tracking-widest" style={{ color: "rgba(201,168,92,0.5)" }}>
-                  Bygg din egen — {contract.price} kr
+                  {t("eyebrowBuild", { price: contract.price })}
                 </p>
                 <h1 className="font-display font-bold leading-tight"
                   style={{ fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)", color: "#f0ede6" }}>
@@ -182,11 +184,11 @@ export default async function ContractPage(
           <section className="mx-auto max-w-4xl px-6 pb-12">
             <div className="ornament mb-6">
               <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
-                Når trenger du dette?
+                {t("useCasesLabel")}
               </span>
             </div>
             <h2 className="font-display text-2xl font-bold mb-6" style={{ color: "#f0ede6" }}>
-              Typiske bruksområder
+              {t("useCasesTitle")}
             </h2>
             <ul className="space-y-3">
               {contract.seo.useCases.map((uc) => (
@@ -202,11 +204,11 @@ export default async function ContractPage(
           <section className="mx-auto max-w-4xl px-6 pb-12">
             <div className="ornament mb-6">
               <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
-                Hva inkluderer kontrakten
+                {t("includesLabel")}
               </span>
             </div>
             <h2 className="font-display text-2xl font-bold mb-6" style={{ color: "#f0ede6" }}>
-              Kontrakten dekker
+              {t("includesTitle")}
             </h2>
             <div className="grid gap-3 md:grid-cols-2">
               {contract.seo.includes.map((item) => (
@@ -236,7 +238,7 @@ export default async function ContractPage(
               </div>
               <div>
                 <h2 className="font-display text-lg font-semibold mb-2" style={{ color: "#f0ede6" }}>
-                  Juridisk grunnlag
+                  {t("legalBasisTitle")}
                 </h2>
                 <p className="text-sm leading-relaxed" style={{ color: "#9a9690" }}>
                   {contract.seo.legalBasis}
@@ -249,11 +251,11 @@ export default async function ContractPage(
           <section className="mx-auto max-w-3xl px-6 pb-12">
             <div className="ornament mb-6">
               <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
-                Spørsmål om {contract.label.toLowerCase()}
+                {t("faqLabel", { label: contract.label.toLowerCase() })}
               </span>
             </div>
             <h2 className="font-display text-2xl font-bold mb-6 text-center" style={{ color: "#f0ede6" }}>
-              Ofte stilte spørsmål
+              {t("faqTitle")}
             </h2>
             <div className="space-y-3">
               {contract.seo.faqs.map((item) => (
@@ -285,10 +287,10 @@ export default async function ContractPage(
             <div className="rounded-sm p-8 text-center"
               style={{ border: "1px solid rgba(201,168,92,0.2)", background: "linear-gradient(135deg, #111113, #0d0d0f)" }}>
               <h2 className="font-display mb-3 font-bold" style={{ fontSize: "clamp(1.4rem, 3.5vw, 2rem)", color: "#f0ede6" }}>
-                Kom i gang med {contract.label.toLowerCase()}
+                {t("ctaBannerTitle", { label: contract.label.toLowerCase() })}
               </h2>
               <p className="mb-6 text-sm" style={{ color: "#7a7672" }}>
-                Fyll inn dine opplysninger, betal {contract.price} kr og last ned PDF — under 10 minutter.
+                {t("ctaBannerDesc", { label: contract.label.toLowerCase(), price: contract.price })}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <ContractCTA slug={contract.id} price={contract.price} />
@@ -301,11 +303,11 @@ export default async function ContractPage(
           <section className="mx-auto max-w-5xl px-6 pb-20">
             <div className="ornament mb-6">
               <span className="font-mono-custom text-[10px] tracking-[0.25em] uppercase" style={{ color: "#7a7672" }}>
-                Andre kontrakter
+                {t("relatedLabel")}
               </span>
             </div>
             <h2 className="font-display text-xl font-bold mb-6" style={{ color: "#f0ede6" }}>
-              Andre kontrakter du kan bygge
+              {t("relatedTitle")}
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
               {related.map((c) => {
@@ -342,7 +344,7 @@ export default async function ContractPage(
             <div className="mx-auto max-w-5xl">
               <Link href="/" className="inline-flex items-center gap-2 text-xs" style={{ color: "#7a7672" }}>
                 <ArrowLeft className="h-3.5 w-3.5" />
-                Tilbake til forsiden
+                {t("backToFrontpage")}
               </Link>
             </div>
           </footer>

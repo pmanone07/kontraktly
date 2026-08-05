@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2 } from "lucide-react";
 
@@ -14,6 +15,7 @@ const inputBase =
   "w-full rounded-sm px-3 py-2 text-sm focus:outline-none transition-colors font-mono-custom placeholder:text-[#3d3d40]";
 
 export function ContactForm() {
+  const t = useTranslations("ContactForm");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -32,13 +34,13 @@ export function ContactForm() {
         body: JSON.stringify({ name, email, message }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Noe gikk galt.");
+      if (!res.ok) throw new Error(data.error ?? t("genericError"));
       setSent(true);
       setName("");
       setEmail("");
       setMessage("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Noe gikk galt. Prøv igjen.");
+      setError(err instanceof Error ? err.message : t("genericError"));
     } finally {
       setSending(false);
     }
@@ -52,10 +54,10 @@ export function ContactForm() {
           <Check className="h-5 w-5" style={{ color: "#c9a85c" }} />
         </div>
         <p className="font-display text-sm font-semibold mb-1" style={{ color: "#f0ede6" }}>
-          Melding sendt!
+          {t("sentTitle")}
         </p>
         <p className="text-xs" style={{ color: "#7a7672" }}>
-          Vi svarer normalt innen 24 timer.
+          {t("sentBody")}
         </p>
       </div>
     );
@@ -64,37 +66,37 @@ export function ContactForm() {
   return (
     <form onSubmit={submit} className="space-y-3">
       <div>
-        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>Navn</label>
+        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>{t("labelName")}</label>
         <input
           type="text"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Ola Nordmann"
+          placeholder={t("placeholderName")}
           className={inputBase}
           style={inputStyle}
         />
       </div>
       <div>
-        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>E-post</label>
+        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>{t("labelEmail")}</label>
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="ola@example.com"
+          placeholder={t("placeholderEmail")}
           className={inputBase}
           style={inputStyle}
         />
       </div>
       <div>
-        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>Melding</label>
+        <label className="block text-xs mb-1.5" style={{ color: "#7a7672" }}>{t("labelMessage")}</label>
         <textarea
           required
           rows={5}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Hva kan vi hjelpe med?"
+          placeholder={t("placeholderMessage")}
           className={inputBase + " resize-none"}
           style={inputStyle}
           maxLength={4000}
@@ -115,14 +117,14 @@ export function ContactForm() {
         {sending ? (
           <span className="flex items-center gap-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            Sender...
+            {t("sending")}
           </span>
         ) : (
-          "Send melding"
+          t("submit")
         )}
       </Button>
       <p className="text-[10px] text-center" style={{ color: "#3d3d40" }}>
-        Vi svarer normalt innen 24 timer.
+        {t("responseTime")}
       </p>
     </form>
   );

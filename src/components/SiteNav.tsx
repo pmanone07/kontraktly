@@ -3,23 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { CONTRACT_TYPES, type ContractCategory, type ContractType } from "@/lib/contracts";
 
-const CATEGORY_LABELS: Record<ContractCategory, string> = {
-  bedrift: "Bedrift",
-  privat: "Privat",
-  naringsliv: "Næringsliv",
-};
-
 const CATEGORY_ORDER: ContractCategory[] = ["bedrift", "privat", "naringsliv"];
 
-function groupByCategory(contracts: ContractType[]) {
+function groupByCategory(
+  contracts: ContractType[],
+  labels: Record<ContractCategory, string>,
+) {
   return CATEGORY_ORDER.map((cat) => ({
     category: cat,
-    label: CATEGORY_LABELS[cat],
+    label: labels[cat],
     contracts: contracts.filter((c) => c.category === cat),
   })).filter((g) => g.contracts.length > 0);
 }
@@ -30,10 +27,15 @@ export function SiteNav() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const locale = useLocale();
   const pathname = usePathname();
+  const t = useTranslations("Nav");
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
   const otherLocaleLabel = otherLocale === "en" ? "EN" : "NO";
 
-  const groups = groupByCategory(CONTRACT_TYPES);
+  const groups = groupByCategory(CONTRACT_TYPES, {
+    bedrift: t("categoryBedrift"),
+    privat: t("categoryPrivat"),
+    naringsliv: t("categoryNaringsliv"),
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -57,7 +59,7 @@ export function SiteNav() {
     <nav className="relative px-6 py-5 md:px-12 animate-fade-in" style={{ borderBottom: "1px solid rgba(201,168,92,0.06)" }}>
       <div className="mx-auto max-w-6xl flex items-center justify-between gap-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center flex-none" aria-label="Kontraktly — til forsiden">
+        <Link href="/" className="flex items-center flex-none" aria-label={t("toFrontpage")}>
           <Image src="/logo.png" alt="Kontraktly" width={240} height={240} priority className="h-14 md:h-16 w-auto" />
         </Link>
 
@@ -75,7 +77,7 @@ export function SiteNav() {
                 background: open ? "rgba(201,168,92,0.08)" : "transparent",
               }}
             >
-              Alle kontrakter
+              {t("allContracts")}
               <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
             </button>
 
@@ -119,10 +121,10 @@ export function SiteNav() {
           </div>
 
           <Link href="/blogg" className="rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
-            Blogg
+            {t("blog")}
           </Link>
           <Link href="/#faq" className="rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
-            FAQ
+            {t("faq")}
           </Link>
           <Link
             href={pathname}
@@ -151,7 +153,7 @@ export function SiteNav() {
             background: mobileOpen ? "rgba(201,168,92,0.08)" : "transparent",
           }}
         >
-          Kontrakter
+          {t("contracts")}
           <ChevronDown className={`h-3.5 w-3.5 transition-transform ${mobileOpen ? "rotate-180" : ""}`} />
         </button>
       </div>
@@ -195,7 +197,7 @@ export function SiteNav() {
               className="block rounded-sm px-2 py-2 text-sm"
               style={{ color: "#f0ede6" }}
             >
-              Blogg
+              {t("blog")}
             </Link>
             <Link
               href="/#faq"
@@ -203,7 +205,7 @@ export function SiteNav() {
               className="block rounded-sm px-2 py-2 text-sm"
               style={{ color: "#f0ede6" }}
             >
-              FAQ
+              {t("faq")}
             </Link>
             <Link
               href={pathname}
