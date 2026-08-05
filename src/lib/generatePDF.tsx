@@ -62,13 +62,43 @@ const styles = StyleSheet.create({
   watermark: { fontSize: 7, color: "#c9a85c", letterSpacing: 1, opacity: 0.5, textTransform: "uppercase" },
 });
 
+export type PdfLocale = "no" | "en";
+export type PdfJurisdiction = "no" | "uk" | "us";
+
 interface PDFProps {
   contractLabel: string;
   contractText: string;
+  locale?: PdfLocale;
+  jurisdiction?: PdfJurisdiction;
 }
 
-function ContractDocument({ contractLabel, contractText }: PDFProps) {
-  const date = new Date().toLocaleDateString("nb-NO", {
+const COPY = {
+  no: {
+    generated: "Generert",
+    subtitle: {
+      no: "Juridisk dokument · Norsk lovgivning",
+      uk: "Juridisk dokument · Engelsk lovgivning",
+      us: "Juridisk dokument · Amerikansk lovgivning",
+    },
+    rights: "© Kontraktly AS · Alle rettigheter forbeholdt",
+    page: (n: number, t: number) => `Side ${n} av ${t}`,
+  },
+  en: {
+    generated: "Generated",
+    subtitle: {
+      no: "Legal document · Norwegian law",
+      uk: "Legal document · English law",
+      us: "Legal document · US law",
+    },
+    rights: "© Kontraktly AS · All rights reserved",
+    page: (n: number, t: number) => `Page ${n} of ${t}`,
+  },
+} as const;
+
+function ContractDocument({ contractLabel, contractText, locale = "no", jurisdiction = "no" }: PDFProps) {
+  const copy = COPY[locale];
+  const dateLocale = locale === "en" ? "en-GB" : "nb-NO";
+  const date = new Date().toLocaleDateString(dateLocale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -80,20 +110,20 @@ function ContractDocument({ contractLabel, contractText }: PDFProps) {
         <View style={styles.header}>
           <Text style={styles.logoText}>KONTRAKTLY</Text>
           <View>
-            <Text style={styles.metaText}>Generert: {date}</Text>
+            <Text style={styles.metaText}>{copy.generated}: {date}</Text>
             <Text style={styles.metaText}>kontraktly.no</Text>
           </View>
         </View>
         <Text style={styles.title}>{contractLabel}</Text>
-        <Text style={styles.subtitle}>Juridisk dokument · Norsk lovgivning</Text>
+        <Text style={styles.subtitle}>{copy.subtitle[jurisdiction]}</Text>
         <Text style={styles.body}>{contractText}</Text>
         <View style={styles.goldLine} />
         <View style={styles.footer} fixed>
-          <Text style={styles.footerText}>© Kontraktly AS · Alle rettigheter forbeholdt</Text>
+          <Text style={styles.footerText}>{copy.rights}</Text>
           <Text style={styles.watermark}>Kontraktly</Text>
           <Text
             style={styles.footerText}
-            render={({ pageNumber, totalPages }) => `Side ${pageNumber} av ${totalPages}`}
+            render={({ pageNumber, totalPages }) => copy.page(pageNumber, totalPages)}
           />
         </View>
       </Page>
@@ -101,9 +131,18 @@ function ContractDocument({ contractLabel, contractText }: PDFProps) {
   );
 }
 
-export async function generateContractPDF(contractLabel: string, contractText: string): Promise<Buffer> {
+export async function generateContractPDF(
+  contractLabel: string,
+  contractText: string,
+  options?: { locale?: PdfLocale; jurisdiction?: PdfJurisdiction },
+): Promise<Buffer> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const element = createElement(ContractDocument, { contractLabel, contractText }) as any;
+  const element = createElement(ContractDocument, {
+    contractLabel,
+    contractText,
+    locale: options?.locale,
+    jurisdiction: options?.jurisdiction,
+  }) as any;
   return renderToBuffer(element);
 }
 

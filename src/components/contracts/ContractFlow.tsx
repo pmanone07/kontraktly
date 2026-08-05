@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -25,6 +25,8 @@ export function useContractFlow() {
 
 export function ContractFlowProvider({ children }: { children: React.ReactNode }) {
   const t = useTranslations("Checkout");
+  const activeLocale = useLocale();
+  const contractLocale: "no" | "en" = activeLocale === "en" ? "en" : "no";
   const [previewContract, setPreviewContract] = useState<ContractType | null>(null);
   const [fillContract, setFillContract] = useState<ContractType | null>(null);
   const [checkoutContract, setCheckoutContract] = useState<ContractType | null>(null);
@@ -47,15 +49,20 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
 
     window.history.replaceState({}, "", window.location.pathname);
 
-    fetch(`/api/checkout/verify?session_id=${sessionId}`)
+    fetch(`/api/checkout/verify?session_id=${encodeURIComponent(sessionId)}`)
       .then((r) => r.json())
       .then((data) => {
         if (!data.paid) return;
         const stored = sessionStorage.getItem("kontraktly_pending");
         if (!stored) return;
-        const { contractId, values } = JSON.parse(stored) as { contractId: string; values: Record<string, string> };
+        const { contractId, values, locale } = JSON.parse(stored) as {
+          contractId: string;
+          values: Record<string, string>;
+          locale?: "no" | "en";
+        };
         sessionStorage.removeItem("kontraktly_pending");
-        const contract = CONTRACT_TYPES.find((c) => c.id === contractId);
+        const lookupLocale = locale ?? contractLocale;
+        const contract = CONTRACT_TYPES.find((c) => c.id === contractId && c.locale === lookupLocale);
         if (!contract) return;
         setFilledValues(values);
         setCheckoutContract(contract);
@@ -63,7 +70,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
         setPaid(true);
       })
       .catch(() => {});
-  }, []);
+  }, [contractLocale]);
 
   const openFill = useCallback((contract: ContractType) => {
     setFillContract(contract);
@@ -91,7 +98,11 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
     try {
       sessionStorage.setItem(
         "kontraktly_pending",
-        JSON.stringify({ contractId: checkoutContract.id, values: filledValues })
+        JSON.stringify({
+          contractId: checkoutContract.id,
+          values: filledValues,
+          locale: checkoutContract.locale,
+        })
       );
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -99,6 +110,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
         body: JSON.stringify({
           contractId: checkoutContract.id,
           values: filledValues,
+          locale: checkoutContract.locale,
         }),
       });
       const data = await res.json();
@@ -293,7 +305,8 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                 onClick={async () => {
                   await download(
                     checkoutContract.label,
-                    checkoutContract.buildPreview(filledValues)
+                    checkoutContract.buildPreview(filledValues),
+                    { locale: checkoutContract.locale, jurisdiction: checkoutContract.jurisdiction }
                   );
                 }}
               >

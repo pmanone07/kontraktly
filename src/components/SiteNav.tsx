@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { CONTRACT_TYPES, type ContractCategory, type ContractType } from "@/lib/contracts";
+import { getContractsByLocale, type ContractCategory, type ContractType } from "@/lib/contracts";
 
 const CATEGORY_ORDER: ContractCategory[] = ["bedrift", "privat", "naringsliv"];
 
@@ -31,7 +31,8 @@ export function SiteNav() {
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
   const otherLocaleLabel = otherLocale === "en" ? "EN" : "NO";
 
-  const groups = groupByCategory(CONTRACT_TYPES, {
+  const visibleContracts = getContractsByLocale(locale === "en" ? "en" : "no");
+  const groups = groupByCategory(visibleContracts, {
     bedrift: t("categoryBedrift"),
     privat: t("categoryPrivat"),
     naringsliv: t("categoryNaringsliv"),

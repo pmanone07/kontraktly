@@ -1,5 +1,6 @@
 import { stripe } from "@/lib/stripe";
 import { getContract } from "@/lib/contracts";
+import type { ContractLocale } from "@/lib/contracts";
 import { NextRequest } from "next/server";
 
 const MAX_METADATA_VALUE_LENGTH = 450;
@@ -15,13 +16,15 @@ function chunkValues(values: Record<string, string>): Record<string, string> {
 }
 
 export async function POST(req: NextRequest) {
-  const { contractId, values } = await req.json();
+  const { contractId, values, locale } = await req.json();
 
   if (!contractId || typeof contractId !== "string") {
     return Response.json({ error: "Missing contractId" }, { status: 400 });
   }
 
-  const contract = getContract(contractId);
+  const contractLocale: ContractLocale = locale === "en" ? "en" : "no";
+
+  const contract = getContract(contractId, contractLocale);
   if (!contract) {
     return Response.json({ error: "Unknown contract" }, { status: 404 });
   }
@@ -39,6 +42,11 @@ export async function POST(req: NextRequest) {
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+  const isEn = contractLocale === "en";
+  const successBase = isEn ? `${baseUrl}/en` : baseUrl;
+  const productDescription = isEn
+    ? "Legally binding contract — PDF delivered by email after payment"
+    : "Juridisk bindende kontrakt — PDF sendes på e-post etter betaling";
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
@@ -48,7 +56,7 @@ export async function POST(req: NextRequest) {
           currency: "nok",
           product_data: {
             name: contract.label,
-            description: "Juridisk bindende kontrakt — PDF sendes på e-post etter betaling",
+            description: productDescription,
           },
           unit_amount: Math.round(contract.price * 100),
         },
@@ -61,14 +69,15 @@ export async function POST(req: NextRequest) {
     metadata: {
       contractId,
       contractLabel: contract.label,
+      contractLocale,
       ...valueChunks,
     },
     payment_intent_data: {
-      metadata: { contractId, contractLabel: contract.label },
+      metadata: { contractId, contractLabel: contract.label, contractLocale },
     },
-    success_url: `${baseUrl}/?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${baseUrl}/`,
-    locale: "nb",
+    success_url: `${successBase}/?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${successBase}/`,
+    locale: isEn ? "en" : "nb",
   });
 
   return Response.json({ url: session.url });

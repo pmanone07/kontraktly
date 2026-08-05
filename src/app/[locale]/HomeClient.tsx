@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,7 @@ import {
   ChevronRight, Check, ArrowRight, ArrowUp,
   Download, Lock, Zap, Globe,
 } from "lucide-react";
-import { CONTRACT_TYPES, type ContractType } from "@/lib/contracts";
+import { getContractsByLocale, type ContractType } from "@/lib/contracts";
 import { ContractFlowProvider, useContractFlow } from "@/components/contracts/ContractFlow";
 import { ContactForm } from "@/components/ContactForm";
 import { SiteNav } from "@/components/SiteNav";
@@ -43,7 +43,7 @@ const productListJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Kontrakter — maler tilpasset norsk lovgivning",
-  itemListElement: CONTRACT_TYPES.map((c, i) => ({
+  itemListElement: getContractsByLocale("no").map((c, i) => ({
     "@type": "ListItem",
     position: i + 1,
     item: {
@@ -169,8 +169,11 @@ function ContractCard({ contract, index }: { contract: ContractType; index: numb
 function HeroPreviewButton() {
   const { openPreview } = useContractFlow();
   const t = useTranslations("Home");
+  const locale = useLocale();
+  const first = getContractsByLocale(locale === "en" ? "en" : "no")[0];
+  if (!first) return null;
   return (
-    <Button size="lg" onClick={() => openPreview(CONTRACT_TYPES[0])} className="rounded-sm h-12 px-8 text-sm"
+    <Button size="lg" onClick={() => openPreview(first)} className="rounded-sm h-12 px-8 text-sm"
       style={{ border: "1px solid rgba(201,168,92,0.25)", background: "transparent", color: "#f0ede6" }}>
       {t("ctaSeeExample")}
     </Button>
@@ -254,7 +257,9 @@ function PageContent() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }} />
+        {isNo && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productListJsonLd) }} />
+        )}
         {howToJsonLd && (
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
         )}
@@ -337,7 +342,7 @@ function PageContent() {
             {t("contractsDescription")}
           </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {CONTRACT_TYPES.map((contract, i) => (
+            {getContractsByLocale(isNo ? "no" : "en").map((contract, i) => (
               <ContractCard key={contract.id} contract={contract} index={i} />
             ))}
           </div>

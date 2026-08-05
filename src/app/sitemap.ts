@@ -29,12 +29,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   };
 
-  const contractPages: MetadataRoute.Sitemap = getContractSlugs().map((slug) => ({
-    ...withAlternates(`/kontrakter/${slug}`),
+  const noContractPages: MetadataRoute.Sitemap = getContractSlugs("no").map((slug) => ({
+    url: `${BASE_URL}/kontrakter/${slug}`,
     lastModified,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
+
+  const enContractPages: MetadataRoute.Sitemap = getContractSlugs("en").map((slug) => ({
+    url: `${BASE_URL}/en/kontrakter/${slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const contractPages: MetadataRoute.Sitemap = [...noContractPages, ...enContractPages];
 
   const blogIndex: MetadataRoute.Sitemap[number] = {
     ...withAlternates("/blogg"),

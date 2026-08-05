@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
   }
 
   const contractId = session.metadata?.contractId;
+  const contractLocale = session.metadata?.contractLocale === "en" ? "en" : "no";
   const toEmail = session.customer_details?.email ?? session.customer_email;
 
   if (!contractId) {
@@ -51,6 +52,7 @@ export async function POST(req: NextRequest) {
   try {
     await deliverContractByEmail({
       contractId,
+      contractLocale,
       values,
       toEmail,
       sessionId: session.id,

@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { CONTRACT_TYPES, getContract, getContractSlugs } from "@/lib/contracts";
+import { getContract, getContractsByLocale, getContractSlugs } from "@/lib/contracts";
+import type { ContractLocale } from "@/lib/contracts";
 import { ContractFlowProvider } from "@/components/contracts/ContractFlow";
 import { ContractCTA } from "@/components/contracts/ContractCTA";
 import { SiteNav } from "@/components/SiteNav";
@@ -13,29 +14,31 @@ const SITE_URL = "https://www.kontraktly.no";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    getContractSlugs().map((slug) => ({ locale, slug })),
+    getContractSlugs(locale as ContractLocale).map((slug) => ({ locale, slug })),
   );
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; slug: string }> },
 ): Promise<Metadata> {
-  const { slug } = await params;
-  const contract = getContract(slug);
+  const { locale, slug } = await params;
+  const contractLocale: ContractLocale = locale === "en" ? "en" : "no";
+  const contract = getContract(slug, contractLocale);
   if (!contract) return {};
 
-  const url = `${SITE_URL}/kontrakter/${contract.id}`;
+  const pathPrefix = contractLocale === "en" ? "/en" : "";
+  const url = `${SITE_URL}${pathPrefix}/kontrakter/${contract.id}`;
   return {
     title: contract.seo.metaTitle,
     description: contract.seo.metaDescription,
-    alternates: { canonical: `/kontrakter/${contract.id}` },
+    alternates: { canonical: `${pathPrefix}/kontrakter/${contract.id}` },
     openGraph: {
       type: "website",
       url,
       title: contract.seo.metaTitle,
       description: contract.seo.metaDescription,
       siteName: "Kontraktly",
-      locale: "nb_NO",
+      locale: contractLocale === "en" ? "en_GB" : "nb_NO",
     },
     twitter: {
       card: "summary_large_image",
@@ -50,13 +53,16 @@ export default async function ContractPage(
 ) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const contract = getContract(slug);
+  const contractLocale: ContractLocale = locale === "en" ? "en" : "no";
+  const isEn = contractLocale === "en";
+  const contract = getContract(slug, contractLocale);
   if (!contract) notFound();
 
   const t = await getTranslations({ locale, namespace: "Contract" });
 
   const Icon = contract.icon;
-  const url = `${SITE_URL}/kontrakter/${contract.id}`;
+  const pathPrefix = isEn ? "/en" : "";
+  const url = `${SITE_URL}${pathPrefix}/kontrakter/${contract.id}`;
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -103,8 +109,8 @@ export default async function ContractPage(
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Forsiden", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Kontrakter", item: `${SITE_URL}/#kontrakter` },
+      { "@type": "ListItem", position: 1, name: isEn ? "Home" : "Forsiden", item: `${SITE_URL}${pathPrefix}` },
+      { "@type": "ListItem", position: 2, name: isEn ? "Contracts" : "Kontrakter", item: `${SITE_URL}${pathPrefix}/#kontrakter` },
       { "@type": "ListItem", position: 3, name: contract.label, item: url },
     ],
   };
@@ -119,7 +125,9 @@ export default async function ContractPage(
     })),
   };
 
-  const related = CONTRACT_TYPES.filter((c) => c.id !== contract.id).slice(0, 3);
+  const related = getContractsByLocale(contractLocale)
+    .filter((c) => c.id !== contract.id)
+    .slice(0, 3);
 
   return (
     <ContractFlowProvider>

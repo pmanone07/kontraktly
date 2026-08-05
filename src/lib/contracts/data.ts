@@ -4,8 +4,9 @@ import {
 } from "lucide-react";
 import type { ContractType } from "./types";
 import { v, today } from "./helpers";
+import { CONTRACT_TYPES_EN } from "./data-en";
 
-export const CONTRACT_TYPES: ContractType[] = [
+const CONTRACT_TYPES_NO: ContractType[] = [
   {
     id: "freelance",
     icon: Briefcase,
@@ -15,6 +16,8 @@ export const CONTRACT_TYPES: ContractType[] = [
     popular: true,
     color: "#c9a85c",
     category: "bedrift",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Betalingsbetingelser og fakturering", "Leveranser og milepæler", "Immaterielle rettigheter", "Konfidensialitetsklausul", "Oppsigelsesvilkår", "Ansvarsbegrensning"],
     fieldGroups: [
       {
@@ -136,6 +139,8 @@ Oppdragsgiver              Frilanser`,
     popular: false,
     color: "#7eb8a4",
     category: "privat",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Leieperiode og oppsigelse", "Depositum og husleie", "Vedlikeholdsansvar", "Husordensregler", "Inventarliste", "Fraflyttingsvilkår"],
     fieldGroups: [
       {
@@ -262,6 +267,8 @@ Utleier                    Leietaker`,
     popular: false,
     color: "#8b7eb8",
     category: "privat",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Kjøretøydetaljer og kilometerstand", "Pris og betalingsform", "Kjøretøyets tilstand", "Garanti og reklamasjon", "Overdragelse av eierskap", "Angrerett og ansvar"],
     fieldGroups: [
       {
@@ -382,6 +389,8 @@ Selger                     Kjøper`,
     popular: false,
     color: "#b87e7e",
     category: "bedrift",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Ensidig eller gjensidig NDA", "Definisjon av konfidensiell info", "Unntak og fritak", "Varighet og opphør", "Sanksjoner ved brudd", "Jurisdiksjon"],
     fieldGroups: [
       {
@@ -487,6 +496,8 @@ Part A                     Part B`,
     popular: false,
     color: "#7ea8b8",
     category: "bedrift",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Stillingsbeskrivelse og tittel", "Lønn, bonus og feriepenger", "Arbeidstid og overtid", "Prøvetid og oppsigelse", "Taushetsplikt", "Konkurranseklausul"],
     fieldGroups: [
       {
@@ -613,6 +624,8 @@ Arbeidsgiver               Arbeidstaker`,
     popular: false,
     color: "#c9a85c",
     category: "bedrift",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Tjenesteomfang og SOW", "Faktureringsrate og vilkår", "SLA og leveransekrav", "Endringshåndtering", "Immaterielle rettigheter", "Eksklusivitetsklausul"],
     fieldGroups: [
       {
@@ -724,6 +737,8 @@ Oppdragsgiver              Leverandør`,
     popular: false,
     color: "#b87e9e",
     category: "privat",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
     fieldGroups: [
       {
@@ -850,6 +865,8 @@ ${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
     popular: false,
     color: "#7eb87e",
     category: "privat",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
     fieldGroups: [
       {
@@ -961,6 +978,8 @@ Långiver                   Låntaker`,
     popular: false,
     color: "#7e9eb8",
     category: "naringsliv",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
     fieldGroups: [
       {
@@ -1085,6 +1104,8 @@ ${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")
     popular: false,
     color: "#b8a07e",
     category: "naringsliv",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
     fieldGroups: [
       {
@@ -1201,6 +1222,8 @@ Leverandør                 Distributør`,
     popular: false,
     color: "#9eb87e",
     category: "naringsliv",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
     fieldGroups: [
       {
@@ -1321,6 +1344,8 @@ Oppdragsgiver              Agent`,
     popular: false,
     color: "#7e8eb8",
     category: "naringsliv",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
     fieldGroups: [
       {
@@ -1445,6 +1470,8 @@ Part A                     Part B`,
     popular: false,
     color: "#8bb87e",
     category: "bedrift",
+    locale: "no",
+    jurisdiction: "no",
     features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
     fieldGroups: [
       {
@@ -1560,4 +1587,9 @@ Selger                     Kjøper`,
       ],
     },
   },
+];
+
+export const CONTRACT_TYPES: ContractType[] = [
+  ...CONTRACT_TYPES_NO,
+  ...CONTRACT_TYPES_EN,
 ];

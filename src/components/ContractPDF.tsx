@@ -98,14 +98,50 @@ const styles = StyleSheet.create({
   },
 });
 
+type PdfLocale = "no" | "en";
+type PdfJurisdiction = "no" | "uk" | "us";
+
 interface ContractPDFProps {
   contractLabel: string;
   contractText: string;
   generatedAt?: string;
+  locale?: PdfLocale;
+  jurisdiction?: PdfJurisdiction;
 }
 
-export function ContractPDF({ contractLabel, contractText, generatedAt }: ContractPDFProps) {
-  const date = generatedAt || new Date().toLocaleDateString("nb-NO", {
+const COPY = {
+  no: {
+    generated: "Generert",
+    subtitle: {
+      no: "Juridisk dokument · Norsk lovgivning",
+      uk: "Juridisk dokument · Engelsk lovgivning",
+      us: "Juridisk dokument · Amerikansk lovgivning",
+    },
+    rights: "© Kontraktly AS · Alle rettigheter forbeholdt",
+    page: (n: number, t: number) => `Side ${n} av ${t}`,
+  },
+  en: {
+    generated: "Generated",
+    subtitle: {
+      no: "Legal document · Norwegian law",
+      uk: "Legal document · English law",
+      us: "Legal document · US law",
+    },
+    rights: "© Kontraktly AS · All rights reserved",
+    page: (n: number, t: number) => `Page ${n} of ${t}`,
+  },
+} as const;
+
+export function ContractPDF({
+  contractLabel,
+  contractText,
+  generatedAt,
+  locale = "no",
+  jurisdiction = "no",
+}: ContractPDFProps) {
+  const copy = COPY[locale];
+  const dateLocale = locale === "en" ? "en-GB" : "nb-NO";
+  const date = generatedAt || new Date().toLocaleDateString(dateLocale, {
     year: "numeric", month: "long", day: "numeric",
   });
 
@@ -117,30 +153,26 @@ export function ContractPDF({ contractLabel, contractText, generatedAt }: Contra
       creator="Kontraktly"
     >
       <Page size="A4" style={styles.page}>
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.logoText}>KONTRAKTLY</Text>
           <View>
-            <Text style={styles.metaText}>Generert: {date}</Text>
+            <Text style={styles.metaText}>{copy.generated}: {date}</Text>
             <Text style={styles.metaText}>kontraktly.no</Text>
           </View>
         </View>
 
-        {/* Title */}
         <Text style={styles.title}>{contractLabel}</Text>
-        <Text style={styles.subtitle}>Juridisk dokument · Norsk lovgivning</Text>
+        <Text style={styles.subtitle}>{copy.subtitle[jurisdiction]}</Text>
 
-        {/* Contract body */}
         <Text style={styles.body}>{contractText}</Text>
 
         <View style={styles.goldLine} />
 
-        {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text style={styles.footerText}>© Kontraktly AS · Alle rettigheter forbeholdt</Text>
+          <Text style={styles.footerText}>{copy.rights}</Text>
           <Text style={styles.watermark}>Kontraktly</Text>
           <Text style={styles.footerText} render={({ pageNumber, totalPages }) =>
-            `Side ${pageNumber} av ${totalPages}`
+            copy.page(pageNumber, totalPages)
           } />
         </View>
       </Page>

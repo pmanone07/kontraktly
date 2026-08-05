@@ -33,6 +33,9 @@ export interface ContractSeo {
 
 export type ContractCategory = "bedrift" | "privat" | "naringsliv";
 
+export type ContractLocale = "no" | "en";
+export type ContractJurisdiction = "no" | "uk" | "us";
+
 export interface ContractType {
   id: string;
   icon: ElementType;
@@ -42,6 +45,8 @@ export interface ContractType {
   popular: boolean;
   color: string;
   category: ContractCategory;
+  locale: ContractLocale;
+  jurisdiction: ContractJurisdiction;
   features: string[];
   fieldGroups: FieldGroup[];
   buildPreview: (values: Record<string, string>) => string;

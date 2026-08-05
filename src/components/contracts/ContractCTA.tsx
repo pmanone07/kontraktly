@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Eye, FileText, Lock } from "lucide-react";
 import { getContract } from "@/lib/contracts";
@@ -15,14 +16,17 @@ export function ContractCTA({
   variant?: "primary" | "preview";
 }) {
   const { openFill, openPreview } = useContractFlow();
+  const activeLocale = useLocale();
+  const contractLocale: "no" | "en" = activeLocale === "en" ? "en" : "no";
+  const isEn = contractLocale === "en";
 
   const handleFill = () => {
-    const contract = getContract(slug);
+    const contract = getContract(slug, contractLocale);
     if (contract) openFill(contract);
   };
 
   const handlePreview = () => {
-    const contract = getContract(slug);
+    const contract = getContract(slug, contractLocale);
     if (contract) openPreview(contract);
   };
 
@@ -34,7 +38,7 @@ export function ContractCTA({
         onClick={handlePreview}
       >
         <Eye className="mr-2 h-4 w-4" />
-        Se eksempel
+        {isEn ? "See example" : "Se eksempel"}
       </Button>
     );
   }
@@ -47,7 +51,7 @@ export function ContractCTA({
       onClick={handleFill}
     >
       <FileText className="mr-2 h-4 w-4" />
-      Lag kontrakt — {price} kr
+      {isEn ? `Create contract — NOK ${price}` : `Lag kontrakt — ${price} kr`}
       <Lock className="ml-2 h-3.5 w-3.5 opacity-60" />
     </Button>
   );
