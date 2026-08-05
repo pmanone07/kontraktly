@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
+import { setRequestLocale } from "next-intl/server";
 import { SiteNav } from "@/components/SiteNav";
 import { getAllBlogPosts } from "@/lib/blog";
 
@@ -29,7 +30,11 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogIndexPage() {
+export default async function BlogIndexPage(
+  { params }: { params: Promise<{ locale: string }> },
+) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const posts = getAllBlogPosts();
 
   const blogJsonLd = {

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { CONTRACT_TYPES, getContract, getContractSlugs } from "@/lib/contracts";
 import { ContractFlowProvider } from "@/components/contracts/ContractFlow";
 import { ContractCTA } from "@/components/contracts/ContractCTA";
@@ -10,11 +12,13 @@ import { ArrowLeft, Check, ChevronRight, Scale, ShieldCheck } from "lucide-react
 const SITE_URL = "https://www.kontraktly.no";
 
 export function generateStaticParams() {
-  return getContractSlugs().map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    getContractSlugs().map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> },
+  { params }: { params: Promise<{ locale: string; slug: string }> },
 ): Promise<Metadata> {
   const { slug } = await params;
   const contract = getContract(slug);
@@ -42,9 +46,10 @@ export async function generateMetadata(
 }
 
 export default async function ContractPage(
-  { params }: { params: Promise<{ slug: string }> },
+  { params }: { params: Promise<{ locale: string; slug: string }> },
 ) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const contract = getContract(slug);
   if (!contract) notFound();
 

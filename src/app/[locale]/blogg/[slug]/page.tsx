@@ -10,12 +10,17 @@ import { CONTRACT_TYPES } from "@/lib/contracts";
 
 const SITE_URL = "https://www.kontraktly.no";
 
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+
 export function generateStaticParams() {
-  return getBlogSlugs().map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    getBlogSlugs().map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> },
+  { params }: { params: Promise<{ locale: string; slug: string }> },
 ): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
@@ -55,9 +60,10 @@ function formatDate(iso: string) {
 }
 
 export default async function BlogPostPage(
-  { params }: { params: Promise<{ slug: string }> },
+  { params }: { params: Promise<{ locale: string; slug: string }> },
 ) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getBlogPost(slug);
   if (!post) notFound();
 

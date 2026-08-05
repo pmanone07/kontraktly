@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { useLocale } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { CONTRACT_TYPES, type ContractCategory, type ContractType } from "@/lib/contracts";
 
 const CATEGORY_LABELS: Record<ContractCategory, string> = {
@@ -26,6 +28,10 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
+  const pathname = usePathname();
+  const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
+  const otherLocaleLabel = otherLocale === "en" ? "EN" : "NO";
 
   const groups = groupByCategory(CONTRACT_TYPES);
 
@@ -118,6 +124,18 @@ export function SiteNav() {
           <Link href="/#faq" className="rounded-sm px-3 py-2 text-sm font-medium transition-colors hover:text-[#c9a85c]" style={{ color: "#f0ede6" }}>
             FAQ
           </Link>
+          <Link
+            href={pathname}
+            locale={otherLocale}
+            className="rounded-sm px-2.5 py-1.5 text-xs font-mono-custom tracking-widest transition-colors"
+            style={{
+              border: "1px solid rgba(201,168,92,0.2)",
+              color: "#c9a85c",
+            }}
+            aria-label={`Switch to ${otherLocaleLabel}`}
+          >
+            {otherLocaleLabel}
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -186,6 +204,15 @@ export function SiteNav() {
               style={{ color: "#f0ede6" }}
             >
               FAQ
+            </Link>
+            <Link
+              href={pathname}
+              locale={otherLocale}
+              onClick={() => setMobileOpen(false)}
+              className="block rounded-sm px-2 py-2 text-sm font-mono-custom tracking-widest"
+              style={{ color: "#c9a85c" }}
+            >
+              {otherLocaleLabel}
             </Link>
           </div>
         </div>

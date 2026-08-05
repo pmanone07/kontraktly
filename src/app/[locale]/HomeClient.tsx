@@ -584,7 +584,7 @@ function PageContent() {
   );
 }
 
-export default function Page() {
+export default function HomeClient() {
   return (
     <ContractFlowProvider>
       <PageContent />
