@@ -25,12 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL("https://www.kontraktly.no"),
     title: {
       default: isEn
-        ? "Kontraktly — Norwegian contract templates in under 10 minutes"
+        ? "Kontraktly — English-law contract templates in under 10 minutes"
         : "Kontraktly — Norske kontraktmaler på under 10 minutter",
       template: "%s | Kontraktly",
     },
     description: isEn
-      ? "Create professional, legally sound contracts under Norwegian law. Freelance contract, lease, NDA, employment agreement and more. Download as PDF — from NOK 59."
+      ? "Create professional, legally sound contracts under English law. Freelance contract, NDA, employment agreement, shareholders' agreement and more. Download as PDF — from £5."
       : "Lag profesjonelle, juridisk solide kontrakter tilpasset norsk lovgivning. Freelance-kontrakt, leiekontrakt, NDA, arbeidsavtale og flere. Last ned som PDF — fra 59 kr.",
     applicationName: "Kontraktly",
     alternates: {
@@ -46,19 +46,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: isEn ? "https://www.kontraktly.no/en" : "https://www.kontraktly.no",
       siteName: "Kontraktly",
       title: isEn
-        ? "Kontraktly — Norwegian contract templates in under 10 minutes"
+        ? "Kontraktly — English-law contract templates in under 10 minutes"
         : "Kontraktly — Norske kontraktmaler på under 10 minutter",
       description: isEn
-        ? "Professional, legally sound contracts under Norwegian law — from NOK 59."
+        ? "Professional, legally sound contracts under English law — from £5."
         : "Profesjonelle, juridisk solide kontrakter tilpasset norsk lovgivning — fra 59 kr.",
     },
     twitter: {
       card: "summary_large_image",
       title: isEn
-        ? "Kontraktly — Norwegian contract templates"
+        ? "Kontraktly — English-law contract templates"
         : "Kontraktly — Norske kontraktmaler",
       description: isEn
-        ? "Professional, legally sound contracts under Norwegian law — from NOK 59."
+        ? "Professional, legally sound contracts under English law — from £5."
         : "Profesjonelle, juridisk solide kontrakter tilpasset norsk lovgivning — fra 59 kr.",
     },
     robots: {
