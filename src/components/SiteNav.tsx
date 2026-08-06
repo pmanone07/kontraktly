@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getContractsByLocale, type ContractCategory, type ContractType } from "@/lib/contracts";
+import { getContractsByLocale, getEquivalentContractSlug, type ContractCategory, type ContractLocale, type ContractType } from "@/lib/contracts";
 
 const CATEGORY_ORDER: ContractCategory[] = ["bedrift", "privat", "naringsliv"];
 
@@ -30,6 +30,15 @@ export function SiteNav() {
   const t = useTranslations("Nav");
   const otherLocale = routing.locales.find((l) => l !== locale) ?? routing.defaultLocale;
   const otherLocaleLabel = otherLocale === "en" ? "EN" : "NO";
+
+  const currentLocale: ContractLocale = locale === "en" ? "en" : "no";
+  const targetLocale: ContractLocale = otherLocale === "en" ? "en" : "no";
+  const contractMatch = pathname.match(/^\/kontrakter\/([^/]+)$/);
+  const switchHref = (() => {
+    if (!contractMatch) return pathname;
+    const equivalent = getEquivalentContractSlug(contractMatch[1], currentLocale, targetLocale);
+    return equivalent ? `/kontrakter/${equivalent}` : "/";
+  })();
 
   const visibleContracts = getContractsByLocale(locale === "en" ? "en" : "no");
   const groups = groupByCategory(visibleContracts, {
@@ -128,7 +137,7 @@ export function SiteNav() {
             {t("faq")}
           </Link>
           <Link
-            href={pathname}
+            href={switchHref}
             locale={otherLocale}
             className="rounded-sm px-2.5 py-1.5 text-xs font-mono-custom tracking-widest transition-colors"
             style={{
@@ -209,7 +218,7 @@ export function SiteNav() {
               {t("faq")}
             </Link>
             <Link
-              href={pathname}
+              href={switchHref}
               locale={otherLocale}
               onClick={() => setMobileOpen(false)}
               className="block rounded-sm px-2 py-2 text-sm font-mono-custom tracking-widest"
