@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     line_items: [
       {
         price_data: {
-          currency: "nok",
+          currency: contract.currency.toLowerCase(),
           product_data: {
             name: contract.label,
             description: productDescription,

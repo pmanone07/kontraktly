@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getContract, getContractsByLocale, getContractSlugs } from "@/lib/contracts";
 import type { ContractLocale } from "@/lib/contracts";
+import { formatPrice } from "@/lib/contracts/helpers";
 import { ContractFlowProvider } from "@/components/contracts/ContractFlow";
 import { ContractCTA } from "@/components/contracts/ContractCTA";
 import { SiteNav } from "@/components/SiteNav";
@@ -171,7 +172,7 @@ export default async function ContractPage(
               </div>
               <div>
                 <p className="font-mono-custom text-[10px] uppercase tracking-widest" style={{ color: "rgba(201,168,92,0.5)" }}>
-                  {t("eyebrowBuild", { price: contract.price })}
+                  {t("eyebrowBuild", { price: formatPrice(contract.price, contract.currency) })}
                 </p>
                 <h1 className="font-display font-bold leading-tight"
                   style={{ fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)", color: "#f0ede6" }}>
@@ -183,8 +184,8 @@ export default async function ContractPage(
               {contract.seo.longDescription}
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <ContractCTA slug={contract.id} price={contract.price} />
-              <ContractCTA slug={contract.id} price={contract.price} variant="preview" />
+              <ContractCTA slug={contract.id} />
+              <ContractCTA slug={contract.id} variant="preview" />
             </div>
           </header>
 
@@ -298,11 +299,11 @@ export default async function ContractPage(
                 {t("ctaBannerTitle", { label: contract.label.toLowerCase() })}
               </h2>
               <p className="mb-6 text-sm" style={{ color: "#7a7672" }}>
-                {t("ctaBannerDesc", { label: contract.label.toLowerCase(), price: contract.price })}
+                {t("ctaBannerDesc", { label: contract.label.toLowerCase(), price: formatPrice(contract.price, contract.currency) })}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <ContractCTA slug={contract.id} price={contract.price} />
-                <ContractCTA slug={contract.id} price={contract.price} variant="preview" />
+                <ContractCTA slug={contract.id} />
+                <ContractCTA slug={contract.id} variant="preview" />
               </div>
             </div>
           </section>
@@ -333,7 +334,11 @@ export default async function ContractPage(
                         <RIcon className="h-4 w-4" style={{ color: c.color }} />
                       </div>
                       <span className="font-mono-custom text-sm" style={{ color: "#f0ede6" }}>
-                        {c.price}<span className="text-xs ml-0.5" style={{ color: "#7a7672" }}>kr</span>
+                        {c.currency === "GBP" ? (
+                          <><span style={{ color: "#7a7672" }}>£</span>{c.price}</>
+                        ) : (
+                          <>{c.price}<span className="text-xs ml-0.5" style={{ color: "#7a7672" }}>kr</span></>
+                        )}
                       </span>
                     </div>
                     <h3 className="font-display text-sm font-semibold mb-1" style={{ color: "#f0ede6" }}>

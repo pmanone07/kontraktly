@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Check, Download, Lock } from "lucide-react";
 import { CONTRACT_TYPES, type ContractType } from "@/lib/contracts";
+import { formatPrice } from "@/lib/contracts/helpers";
 import { useDownloadPDF } from "@/hooks/useDownloadPDF";
 import { FillDialog } from "./FillDialog";
 
@@ -156,7 +157,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                     </div>
                   </div>
                   <span className="font-mono-custom text-lg font-medium" style={{ color: "#c9a85c" }}>
-                    {previewContract.price} kr
+                    {formatPrice(previewContract.price, previewContract.currency)}
                   </span>
                 </div>
               </DialogHeader>
@@ -185,7 +186,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                 <Button className="flex-1 rounded-sm h-10 text-sm font-medium"
                   style={{ background: "linear-gradient(135deg, #c9a85c, #a07c30)", color: "#0a0a0b" }}
                   onClick={() => { setPreviewOpen(false); openFill(previewContract); }}>
-                  {t("createButton", { price: previewContract.price })}
+                  {t("createButton", { price: formatPrice(previewContract.price, previewContract.currency) })}
                 </Button>
                 <Button className="rounded-sm h-10 text-sm"
                   style={{ border: "1px solid rgba(201,168,92,0.2)", background: "transparent", color: "#7a7672" }}
@@ -225,19 +226,28 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
               </DialogHeader>
               <div className="px-6 py-5 space-y-5 flex-1 overflow-y-auto min-h-0">
                 <div className="rounded-sm p-4" style={{ border: "1px solid rgba(201,168,92,0.1)", background: "#0a0a0b" }}>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span style={{ color: "#7a7672" }}>{checkoutContract.label}</span>
-                    <span style={{ color: "#f0ede6" }}>{(checkoutContract.price / 1.25).toFixed(2)} kr</span>
-                  </div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span style={{ color: "#7a7672" }}>{t("vatRow")}</span>
-                    <span style={{ color: "#7a7672" }}>{(checkoutContract.price - checkoutContract.price / 1.25).toFixed(2)} kr</span>
-                  </div>
-                  <Separator style={{ margin: "8px 0", background: "rgba(201,168,92,0.1)" }} />
+                  {checkoutContract.currency === "NOK" ? (
+                    <>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span style={{ color: "#7a7672" }}>{checkoutContract.label}</span>
+                        <span style={{ color: "#f0ede6" }}>{(checkoutContract.price / 1.25).toFixed(2)} kr</span>
+                      </div>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span style={{ color: "#7a7672" }}>{t("vatRow")}</span>
+                        <span style={{ color: "#7a7672" }}>{(checkoutContract.price - checkoutContract.price / 1.25).toFixed(2)} kr</span>
+                      </div>
+                      <Separator style={{ margin: "8px 0", background: "rgba(201,168,92,0.1)" }} />
+                    </>
+                  ) : (
+                    <div className="flex justify-between text-sm mb-2">
+                      <span style={{ color: "#7a7672" }}>{checkoutContract.label}</span>
+                      <span style={{ color: "#f0ede6" }}>{formatPrice(checkoutContract.price, checkoutContract.currency)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm font-medium">
                     <span style={{ color: "#f0ede6" }}>{t("total")}</span>
                     <span className="font-mono-custom" style={{ color: "#c9a85c" }}>
-                      {checkoutContract.price} kr
+                      {formatPrice(checkoutContract.price, checkoutContract.currency)}
                     </span>
                   </div>
                 </div>
@@ -273,7 +283,7 @@ export function ContractFlowProvider({ children }: { children: React.ReactNode }
                   ) : (
                     <span className="flex items-center gap-2">
                       <Lock className="h-3.5 w-3.5" />
-                      {t("payButton", { price: checkoutContract.price })}
+                      {t("payButton", { price: formatPrice(checkoutContract.price, checkoutContract.currency) })}
                     </span>
                   )}
                 </Button>

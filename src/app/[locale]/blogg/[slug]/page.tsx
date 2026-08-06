@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowLeft, ArrowRight, ChevronRight, Clock } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { getAllBlogPosts, getBlogPost, getBlogSlugs } from "@/lib/blog";
-import { CONTRACT_TYPES } from "@/lib/contracts";
+import { CONTRACT_TYPES, type ContractLocale } from "@/lib/contracts";
 
 const SITE_URL = "https://www.kontraktly.no";
 
@@ -97,8 +97,9 @@ export default async function BlogPostPage(
     ],
   };
 
+  const blogLocale: ContractLocale = locale === "en" ? "en" : "no";
   const relatedContracts = post.relatedContractSlugs
-    .map((id) => CONTRACT_TYPES.find((c) => c.id === id))
+    .map((id) => CONTRACT_TYPES.find((c) => c.id === id && c.locale === blogLocale))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   const otherPosts = getAllBlogPosts().filter((p) => p.slug !== post.slug).slice(0, 3);
@@ -236,8 +237,11 @@ export default async function BlogPostPage(
                           <Icon className="h-4 w-4" style={{ color: c.color }} />
                         </div>
                         <span className="font-mono-custom text-sm" style={{ color: "#f0ede6" }}>
-                          {c.price}
-                          <span className="text-xs ml-0.5" style={{ color: "#7a7672" }}>kr</span>
+                          {c.currency === "GBP" ? (
+                            <><span style={{ color: "#7a7672" }}>£</span>{c.price}</>
+                          ) : (
+                            <>{c.price}<span className="text-xs ml-0.5" style={{ color: "#7a7672" }}>kr</span></>
+                          )}
                         </span>
                       </div>
                       <h3 className="font-display text-sm font-semibold mb-1" style={{ color: "#f0ede6" }}>

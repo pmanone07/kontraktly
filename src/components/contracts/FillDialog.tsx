@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, Eye, Lock } from "lucide-react";
@@ -18,6 +19,7 @@ export function FillDialog({
   onClose: () => void;
   onProceedToCheckout: (values: Record<string, string>) => void;
 }) {
+  const t = useTranslations("Fill");
   const [values, setValues] = useState<Record<string, string>>({});
   const [step, setStep] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
@@ -81,7 +83,7 @@ export function FillDialog({
               <DialogTitle className="font-display text-sm font-semibold truncate" style={{ color: "#f0ede6" }}>
                 {contract.label}
               </DialogTitle>
-              <p className="text-[11px]" style={{ color: "#7a7672" }}>Fyll inn informasjon</p>
+              <p className="text-[11px]" style={{ color: "#7a7672" }}>{t("subtitle")}</p>
             </div>
           </div>
         </DialogHeader>
@@ -90,7 +92,7 @@ export function FillDialog({
           <div className="flex-1 overflow-y-auto px-4 py-4 min-w-0">
             <div className="mb-4">
               <p className="font-mono-custom text-[10px] uppercase tracking-widest mb-0.5" style={{ color: "rgba(201,168,92,0.5)" }}>
-                Steg {step + 1} av {groups.length}
+                {t("stepOf", { current: step + 1, total: groups.length })}
               </p>
               <h3 className="font-display text-base font-semibold" style={{ color: "#f0ede6" }}>
                 {currentGroup.title}
@@ -142,7 +144,7 @@ export function FillDialog({
             >
               <Eye className="h-3 w-3" style={{ color: "#c9a85c" }} />
               <span className="font-mono-custom text-[10px] uppercase tracking-widest" style={{ color: "rgba(201,168,92,0.5)" }}>
-                Live forhåndsvisning
+                {t("livePreview")}
               </span>
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -195,9 +197,9 @@ export function FillDialog({
             onClick={handleNext}
           >
             {isLast ? (
-              <>Betal <Lock className="ml-1.5 h-3 w-3" /></>
+              <>{t("pay")} <Lock className="ml-1.5 h-3 w-3" /></>
             ) : (
-              <>Neste <ChevronRight className="ml-1 h-3.5 w-3.5" /></>
+              <>{t("next")} <ChevronRight className="ml-1 h-3.5 w-3.5" /></>
             )}
           </Button>
         </div>
@@ -212,10 +214,10 @@ export function FillDialog({
               style={{ border: "1px solid rgba(201,168,92,0.25)", background: "#0f0f11" }}
             >
               <h3 className="font-display text-sm font-semibold mb-2" style={{ color: "#f0ede6" }}>
-                Er du sikker på at du vil lukke?
+                {t("confirmCloseTitle")}
               </h3>
               <p className="text-xs leading-relaxed mb-4" style={{ color: "#7a7672" }}>
-                Du mister all innfylt informasjon, og må fylle ut kontrakten på nytt om du ombestemmer deg.
+                {t("confirmCloseBody")}
               </p>
               <div className="flex gap-2 justify-end">
                 <Button
@@ -225,7 +227,7 @@ export function FillDialog({
                   style={{ color: "#7a7672" }}
                   onClick={() => setConfirmClose(false)}
                 >
-                  Nei, fortsett
+                  {t("confirmCloseCancel")}
                 </Button>
                 <Button
                   size="sm"
@@ -233,7 +235,7 @@ export function FillDialog({
                   style={{ background: "rgba(255,80,80,0.15)", border: "1px solid rgba(255,80,80,0.35)", color: "#ff8080" }}
                   onClick={handleClose}
                 >
-                  Ja, lukk
+                  {t("confirmCloseConfirm")}
                 </Button>
               </div>
             </div>

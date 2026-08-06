@@ -127,7 +127,11 @@ function ContractCard({ contract, index }: { contract: ContractType; index: numb
             <Icon className="h-5 w-5" style={{ color: contract.color }} />
           </div>
           <span className="font-mono-custom text-xl font-medium" style={{ color: "#f0ede6" }}>
-            {contract.price}<span className="text-sm ml-0.5" style={{ color: "#7a7672" }}>kr</span>
+            {contract.currency === "GBP" ? (
+              <><span className="text-sm mr-0.5" style={{ color: "#7a7672" }}>£</span>{contract.price}</>
+            ) : (
+              <>{contract.price}<span className="text-sm ml-0.5" style={{ color: "#7a7672" }}>kr</span></>
+            )}
           </span>
         </div>
         <h3 className="font-display mb-1 text-[1.05rem] font-semibold transition-colors group-hover/link:text-[#c9a85c]" style={{ color: "#f0ede6" }}>

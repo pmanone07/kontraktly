@@ -18,6 +18,7 @@ const CONTRACT_TYPES_NO: ContractType[] = [
     category: "bedrift",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Betalingsbetingelser og fakturering", "Leveranser og milepæler", "Immaterielle rettigheter", "Konfidensialitetsklausul", "Oppsigelsesvilkår", "Ansvarsbegrensning"],
     fieldGroups: [
       {
@@ -141,6 +142,7 @@ Oppdragsgiver              Frilanser`,
     category: "privat",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Leieperiode og oppsigelse", "Depositum og husleie", "Vedlikeholdsansvar", "Husordensregler", "Inventarliste", "Fraflyttingsvilkår"],
     fieldGroups: [
       {
@@ -269,6 +271,7 @@ Utleier                    Leietaker`,
     category: "privat",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Kjøretøydetaljer og kilometerstand", "Pris og betalingsform", "Kjøretøyets tilstand", "Garanti og reklamasjon", "Overdragelse av eierskap", "Angrerett og ansvar"],
     fieldGroups: [
       {
@@ -391,6 +394,7 @@ Selger                     Kjøper`,
     category: "bedrift",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Ensidig eller gjensidig NDA", "Definisjon av konfidensiell info", "Unntak og fritak", "Varighet og opphør", "Sanksjoner ved brudd", "Jurisdiksjon"],
     fieldGroups: [
       {
@@ -498,6 +502,7 @@ Part A                     Part B`,
     category: "bedrift",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Stillingsbeskrivelse og tittel", "Lønn, bonus og feriepenger", "Arbeidstid og overtid", "Prøvetid og oppsigelse", "Taushetsplikt", "Konkurranseklausul"],
     fieldGroups: [
       {
@@ -626,6 +631,7 @@ Arbeidsgiver               Arbeidstaker`,
     category: "bedrift",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Tjenesteomfang og SOW", "Faktureringsrate og vilkår", "SLA og leveransekrav", "Endringshåndtering", "Immaterielle rettigheter", "Eksklusivitetsklausul"],
     fieldGroups: [
       {
@@ -739,6 +745,7 @@ Oppdragsgiver              Leverandør`,
     category: "privat",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Eierforhold til bolig og eiendeler", "Deling av fellesutgifter", "Særeie og felleskonto", "Oppgjør ved samlivsbrudd", "Arv og forsikring", "Varslingsplikt"],
     fieldGroups: [
       {
@@ -867,6 +874,7 @@ ${v(val, "p1_name", "Samboer 1")}          ${v(val, "p2_name", "Samboer 2")}`,
     category: "privat",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Lånebeløp og valuta", "Rente og gebyrer", "Tilbakebetalingsplan", "Mislighold og konsekvenser", "Sikkerhetsstillelse", "Verneting"],
     fieldGroups: [
       {
@@ -980,6 +988,7 @@ Långiver                   Låntaker`,
     category: "naringsliv",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Stemmerett og beslutningsprosess", "Forkjøpsrett og medsalgsrett", "Utbyttefordeling", "Lock-up periode", "Konfidensialitet", "Mislighold og sanksjoner"],
     fieldGroups: [
       {
@@ -1106,6 +1115,7 @@ ${v(val, "sh1_name", "Aksjonær 1")}         ${v(val, "sh2_name", "Aksjonær 2")
     category: "naringsliv",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Eksklusivt eller ikke-eksklusivt territorium", "Minstekjøpsvolum", "Priser og marginer", "Markedsføringsplikter", "Varemerkebruk", "Oppsigelse og overgangsperiode"],
     fieldGroups: [
       {
@@ -1224,6 +1234,7 @@ Leverandør                 Distributør`,
     category: "naringsliv",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Provisjon og bonusstruktur", "Territorium og eksklusivitet", "Rapporteringsplikt", "Utgiftsdekning", "Konkurranseforbud", "Oppsigelse og etterprovisjon"],
     fieldGroups: [
       {
@@ -1346,6 +1357,7 @@ Oppdragsgiver              Agent`,
     category: "naringsliv",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Formål og omfang", "Bidrag fra hver part", "Inntekts- og kostnadsfordeling", "Beslutningsprosess", "Immaterielle rettigheter", "Uttreden og avvikling"],
     fieldGroups: [
       {
@@ -1472,6 +1484,7 @@ Part A                     Part B`,
     category: "bedrift",
     locale: "no",
     jurisdiction: "no",
+    currency: "NOK",
     features: ["Beskrivelse av vare/tjeneste", "Pris og betalingsbetingelser", "Levering og risiko", "Reklamasjon og garanti", "Mislighold og heving", "Verneting"],
     fieldGroups: [
       {

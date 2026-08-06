@@ -35,6 +35,7 @@ export type ContractCategory = "bedrift" | "privat" | "naringsliv";
 
 export type ContractLocale = "no" | "en";
 export type ContractJurisdiction = "no" | "uk" | "us";
+export type ContractCurrency = "NOK" | "GBP";
 
 export interface ContractType {
   id: string;
@@ -42,6 +43,7 @@ export interface ContractType {
   label: string;
   description: string;
   price: number;
+  currency: ContractCurrency;
   popular: boolean;
   color: string;
   category: ContractCategory;
